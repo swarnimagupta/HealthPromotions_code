@@ -1,0 +1,47 @@
+$contentCatalog=electronicsContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$defaultLanguage=en
+$contentCatalogName=Electronics Content Catalog
+$productCatalog=electronicsProductCatalog
+$productCatalogName=Electronics Product Catalog
+$productCV=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$page=page(uid, $contentCV)                        ;
+$contentPage=contentPage(uid, $contentCV)          ;
+$product=product(code, $productCV)
+$category=category(code, $productCV)
+
+############## Template ########################
+# Modifying front end template name
+
+#for Mobile
+INSERT_UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];name;frontendTemplateName;restrictedPageTypes(code);active[default=true]
+;;MobileProductDetailsPageTemplate;Mobile Product Details Page Template;addon:/qrcodeaddon/pages/product/productLayout2Page;ProductPage
+
+
+######UCOID component display on Order Confirmation Page#######
+#for mobile
+# Order Confirmation Page Template
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='MobileOrderConfirmationPageTemplate'];validComponentTypes(code);compTypeGroup(code)
+;TopContent;;UCOIDOnOrderConfirmationComponent;mobile
+
+insert_update ContentSlot;active[allownull=true];catalogVersion(catalog(id),version)[unique=true,allownull=true];name;uid[unique=true,allownull=true];cmsComponents(uid[unique=true,allownull=true],$contentCV)
+;true;electronicsContentCatalog:Staged;mobile-UCOIDOnOrderConfSlots;mobile-UCOIDOnOrderConfSlots;UCOIDOnOrderConfirmationComponent
+
+insert_update ContentSlotForPage;catalogVersion(catalog(id),version)[unique=true,allownull=true];contentSlot(catalogVersion(catalog(id),version),uid)[allownull=true];page(catalogVersion(catalog(id),version),uid)[allownull=true];position[allownull=true];uid[unique=true,allownull=true]
+;electronicsContentCatalog:Staged;electronicsContentCatalog:Staged:mobile-UCOIDOnOrderConfSlots;electronicsContentCatalog:Staged:mobile-orderConfirmationPage;TopContent;mobile-UCOIDOnOrderConfCFP
+
+######changes for account showing collect order history link####################
+#for mobile
+
+# CMS Paragraph Component
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;content[lang=en];visible
+;;mobile-account-collectorderhistoryparacomponent;mobile-account-collectorderhistoryparacomponent;"<ul class='accountNavigation' data-role='listview' data-inset='true' data-theme='e' data-dividertheme='b'><li><a href='orderslist/customerpickuporders'>Collect Order</a></li></ul>";true
+
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='MobileAccountPageTemplate'];validComponentTypes(code);compTypeGroup(code)
+;TopContent;;CMSParagraphComponent;mobile
+
+insert_update ContentSlot;active[allownull=true];catalogVersion(catalog(id),version)[unique=true,allownull=true];name;uid[unique=true,allownull=true];cmsComponents(uid[unique=true,allownull=true],$contentCV)
+;true;electronicsContentCatalog:Staged;mobile-account-collectorderhistoryparacomponentslot;mobile-account-collectorderhistoryparacomponentslot;mobile-account-collectorderhistoryparacomponent
+
+insert_update ContentSlotForPage;catalogVersion(catalog(id),version)[unique=true,allownull=true];contentSlot(catalogVersion(catalog(id),version),uid)[allownull=true];page(catalogVersion(catalog(id),version),uid)[allownull=true];position[allownull=true];uid[unique=true,allownull=true]
+;electronicsContentCatalog:Staged;electronicsContentCatalog:Staged:mobile-account-collectorderhistoryparacomponentslot;electronicsContentCatalog:Staged:mobile-account;TopContent;mobile-account-collectorderhistoryparacomponentCFP

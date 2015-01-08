@@ -1,0 +1,59 @@
+$contentCatalog=electronicsContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$defaultLanguage=en
+$contentCatalogName=Electronics Content Catalog
+$productCatalog=electronicsProductCatalog
+$productCatalogName=Electronics Product Catalog
+$productCV=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$page=page(uid, $contentCV)                        ;
+$contentPage=contentPage(uid, $contentCV)          ;
+$product=product(code, $productCV)
+$category=category(code, $productCV)
+
+
+############## Template ########################
+# Modifying front end template name
+# for desktop
+INSERT_UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];name;frontendTemplateName;restrictedPageTypes(code);active[default=true]
+;;ProductDetailsPageTemplate;Product Details Page Template;addon:/qrcodeaddon/pages/product/productLayout2Page;ProductPage
+
+########### Component #############
+insert_update UCOIDOnOrderConfirmationComponent;catalogVersion(catalog(id),version)[unique=true,allownull=true];name;onlyOneRestrictionMustApply[allownull=true];uid[unique=true,allownull=true];visible[allownull=true]
+;electronicsContentCatalog:Staged;UCOIDOnOrderConfirmationComponent;true;UCOIDOnOrderConfirmationComponent;true
+
+# CMS Link Component for CSR Login link on header
+#for desktop
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];name;url;&linkRef;&componentRef;target(code)[default='sameWindow'];$category;$product;linkName[lang=en];slots(uid,$contentCV)
+;;CSRLoginLink;CSR Login Link;/login/csrLogin;CSRLoginLink;CSRLoginLink;;;;CSR Login;HeaderLinksSlot
+
+######UCOID component display on Order Confirmation Page#######
+#for desktop
+# Order Confirmation Page Template
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='OrderConfirmationPageTemplate'];validComponentTypes(code);compTypeGroup(code)
+;TopContent;;UCOIDOnOrderConfirmationComponent;wide
+
+insert_update ContentSlot;active[allownull=true];catalogVersion(catalog(id),version)[unique=true,allownull=true];name;uid[unique=true,allownull=true];cmsComponents(uid[unique=true,allownull=true],$contentCV)
+;true;electronicsContentCatalog:Staged;UCOIDOnOrderConfSlots;UCOIDOnOrderConfSlots;UCOIDOnOrderConfirmationComponent
+
+insert_update ContentSlotForPage;catalogVersion(catalog(id),version)[unique=true,allownull=true];contentSlot(catalogVersion(catalog(id),version),uid)[allownull=true];page(catalogVersion(catalog(id),version),uid)[allownull=true];position[allownull=true];uid[unique=true,allownull=true]
+;electronicsContentCatalog:Staged;electronicsContentCatalog:Staged:UCOIDOnOrderConfSlots;electronicsContentCatalog:Staged:orderConfirmationPage;TopContent;UCOIDOnOrderConfCFP
+
+########################################################################################
+INSERT_UPDATE config;ValueHolder[unique=true]
+;10;
+
+
+######changes for account showing collect order history link####################
+# CMS Paragraph Component
+INSERT_UPDATE CMSParagraphComponent;$contentCV[unique=true];uid[unique=true];name;content[lang=en];visible
+;;account-collectorderhistoryparacomponent;account-collectorderhistoryparacomponent;"<div class='tile orderHistory' style='width: 748px !important;'><div class='headline'><a href='orderslist/customerpickuporders'>Collected Order History</a></div> <ul> <li><a href='orderslist/customerpickuporders'>View Collect Orders History</a></li> </ul></div>";true
+
+#for desktop
+INSERT_UPDATE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='AccountPageTemplate'];validComponentTypes(code);compTypeGroup(code)
+;TopContent;;CMSParagraphComponent;wide
+
+insert_update ContentSlot;active[allownull=true];catalogVersion(catalog(id),version)[unique=true,allownull=true];name;uid[unique=true,allownull=true];cmsComponents(uid[unique=true,allownull=true],$contentCV)
+;true;electronicsContentCatalog:Staged;account-collectorderhistoryparacomponentslot;account-collectorderhistoryparacomponentslot;account-collectorderhistoryparacomponent
+
+insert_update ContentSlotForPage;catalogVersion(catalog(id),version)[unique=true,allownull=true];contentSlot(catalogVersion(catalog(id),version),uid)[allownull=true];page(catalogVersion(catalog(id),version),uid)[allownull=true];position[allownull=true];uid[unique=true,allownull=true]
+;electronicsContentCatalog:Staged;electronicsContentCatalog:Staged:account-collectorderhistoryparacomponentslot;electronicsContentCatalog:Staged:account;TopContent;account-collectorderhistoryparacomponentCFP
