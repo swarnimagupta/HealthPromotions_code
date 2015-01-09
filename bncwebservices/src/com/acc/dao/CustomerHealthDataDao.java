@@ -3,9 +3,8 @@
  */
 package com.acc.dao;
 
+import de.hybris.platform.core.model.user.CustomerModel;
 import de.hybris.platform.servicelayer.internal.dao.Dao;
-
-import java.util.List;
 
 import com.accenture.model.CustomerHealthDataModel;
 
@@ -16,11 +15,31 @@ import com.accenture.model.CustomerHealthDataModel;
  */
 public interface CustomerHealthDataDao extends Dao
 {
-	public void saveCustomerHealthData(final String uuid, final Integer heartBeatRate, final Integer bloodPressure,
+	/**
+	 * 
+	 * @param customerId
+	 * @param heartBeatRate
+	 * @param bloodPressure
+	 * @param milesRun
+	 * @param caloriesBurned
+	 * @param timeTaken
+	 * @param age
+	 */
+	public void saveCustomerHealthData(final String customerId, final Integer heartBeatRate, final Integer bloodPressure,
 			final Integer milesRun, final Integer caloriesBurned, final Integer timeTaken, final Integer age);
 
-	public CustomerHealthDataModel getCustomerHealthData(final String uuid);
+	/**
+	 * 
+	 * @param customerId
+	 * @return CustomerHealthDataModel
+	 */
+	public CustomerHealthDataModel getCustomerHealthData(final String customerId);
 
-	public List<CustomerHealthDataModel> getAllCustomersHealthData();
+	/**
+	 * @param customerId
+	 * @return CustomerModel
+	 */
+	public CustomerModel isCustomerFound(String customerId);
+
 
 }

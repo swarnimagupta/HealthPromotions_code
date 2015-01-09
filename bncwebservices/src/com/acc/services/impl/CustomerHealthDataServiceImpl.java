@@ -23,11 +23,16 @@ public class CustomerHealthDataServiceImpl implements CustomerHealthDataService
 	 * java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer)
 	 */
 	@Override
-	public void saveCustomerHealthData(final String uuid, final Integer heartBeatRate, final Integer bloodPressure,
+	public String saveCustomerHealthData(final String customerId, final Integer heartBeatRate, final Integer bloodPressure,
 			final Integer milesRun, final Integer caloriesBurned, final Integer timeTaken, final Integer age)
 	{
-		getCustomerHealthDataDao().saveCustomerHealthData(uuid, heartBeatRate, bloodPressure, milesRun, caloriesBurned, timeTaken,
-				age);
+		if (getCustomerHealthDataDao().isCustomerFound(customerId) == null)
+		{
+			return "error";
+		}
+		getCustomerHealthDataDao().saveCustomerHealthData(customerId, heartBeatRate, bloodPressure, milesRun, caloriesBurned,
+				timeTaken, age);
+		return "success";
 	}
 
 	/*
@@ -36,9 +41,9 @@ public class CustomerHealthDataServiceImpl implements CustomerHealthDataService
 	 * @see com.acc.services.CustomerHealthDataService#getCustomerHealthData(java.lang.String)
 	 */
 	@Override
-	public CustomerHealthDataModel getCustomerHealthData(final String uuid)
+	public CustomerHealthDataModel getCustomerHealthData(final String customerId)
 	{
-		return getCustomerHealthDataDao().getCustomerHealthData(uuid);
+		return getCustomerHealthDataDao().getCustomerHealthData(customerId);
 	}
 
 	/**
@@ -57,6 +62,4 @@ public class CustomerHealthDataServiceImpl implements CustomerHealthDataService
 	{
 		this.customerHealthDataDao = customerHealthDataDao;
 	}
-
-
 }

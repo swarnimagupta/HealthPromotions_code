@@ -26,15 +26,15 @@ public class HealthPromotionsDataController extends BaseController
 	@Autowired
 	private CustomerHealthDataService customerHealthDataService;
 
-	@RequestMapping(value = "/{uuid}/{heartBeatRate}/{bloodPressure}/{milesRun}/{caloriesBurned}/{timeTaken}/{age}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{customerId}/{heartBeatRate}/{bloodPressure}/{milesRun}/{caloriesBurned}/{timeTaken}/{age}", method = RequestMethod.GET)
 	@ResponseBody
-	public void saveCustomerHeathData(@PathVariable final String uuid, @PathVariable final Integer heartBeatRate,
+	public String saveCustomerHeathData(@PathVariable final String customerId, @PathVariable final Integer heartBeatRate,
 			@PathVariable final Integer bloodPressure, @PathVariable final Integer milesRun,
 			@PathVariable final Integer caloriesBurned, @PathVariable final Integer timeTaken, @PathVariable final Integer age)
 	{
-		LOG.info("in saveCustomerHeathData GET request method :::::::uuid is :::::" + uuid + "::::::::heartBeatRate is :::::"
-				+ heartBeatRate + "AND age::::" + age);
-		customerHealthDataService.saveCustomerHealthData(uuid, heartBeatRate, bloodPressure, milesRun, caloriesBurned, timeTaken,
-				age);
+		LOG.info("in saveCustomerHeathData GET request method :::::::customerId is :::::" + customerId
+				+ "::::::::heartBeatRate is :::::" + heartBeatRate + "AND age::::" + age);
+		return customerHealthDataService.saveCustomerHealthData(customerId, heartBeatRate, bloodPressure, milesRun, caloriesBurned,
+				timeTaken, age);
 	}
 }

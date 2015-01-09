@@ -3,11 +3,10 @@
  */
 package com.acc.dao.impl;
 
+import de.hybris.platform.core.model.user.CustomerModel;
 import de.hybris.platform.servicelayer.internal.dao.AbstractItemDao;
 import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
 import de.hybris.platform.servicelayer.search.SearchResult;
-
-import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
@@ -31,21 +30,21 @@ public class CustomerHealthDataDaoImpl extends AbstractItemDao implements Custom
 	 * java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer)
 	 */
 	@Override
-	public void saveCustomerHealthData(final String uuid, final Integer heartBeatRate, final Integer bloodPressure,
+	public void saveCustomerHealthData(final String customerId, final Integer heartBeatRate, final Integer bloodPressure,
 			final Integer milesRun, final Integer caloriesBurned, final Integer timeTaken, final Integer age)
 	{
-		final CustomerHealthDataModel customerHealthDataModel = getCustomerHealthData(uuid);
-		if (customerHealthDataModel != null)
-		{
-			customerHealthDataModel.setHeartBeatRate(heartBeatRate);
-			customerHealthDataModel.setBloodPressure(bloodPressure);
-			customerHealthDataModel.setMilesRun(milesRun);
-			customerHealthDataModel.setCaloriesBurned(caloriesBurned);
-			customerHealthDataModel.setTimeTaken(timeTaken);
-			customerHealthDataModel.setAge(age);
-			getModelService().save(customerHealthDataModel);
-			LOG.info("::::::::::Health Data saved for the customer :::::::::");
-		}
+		final CustomerHealthDataModel customerHealthDataModel = getCustomerHealthData(customerId) != null ? getCustomerHealthData(customerId)
+				: (CustomerHealthDataModel) getModelService().create(CustomerHealthDataModel.class);
+		LOG.info("::::::::::customerHealthDataModel :::::::::" + customerHealthDataModel);
+		customerHealthDataModel.setCustomerId(customerId);
+		customerHealthDataModel.setHeartBeatRate(heartBeatRate);
+		customerHealthDataModel.setBloodPressure(bloodPressure);
+		customerHealthDataModel.setMilesRun(milesRun);
+		customerHealthDataModel.setCaloriesBurned(caloriesBurned);
+		customerHealthDataModel.setTimeTaken(timeTaken);
+		customerHealthDataModel.setAge(age);
+		getModelService().save(customerHealthDataModel);
+		LOG.info("::::::::::Health Data saved for the customer :::::::::");
 	}
 
 	/*
@@ -54,10 +53,10 @@ public class CustomerHealthDataDaoImpl extends AbstractItemDao implements Custom
 	 * @see com.accenture.dao.CustomerHealthDataDao#getCustomerHealthData(java.lang.String)
 	 */
 	@Override
-	public CustomerHealthDataModel getCustomerHealthData(final String uuid)
+	public CustomerHealthDataModel getCustomerHealthData(final String customerId)
 	{
 		final FlexibleSearchQuery flexibleQuery = new FlexibleSearchQuery(
-				"select {pk} from {CustomerHealthData} where {UUID} like '" + uuid + "%'");
+				"select {pk} from {CustomerHealthData} where {customerId} like '" + customerId + "%'");
 		final SearchResult<CustomerHealthDataModel> result = getFlexibleSearchService().search(flexibleQuery);
 		return result != null && CollectionUtils.isNotEmpty(result.getResult()) ? result.getResult().get(0) : null;
 	}
@@ -65,13 +64,15 @@ public class CustomerHealthDataDaoImpl extends AbstractItemDao implements Custom
 	/*
 	 * (non-Javadoc)
 	 * 
-	 * @see com.accenture.dao.CustomerHealthDataDao#getAllCustomersHealthData()
+	 * @see com.acc.dao.CustomerHealthDataDao#isCustomerFound(java.lang.String)
 	 */
 	@Override
-	public List<CustomerHealthDataModel> getAllCustomersHealthData()
+	public CustomerModel isCustomerFound(final String customerId)
 	{
-		// YTODO Auto-generated method stub
-		return null;
+		final FlexibleSearchQuery flexibleQuery = new FlexibleSearchQuery("select {pk} from {customer} where {customerId} like '"
+				+ customerId + "%'");
+		final SearchResult<CustomerModel> result = getFlexibleSearchService().search(flexibleQuery);
+		return result != null && CollectionUtils.isNotEmpty(result.getResult()) ? result.getResult().get(0) : null;
 	}
 
 }

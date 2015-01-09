@@ -20,33 +20,43 @@
 			xsi:noNamespaceSchemaLocation="items.xsd">
 
 	<itemtypes>
-		<itemtype code="CustomerHealthData" autocreate="true" generate="true" extends="Customer">
-			<attributes>
-				<attribute qualifier="heartBeatRate " type="java.lang.Integer">
-					<modifiers read="true" write="true" search="true" optional="true" />
-					<persistence type="property" />
-				</attribute>
-				<attribute qualifier="bloodPressure" type="java.lang.Integer">
-					<modifiers read="true" write="true" search="true" optional="true" />
-					<persistence type="property" />
-				</attribute>
-				<attribute qualifier="milesRun" type="java.lang.Integer">
-					<modifiers read="true" write="true" search="true" optional="true" />
-					<persistence type="property" />
-				</attribute>
-				<attribute qualifier="caloriesBurned" type="java.lang.Integer">
-					<modifiers write="true" read="true" search="true" optional="true" />
-					<persistence type="property" />
-				</attribute>
-				<attribute qualifier="timeTaken" type="java.lang.Integer">
-					<modifiers write="true" read="true" search="true" optional="true" />
-					<persistence type="property" />
-				</attribute>
-				<attribute qualifier="age" type="java.lang.Integer">
-					<modifiers write="true" read="true" search="true" optional="true" />
-					<persistence type="property" />
-				</attribute>
-			</attributes>
-		</itemtype>
+		<itemtype code="CustomerHealthData" autocreate="true" generate="true" extends="GenericItem">
+				<deployment table="CustomerHealthData" typecode="11006" />
+				<attributes>
+					<attribute qualifier="customerId" type="java.lang.String">
+						<description>Customer universally unique id for a device </description>
+						<modifiers read="true" write="true" search="true" optional="false" />
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="customerName " type="java.lang.String">
+						<modifiers read="true" write="true" search="true" optional="true" />
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="heartBeatRate " type="java.lang.Integer">
+						<modifiers read="true" write="true" search="true" optional="true" />
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="bloodPressure" type="java.lang.Integer">
+						<modifiers read="true" write="true" search="true" optional="true" />
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="milesRun" type="java.lang.Integer">
+						<modifiers read="true" write="true" search="true" optional="true" />
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="caloriesBurned" type="java.lang.Integer">
+						<modifiers write="true" read="true" search="true" optional="true" />
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="timeTaken" type="java.lang.Integer">
+						<modifiers write="true" read="true" search="true" optional="true" />
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="age" type="java.lang.Integer">
+						<modifiers write="true" read="true" search="true" optional="true" />
+						<persistence type="property" />
+					</attribute>
+				</attributes>
+			</itemtype>
 	</itemtypes>
 </items>

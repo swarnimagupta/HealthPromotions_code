@@ -12,9 +12,25 @@ import com.accenture.model.CustomerHealthDataModel;
  */
 public interface CustomerHealthDataService
 {
-	public void saveCustomerHealthData(final String uuid, final Integer heartBeatRate, final Integer bloodPressure,
+	/**
+	 * 
+	 * @param customerId
+	 * @param heartBeatRate
+	 * @param bloodPressure
+	 * @param milesRun
+	 * @param caloriesBurned
+	 * @param timeTaken
+	 * @param age
+	 * @return String
+	 */
+	public String saveCustomerHealthData(final String customerId, final Integer heartBeatRate, final Integer bloodPressure,
 			final Integer milesRun, final Integer caloriesBurned, final Integer timeTaken, final Integer age);
 
-	public CustomerHealthDataModel getCustomerHealthData(final String uuid);
+	/**
+	 * 
+	 * @param customerId
+	 * @return CustomerHealthDataModel
+	 */
+	public CustomerHealthDataModel getCustomerHealthData(final String customerId);
 
 }
