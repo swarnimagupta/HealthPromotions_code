@@ -16,9 +16,16 @@
 	ATTENTION: This is just an example file. You have to edit it according to your needs.
 -->
 
-<items 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-			xsi:noNamespaceSchemaLocation="items.xsd">
-
+<items 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="items.xsd">
+	
+	<relations>
+		<relation code="Beacon2PromotionsRel" localized="false" autocreate="true" generate="true">
+			<description>This is a link between beacon and the promotions.</description>
+			<deployment table="Beacon2PromotionsRel" typecode="6202" />
+			<sourceElement type="Beacon" qualifier="beacons" cardinality="many" collectiontype="list" />
+			<targetElement type="AbstractPromotion" qualifier="promotions" cardinality="many" collectiontype="list" />
+		</relation>
+	</relations>
 	<itemtypes>
 		<itemtype code="CustomerHealthData" autocreate="true" generate="true" extends="GenericItem">
 				<deployment table="CustomerHealthData" typecode="11006" />
@@ -54,6 +61,28 @@
 					</attribute>
 					<attribute qualifier="age" type="java.lang.Integer">
 						<modifiers write="true" read="true" search="true" optional="true" />
+						<persistence type="property" />
+					</attribute>
+				</attributes>
+			</itemtype>
+			
+			<itemtype code="Beacon" autocreate="true" generate="true" extends="GenericItem">
+				<deployment table="Beacon" typecode="11007" />
+				<attributes>
+					<attribute qualifier="identifier" type="java.lang.String">
+						<modifiers read="true" write="true" search="true" optional="false" />
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="majorId " type="java.lang.String">
+						<modifiers read="true" write="true" search="true" optional="true" />
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="minorId " type="java.lang.String">
+						<modifiers read="true" write="true" search="true" optional="true" />
+						<persistence type="property" />
+					</attribute>
+					<attribute qualifier="welcomeMessage" type="java.lang.String">
+						<modifiers read="true" write="true" search="true" optional="true" />
 						<persistence type="property" />
 					</attribute>
 				</attributes>
