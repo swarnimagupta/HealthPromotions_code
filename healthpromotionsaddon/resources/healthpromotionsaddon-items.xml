@@ -21,7 +21,7 @@
 	<relations>
 		<relation code="Beacon2PromotionsRel" localized="false" autocreate="true" generate="true">
 			<description>This is a link between beacon and the promotions.</description>
-			<deployment table="Beacon2PromotionsRel" typecode="6202" />
+			<deployment table="Beacon2PromotionsRel" typecode="11008" />
 			<sourceElement type="Beacon" qualifier="beacons" cardinality="many" collectiontype="list" />
 			<targetElement type="AbstractPromotion" qualifier="promotions" cardinality="many" collectiontype="list" />
 		</relation>
