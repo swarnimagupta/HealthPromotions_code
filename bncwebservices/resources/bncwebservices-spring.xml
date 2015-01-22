@@ -264,16 +264,7 @@
 	</bean>
 	<bean id="customerHealthDataService" class="com.acc.services.impl.CustomerHealthDataServiceImpl">
 		<property name="customerHealthDataDao" ref="customerHealthDataDao"/>
-	</bean>
-	
-	<bean id="customerHealthDataDao" class="com.acc.dao.impl.CustomerHealthDataDaoImpl">
-		<property name="flexibleSearchService" ref="flexibleSearchService"/>
-		<property name="modelService" ref="modelService"/>
-	</bean>
-	<bean id="customerHealthDataService" class="com.acc.services.impl.CustomerHealthDataServiceImpl">
-		<property name="customerHealthDataDao" ref="customerHealthDataDao"/>
-	</bean>
-	
+	</bean>	
 	
   <!--End of beans needed for sample data used in groovy tests  -->
   
