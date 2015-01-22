@@ -1,0 +1,52 @@
+# ImpEx for Importing Electronics Store Prices
+#% impex.setLocale( Locale.GERMAN ); 
+
+$productCatalog=electronicsProductCatalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default='$productCatalog:Staged']
+$prices=Europe1prices[translator=de.hybris.platform.europe1.jalo.impex.Europe1PricesTranslator]
+$taxGroup=Europe1PriceFactory_PTG(code)[default=jp-vat-full]
+
+# Set product approval status to Approved only for those products that have prices.
+$approved=approvalstatus(code)[default='approved']
+
+UPDATE Product;code[unique=true];$prices;$approved;$catalogVersion;$taxGroup
+;prod_1000;119.95 USD
+;prod_1001;200.95 USD
+;prod_1002;222.95 USD
+;prod_1003;299.95 USD
+;prod_1004;222.95 USD
+;prod_1005;299.95 USD
+;prod_1006;111.95 USD
+;prod_1007;100.95 USD
+;prod_1008;200.95 USD
+;prod_1009;321.95 USD
+;prod_1010;111.95 USD
+;prod_1011;221.95 USD
+;prod_1012;299.95 USD
+;prod_1013;299.95 USD
+;prod_1014;299.95 USD
+;prod_1015;299.95 USD
+;prod_1016;299.95 USD
+;prod_1017;299.95 USD
+;prod_1018;299.95 USD
+;prod_1019;299.95 USD
+;prod_1020;299.95 USD
+;prod_1022;299.95 USD
+;prod_1023;589.00 USD
+;prod_1024;123.00 USD
+;prod_1025;100.95 USD
+;prod_1026;200.95 USD
+;prod_1027;321.00 USD
+;prod_1028;256.95 USD
+;prod_1029;123.95 USD
+;prod_1030;331.00 USD
+;prod_1031;331.00 USD
+;prod_1032;111.00 USD
+;prod_1033;331.00 USD
+;prod_1034;221.00 USD
+;prod_1035;331.00 USD
+;prod_1036;331.00 USD
+;prod_1037;123.00 USD
+;prod_1038;92.00 USD
+;prod_1039;222.00 USD
+;prod_1040;112.00 USD

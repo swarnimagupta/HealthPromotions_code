@@ -1,0 +1,44 @@
+$contentCatalog=electronicsContentCatalog
+$contentCatalogName=Electronics Content Catalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$productCatalog=electronicsProductCatalog
+$productCatalogName=Electronics Product Catalog
+$productCV=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$product=product(code, $productCV)
+$category=category(code, $productCV)
+
+
+# CMS Link Components
+INSERT_UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true]; name; url; &linkRef ; &componentRef; target(code)[default='sameWindow'] ;$category ;$product;
+;;HealthProductsCategoryLink;Health Products Category Link;/HealthProducts/Health-Products/c/HealthProducts;HealthProductsCategoryLink;HealthProductsCategoryLink;
+;;ShoesCategoryLink;Shoes Category Link;/HealthProducts/Shoes/c/shoes;ShoesCategoryLink;ShoesCategoryLink;
+;;HealthEquipmentCategoryLink;Health Equipment Category Link;/HealthProducts/Health-Equipment/c/healthequipment;HealthEquipmentCategoryLink;HealthEquipmentCategoryLink;
+;;HealthSupplementsCategoryLink;Health Supplements Category Link;/HealthProducts/Health-Supplements/c/healthsupplements;HealthSupplementsCategoryLink;HealthSupplementsCategoryLink;
+;;ClothesCategoryLink;Clothes Category Link;/HealthProducts/Clothes/c/clothes;ClothesCategoryLink;ClothesCategoryLink;
+
+# CMS Navigation Nodes
+INSERT_UPDATE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef);&nodeRef
+;HealthProductsNavNode;;HealthProducts Category;ElectronicsNavNode;HealthProductsCategoryLink;HealthProductsNavNode
+;HealthProductsLinksTypesNode;;Health Products Types Node;HealthProductsNavNode;ShoesCategoryLink,HealthEquipmentCategoryLink,HealthSupplementsCategoryLink,ClothesCategoryLink;HealthProductsLinksTypesNode
+
+# Navigation Bar Component
+INSERT_UPDATE NavigationBarComponent;$contentCV[unique=true];uid[unique=true];name;wrapAfter;link(uid, $contentCV);styleClass;&componentRef
+;;HealthProductsBarComponent;Health Products Bar Component;10;HealthProductsCategoryLink;;HealthProductsBarComponent
+
+
+# Category Pages
+#INSERT_UPDATE CategoryPage;$contentCV[unique=true];uid[unique=true];name;masterTemplate(uid,$contentCV);defaultPage;approvalStatus(code)[default='approved'];previewImage(code, $contentCV)
+#;;HealthProducts;Health Products
+#                                                   ;                            ; DigitalCameras                                       ; Digital Cameras                                                                                                                                                                                                ; ProductListPageTemplate                                                                                                                                                                                                                      ; false                                                                                                                                                                            ;                                          ; DigitalCamerasPagePreview
+
+ 
+ # Content Slots
+INSERT_UPDATE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(&componentRef)[mode=append]
+;;NavigationBarSlot;HealthProductsBarComponent
+
+# Navigation Bar Component
+INSERT_UPDATE NavigationBarComponent;$contentCV[unique=true];uid[unique=true];navigationNode(&nodeRef);dropDownLayout(code)
+;;HealthProductsBarComponent;HealthProductsNavNode
+
+
+

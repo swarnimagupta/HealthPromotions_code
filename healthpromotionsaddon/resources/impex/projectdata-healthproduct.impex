@@ -1,0 +1,233 @@
+# ImpEx for Importing Products into Electronics Store
+
+# Macros / Replacement Parameter definitions
+$productCatalog=electronicsProductCatalog
+$productCatalogName=Electronics Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$supercategories=supercategories(code, $catalogVersion)
+$baseProduct=baseProduct(code,$catalogVersion)
+$approved=approvalstatus(code)[default='approved']
+
+# Insert Products
+INSERT_UPDATE Product;code[unique=true];name[lang=en];$supercategories;description[lang=en];manufacturerName;manufacturerAID;unit(code)[default=pieces];ean;variantType(code);$catalogVersion;$approved;
+
+;prod_1000;Under Armour Men's Armour Fleece Storm Big Logo Hoodie;clothes;"<p> The Under Armour® Men's Fleece Storm Big Logo Hoodie brings classic UA style to your workout wardrobe. New Armour® Fleece fabrication is lightweight and breathable for ultimate comfort, and offers a water-repellent finish to keep you dry and protected. This loose fit pullover delivers lasting warmth with a heat-trapping inner layer and a three-piece hood for a superior fit. Boost your outdoor gear with the UA Big Logo Hoodie.
+FEATURES:
+
+    Loose fit hoodie
+    UA Storm gear uses a DWR finish to repel water without sacrificing breathability
+    New Armour® fleece is light, breathable and stretches for superior mobility
+    Soft inner layer traps heat to keep you warm
+    Signature Moisture Transport System wicks sweat away so you stay dry and comfortable
+    3-piece hood construction for superior fit
+    Front kangaroo pocket to stash your small essentials
+    Fabric: 100% polyester
+    Style: 1248321
+    Under Armour
+
+</P>";Walker;WALKER-123;pieces;
+;prod_1001;Walter Hagen Men's Essentials Cupertino Quarter-Zip Golf Pullover;clothes;"<p> Layer up for the morning rounds with the Walter Hagen® Essentials Cupertino Quarter-Zip Pullover. Crafted from Hydro-Dri™ technology, perspiration buildup is discouraged, and the UV protection blocks the sun's harmful rays. The internal fleece lining offers exceptional comfort, and the polyester fabric provides a durable fit. The mock neck keeps elements out, and the zipper garage keeps the zipper place to avoid abrasion.
+FEATURES:
+
+    Hydro-Dri™ technology wicks moisture away from the skin's surface to keep you dry and comfortable
+    UV protection
+    Storm flap
+    Mock neck with quarter-zip closure
+    Zipper garage locks the zipper pull in place and protects your skin
+    Internal fleece lining for added comfort
+    Made of 100% polyester
+    Machine wash
+    Style: MGA36035
+    Walter Hagen
+
+</P>";Walker;WALKER-123;pieces;
+;prod_1002;Nike Men's Half-Zip Therma-FIT Golf Pullover;clothes;"<p> Designed with a plush, insulating interior, the Nike® Half-Zip Therma-FIT® Pullover protects you from plunging temperatures on the course. This lightweight extra layer retains heat without weighing you down, allowing for easy rotation of your shoulders and torso when swinging. Complete with a contrast zipper and side panels, this polyester pullover will keep you comfortable and looking good season after season.
+FEATURES:
+
+    Therma-FIT® insulating technology retains heat to keep you warm
+    Lightweight fabric allows for easy movement
+    Contrast half-zip
+    Contrast side panels
+    Mock neckline
+    Made of polyester
+    Style: 617698
+    Nike
+
+</P>";Walker;WALKER-123;pieces;
+;prod_1003;Under Armour Men's Rival Cotton Hoodie;clothes;"<p> For an extra layer that compliments your athleticism, gear up in the Under Armour® Men's Rival Cotton Hoodie. Its soft and warm inner layer works to trap heat, while moisture-wicking properties draw sweat away from the surface to keep you dry. Contrast stitching and an upper left UA logo add subtle style whether you're in the gym or recovering after a tough workout. The UA Rival Hoodie is the ultimate addition to your training gear.
+FEATURES:
+
+    Loose fit hoodie
+    Soft inner layer traps heat to keep you warm
+    Signature Moisture Transport System wicks sweat away to keep you dry and comfortable
+    Front kangaroo pocket to stash your small items
+    Contrast cover stitching poly mesh hood lining
+    HD logo application
+    Fabric: 80% cotton / 20% polyester
+    Style: 1248345
+    Under Armour
+
+</P>";Walker;WALKER-123;pieces;
+;prod_1004;Nike Men's Elite World Tour Basketball Hoodie;clothes;"<p> Stretch your talents across the entire globe in the Nike® Men's Elite World Tour Basketball Hoodie. This pull-over style features Therma-FIT® fabric that traps heat for lasting warmth in cold weather. A scuba hood with a drawcrod provides adjustable protection against the elements, and mesh fabric promotes air flow for breathability. Cross borders and break barriers with your talent in the Elite World Tour Basketball Hoodie.
+FEATURES:
+
+    Pullover basketball hooded sweatshirt
+    Therma-FIT® fabric traps heat for lasting warmth
+    Scuba hood with a drawcord provides adjustable protection against the elements
+    Raglan sleeves and insets at the sides and under arms promote a natural range of motion
+    Mesh fabric promotes air flow for breathability
+    Ribbed cuffs and hem enhance fit
+    Mesh-lined side slit pockets delivers ventilated storage space for small items
+    Color-blocked design with a screen print on the front for bold athletic style
+    Care Instructions: Machine wash
+    Fabric: 100% polyester
+    Style: 618315
+    Nike
+
+</P>";Walker;WALKER-123;pieces;
+;prod_1005;adidas Men's techfit Shock Camo Mock Cold Weather Compression Shirt;clothes;"<p> The adidas® Men's techfit™ Shock Camo Mock Cold Weather Compression Shirt ensures your athletic apparel can keep up with you when temperatures drop. Equipped with climawarm™ technology, this top traps warmth while remaining breathable, for complete active comfort. A tight fit and techfit™ design ensure your muscles are supported and stable. Soft and flatlock seams minimize irritation and chafe during movement.
+FEATURES:
+
+    Mock neck cold weather compression top
+    climawarm™ lightweight, breathable insulation keeps you warm and dry in cold weather conditions
+    Perforated panel on chest adds breathability to keep you dry
+    Tight compression fit keeps your muscles supported
+    techfit™ design provides an ergonomic cut for a perfect fit that moves with you
+    Soft and flatlock seams minimize chafe and irritation for active comfort
+    UPF 50+ UV protection
+    Shockwave print on sleeves adds dynamic style
+    adidas® logo at left shoulder
+    techfit™ branding at back neck
+    Fabric: 86% polyester / 14% spandex jersey
+    Style: F14APM411
+    adidas
+
+</P>";Walker;WALKER-123;pieces;
+;prod_1006;Nike Men's Pro Hyperwarm Fitted Dri-FIT Max Long Sleeve Shirt;clothes;"<p> The Nike® Pro Hyperwarm® Dri-FIT Max® Shirt is an athletic powerhouse. This fitted top is a body-skimming base layer with a Hyperarm® brushed interior to trap heat, making it ideal for training in cold weather. Dri-FIT® Max fabric quickly evaporates moisture to keep you dry and reduce cling. Mesh at the under arms increases air flow, while stretch spandex allows you to move easily between drills.
+FEATURES:
+
+    Long sleeve top
+    Fits close to the body without the compression
+    Hyperwarm brushed interior traps in warmth for soft coverage
+    Dri-FIT Max® pulls sweat fully off the skin to eliminate chill
+    Regular-cut neck for maximum mobility and comfort
+    Underarm mesh promotes cooling airflow
+    Care Instructions: Machine wash
+    Fabric: Body: Dri-FIT 85% polyester / 15% spandex. Mesh insets: Dri-FIT 100% polyester. Collar: Dri-FIT 84% polyester/16% spandex.
+    Style: 479923
+    Nike
+
+</P>";Walker;WALKER-123;pieces;
+;prod_1007;TaylorMade Men's Tradition Golf Hat;clothes;"<p> Take to the course in style and comfort when you wear the TaylorMade® Tradition Hat. Its relaxed construction and adjustable back will keep you casual and comfortable, with added UV resistance to deflect the sun's harmful rays for complete protection during those hot, humid rounds. The pre-washed cotton twill fabric gives this accessory a vintage look, and TaylorMade® embroidery at the front and side provides style at every angle.
+FEATURES:
+
+    Moisture-wicking sweatband
+    UV protection to 25+ UPF
+    Adjustable back for customizable fit
+    Raised TaylorMade® embroidery at front
+    1979 side embroidery
+    Eyelet panels for increased ventilation
+    Made of 100% cotton
+    Style: B1136501
+    TaylorMade
+
+</P>";Walker;WALKER-123;pieces;
+;prod_1008;Wolverine Renegade Henley T-Shirt;clothes;"<p> We've got you covered on those tough jobs with the Renegade Henley by Wolverine®. Moisture-wicking technology works hard to keep you cool and dry during harsh conditions, while the cotton jersey construction and tagless design increases your comfort level so you'll stay focused on the task at hand. Tuck in the Wolverine® Men's Renegade t-shirt for the day ahead.
+FEATURES:
+
+    Henley tee
+    Wolverine® PC Wick technology wicks away sweat and moisture to keep you cool and dry during the toughest conditions
+    Three-button placket for increased functionality
+    Chest pocket with opening for pencil or other small item storage
+    Ribbed crew neck provides all-day comfort
+    Tagless label increases comfort on the job
+    Embroidered Tonal Wolverine® claw logo
+    Fabric: 100% cotton jersey
+    Style: W1201320
+    Wolverine
+
+</P>";Walker;WALKER-123;pieces;
+;prod_1009;Carhartt Women's Calumet T-Shirt;clothes;"<p> Work hard or play hard in the Carhartt® Women's Calumet T-Shirt. The crewneck styling is easy to wear on the work site, with a stretchy 1x1 rib knit that creates a more comfortable fabric. The cover-stitched main seams are meant to stand up to the rigors of a job well done. There is a Carhartt® logo sewn on the seam hem of the Calumet T-Shirt, to remind you that this shirt is made to last.
+FEATURES:
+
+    Women's crewneck tee for comfort on workdays
+    1x1 rib knit provides stretch
+    Carhartt® logo sewn onto the sleeve hem
+    Cover-stitched main seams
+    Fabric: 6 oz, 100% cotton jersey knit
+    Style: 100338
+    Carhartt
+
+</P>";Walker;WALKER-123;pieces;
+;prod_1010;Ge Ohmeda Tuffsat Monitor With Sensor;healthequipment;;Walker;WALKER-123;pieces;
+;prod_1011;1 MHz Portable Therapeutic Ultrasound Unit Complete Kit ;healthequipment;"<p>Get muscle pain relief using Ultrasound Therapy.
+
+This brand new 2014 edition Portable Ultrasound generates deep heat within body tissues for the treatment at selected medical conditions such as relief at pain, muscle spasms, and joint contractures.
+
+The Portable Ultrasound is a therapeutic ultrasound device that generates deep heat through a piezoelectric crystal sound head. Unlike electrical modalities, ultrasound is unique in that the longitudinal waveform associated with sound is not electromagnetic in nature. The piezoelectric crystal converts electrical energy into a strong vibratory sound wave or ultrasound, a sound beyond the normal range of our hearing.
+
+Sound waves cause vibration in soft tissue cells, increasing temperature and inducing vasodilation
+
+Treatment duration is determined by the medical practitioner and may range from 5 - 10 minutes depending on the conditions treated.
+
+Because air is a very poor sound conductor ultrasound gels are used to conduct the wave energy to the skin.
+
+Package Contents:
+
+    1Mhz Unit (high / Low)
+    AC Adapter
+    Soft Carrying Case
+    Sombra Ultrasound Transmission Gel
+    Complete Instruction Manual
+    Cloth
+
+Comes with 1 year warranty</P>";Walker;WALKER-123;pieces;
+;prod_1012;Tynor H-02 Weight Cuff Muscle Strengthening Comfortable, Soft Fabric;healthequipment;"<p>Tynor Weight Cuff has two kilograms of weight and it wraps around very easily. The weight is well placed in comfortable and soft fabric that protects from skin from abrasion. You can even use it in gym or home for exercising or to perform everybody work for prolonged exercising. It is safe to be used.</p>";Walker;WALKER-123;pieces;
+;prod_1013;CONTEC Sale,FDA CE Finger Pulse Oximeter Fingertip Oxygen Monitor SPO2 PR 50C;healthequipment;;Walker;WALKER-123;pieces;
+;prod_1014;Air Pressure Far Infrared Sauna Body Slimming Blanket Weight Loss Machine;healthequipment;;Walker;WALKER-123;pieces;
+;prod_1015;Wrist pulse blood oxygen saturation meter 100G color screen updated version;healthequipment;;Walker;WALKER-123;pieces;
+;prod_1016;75cm Balance Stability Anti-Burst Ball Yoga Fitness& Exercise+Air Pump;healthequipment;"<p>This Yoga Exercise Ball can Promote the blood circulation help you release muscle and tension.
+
+This Yoga Exercise Ball is made of durable material for long time use.
+
+Yoga Exercise Ball can use at home or gym.
+
+Long time use is also can improve the ability to focus,reduce stress, enhance the limbs and spine of endurance."
+;prod_1017;TRM 445 Treadmill;healthequipment;"<p>
+    Integrated Footplant Technology™
+    Ground Effects® Impact Control System
+    23 Preset and 16 personalized workouts, 4 exerciser profiles, customizable capacitive touch display and Preva® integration
+    Run or walk downhill
+</p>";Walker;WALKER-123;pieces;
+;prod_1018;AMT® 835 with Open Stride™ Adaptive Motion Trainer®;healthequipment;"<p>
+    Adaptive motion with Open Stride™
+    Adjustable stride height from 6.8 to 10 inches
+    Dynamically adjust stride length from 0 to 36 inches
+</p>";Walker;WALKER-123;pieces;
+;prod_1019;UBK 835 Upright Bike;healthequipment;"<p>
+    12 programs, 25 resistance levels
+    Three ergonomic riding positions: upright, cruising and road
+    Use included ergonomic saddle or change to your own
+</p>";Walker;WALKER-123;pieces;
+
+;prod_1020;Vionic with Orthaheel Technology - Walker Shoe;shoes;"<p>The Orthaheel Walker  Athletic Walking Shoe offers maximum comfort and support, is podiatrist-designed and accepted by the APMA. This athletic shoe features a premium full-grain leather upper that is also water-resistant. Breathable, moisture- wicking, 100% polyester mesh lining is designed with PU foam base to reduce friction and increase comfort. The molded EVA midsole has a built-in 5” elevation for a smooth transition from heel-to-toe.</p>";Walker;WALKER-123;pieces;
+;prod_1021;Brooks Ghost 7 - Running & Walking Shoes;shoes;"<p>The Ghost 7 Brooks is made for neutral runners that seek comfortable and stable steps on the road or at the gym. With advanced technologies to improve performance, the Ghost 7 is a definite necessity to add to your shoe collection. Improved cushioning is offered in the midsole due to Brooks DNA technology: a first-of-its-kind cushioning system that works at a molecular level that provides adaptive cushioning.</p>";Walker;WALKER-123;pieces;
+;prod_1022;Accupressure Shoe;shoes;"<p>Acupressure Footwear with Magnetic effect that stimulates all acupressure points on your feet. The acupressure insole has been contoured in accordance with the shape of the general foot structure and also provides an excellent arch as support. The strategically and scientifically placed magnets helps in blood circulation and helps you re-energize.</p>";Walker;WALKER-123;pieces;
+;prod_1023;Brooks Addiction Walker - Motion Control Walking Shoe;shoes;"<p>For fitness walkers with sensitive feet, and medical and service workers with a need for a slip-resistant shoe, the Brooks Walking Shoe, Addiction Walker is one of the most biomechanically corrective motion control walking shoes available. Respected by athletes and medical professionals alike, Brooks Sports Inc. has become world-renowned for producing athletic shoes of superior quality and durability that reliably prevent foot and ankle injuries. Carrying on the proud Brooks tradition, the Brooks Addiction Walker is doctor recommended to provide foot protection and relief to pronators, diabetic walkers, and those with flat feet</p>";Walker;WALKER-123;pieces;
+;prod_1024;Brooks Walking And Running Shoes;shoes;"<p>For fitness walkers with sensitive feet, and medical and service workers with a need for a slip-resistant shoe, the Brooks Walking Shoe, Addiction Walker is one of the most biomechanically corrective motion control walking shoes available.</p>";Walker;WALKER-123;pieces;
+;prod_1025;Spira Valencia Walking Shoes;shoes;"<p>The Spira Valencia Walking Shoe provides a level of cushioning that is second to none. This walking shoe incorporates WaveSpring® technology at heel area to minimize shock absorption and gain energy return during the gait cycle. WaveSpring® technology consists of a metal alloy WaveSpring® that is durable, stable and active.</p>";Walker;WALKER-123;pieces;
+;prod_1026;Dunham St. Johnsbury Shoe;shoes;"<p>The EVA midsole offers extra cushioning and the ABZORB® Strobel Board maximizes shock absorption in every step. The rubber outsole is not only long-lasting, but also non-marking so that floors will not get scuffed. Men will gain versatility and true comfort when wearing the Dunham St. Johnsbury leather </p>";Walker;WALKER-123;pieces;
+;prod_1027;Sanita Karl Oil - Clog;shoes;;Walker;WALKER-123;pieces;
+;prod_1028;Moore Medical Low Ankle Walker;shoes;"<p>The Moore Medical Low Ankle Walker provides mobility and protection for patients with ankle injuries such as stable or stress fractures of the ankle and ankle sprains. This ankle walker has three straps that are adjustable: one strap above the ankle and two straps over the forefoot area. A tacked in tongue will stay in place during fitting and patients will gain a comfortable fit since the walker has foam liner and comes with two pads to cushion the ankle's Malleolus areas: the inner and outer bony sides of the ankle</p>";Walker;WALKER-123;pieces;
+;prod_1029;Darco Body Splint shoe;shoes;"<p>Splint for plantar fasciitis is a very unique splint known to be the only one of its kind that actively engages the windlass mechanism (a gradual stretch of the plantar muscle band). This results in a precise and continued stretch of the plantar fascia so within time the foot can correctly function </p>";Walker;WALKER-123;pieces;
+;prod_1030;Darco Wound Care shoe;shoes;"<p>Recommended by doctors for the treatment of open and closed ulcerations and other conditions of the foot in which it is desirable to redistribute weight away from the specific areas. A woundcare shoe where the circumferential counter of the shoe forms a deep pocket in the sole to permit the use of a variety of insoles under the ulceration or area of pressure.</p>";Walker;WALKER-123;pieces;
+;prod_1031;Nutrilite® All Plant Protein Powder;healthsupplements;"<p>Leaner than meat, good for your health.All plant protein from soy, wheat, and yellow pea.One 12.5 g serving provides 10 grams of heart healthy protein.Flavorless addition to foods, beverages, or batters.Vegetarian.Dairy free, lactose free.</p>";Nutrilite®;Nutrilite-123;pieces
+;prod_1032;Nutrilite® Perfect Pack for Your Health;healthsupplements;"<p>The Perfect Pack features three premier NUTRILITE supplements to help you establish a strong nutritional foundation. If you’re not regularly consuming 22 essential vitamins and minerals, 10+ servings of fruits and vegetables, and one serving of ocean fish every day, the Perfect Pack will help you fill your nutritional gaps.</p>";Nutrilite®;Nutrilite-123;pieces
+;prod_1033;Endura Mass 500 g vanilla;healthsupplements;"<p>In order to keep pace with the fast moving world we sometime find it difficult to meet the calorie intake required for a day. In such circumstances we end up eating junk and all sorts of low nutrient food. This results in illness, malnutrition and also anaemia. Besides your normal diet, endure mass has the capacity of providing 3480 additional calories every single day. This insanely powerful muscle building compound works wonders on a bodybuilder. Regular consumers experience noticeable strength gains within a very short period. This supplement provides you the exact amount of nutrition, not too much, neither too less â€“ just the right amount required to build muscles.</p>";Nutrilite®;Nutrilite-123;pieces
+;prod_1034;Endura Whey Pro 1 Kg;healthsupplements;"<p>Endura Ultra Whey Protein is a 100% complete protein shake that provides pure unadulterated whey protein with less fat, saturated fat, cholesterol, lactose and other carbohydrates. It is a unique blend of cross flow ultra filtered whey concentrate with glutamine peptides, ultra filtered whey isolates and peptide rich whey hydrolysates. An excellent source of glutamine and all three branched chain amino acids (Leucine, Isoleucine and Valine), this great tasting formula of Endura Ultra Whey protein mixes smoothly to make a refreshing protein shake</p>";Nutrilite®;Nutrilite-123;pieces
+;prod_1035;Endura Enzest 400 Gm (Herbal Energy Booster);healthsupplements;"<p>herbal energy booster makes you more active through out the day</p>";Nutrilite®;Nutrilite-123;pieces
+;prod_1036;Endura Creatine 100g;healthsupplements;"<p>Pure Creatine Monohydrate - the Supplement for Great Performances Endura Creatine Monohydrate is the most advanced nutritional supplement for athletes, body builders & sports persons. Research shows an increase in muscle contraction, strength & endurance with the oral use of Creatine. Also, it helps maintain better ATP Levels. Suggested Usage Loading Phase Take 5g (One teaspoon) 4 times a day (20g total) for 5 days Maintenance Period 3 to 5g twice a day with Juice or Endura Energy. A dietary supplement only. Ingredients Creatine Monohydrate 99.9% Note: While taking Creatine increase water intake.</p>";Nutrilite®;Nutrilite-123;pieces
+;prod_1037;MUSCLE TECH 100% PREMIUM WHEY PROTEIN PLUS/5 LB;healthsupplements;"<p>Awarded for its premium taste in a test conducted by experts panel at American Masters of Taste, Muscle Tech 100% Premium Whey Protein is an excellent supplement helpful in reducing fat, impurities and lactose. It includes glutamine, BCCAs and amino acids. Ideal for bodybuilders, this specialised formula helps them to build strong and lean muscles in addition to accelerating the muscle recovery process and promoting stamina. Muscle Tech 100% Premium Whey Protein is a low on fat protein formula suitable for male as well as female endurance athletes, strength athletes and even health-conscious people.</p>";Nutrilite®;Nutrilite-123;pieces
+;prod_1038;Arnold Series Iron Whey 5LB;healthsupplements;"<p>Proteins are essential, one of the human body's most important nutrients. As athletes exercise, their bodies require extra amino acids and protein-much more than people who are inactive. So athletes need to supplement with dietary protein.</p>";Nutrilite®;Nutrilite-123;pieces
+;prod_1039;Nature's Best Isopure Zero Carb - 7.5 Lbs;healthsupplements;"<p>Unbelievable product with zero carbohydrates, very good product who undergo strong workout, i am having this supplement in between workout also(low quantity). Totally unique product and no one can beat this.</p>";Nutrilite®;Nutrilite-123;pieces
+;prod_1040;Ultimate Nutrition ISO Sensation 93 5lbs;healthsupplements;"<p>Blend of Whey Protein Concentrate and Isolate Packed with whey in its purest form, this blend has whey protein isolate, whey protein concentrate and whey peptides that gives you a lean muscle build-up and toned muscle definition. Loaded with 6g of BCAAs per scoopful, this nutritionally-dense supplement enhances your muscle recovery and keeps your muscles in an anabolic state even post-work. Also with a strong amino acid profile, it builds, tones and maintains your muscle mass. Low-fat Content It contains just 1g of fat per serving so that you reach your bodybuilding goals faster without the overload of calories that comes with protein.</p>";Nutrilite®;Nutrilite-123;pieces

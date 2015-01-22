@@ -1,0 +1,29 @@
+##******************************This file is generated - please do not edit it. It will be regenerated after every build.********************************#
+
+$contentCatalog=electronicsContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$picture=media(code, $contentCV);
+$siteResource=jar:de.hybris.platform.electronicsstore.constants.ElectronicsstoreConstants&/electronicsstore/import/sampledata/contentCatalogs/$contentCatalog
+
+# Language
+$lang=en
+
+# CMS Link Components
+UPDATE CMSLinkComponent;$contentCV[unique=true];uid[unique=true];linkName[lang=$lang]
+;;HealthProductsCategoryLink;"Health Products"
+;;ShoesCategoryLink;"Shoes"
+;;HealthEquipmentCategoryLink;"Health Equipment"
+;;HealthSupplementsCategoryLink;"Health Supplements"
+;;ClothesCategoryLink;"Clothes"
+
+# Category Pages
+# UPDATE CategoryPage;$contentCV[unique=true];uid[unique=true];title[lang=$lang]
+# ;;shoes;"Shoes"
+# ;;HealthProducts;"Health Products"
+# ;;healthequipment;"Health equipment"
+# ;;healthsupplements;"Health Supplements"
+# ;;clothes;"Clothes"
+
+# CMS Navigation Nodes
+UPDATE CMSNavigationNode;$contentCV[unique=true];uid[unique=true];title[lang=$lang]
+;;HealthProductsNavNode;"Health Products"
