@@ -274,8 +274,7 @@
 		<property name="beaconPromotionsDao" ref="beaconPromotionsDao"/>
 	</bean>
 	
-	<bean id="beaconPopulator" class="com.acc.populator.BeaconPopulator" parent="abstractPopulatingConverter">
-		<property name="beaconConverter" ref="beaconConverter"/>
+	<bean id="beaconPopulator" class="com.acc.populator.BeaconPopulator">
 	</bean>
 	
 	<bean id="beaconData" class="com.acc.data.BeaconData" scope="prototype"/>
