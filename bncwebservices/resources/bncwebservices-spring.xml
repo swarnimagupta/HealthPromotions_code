@@ -266,6 +266,29 @@
 		<property name="customerHealthDataDao" ref="customerHealthDataDao"/>
 	</bean>	
 	
+	<bean id="beaconPromotionsDao" class="com.acc.dao.impl.BeaconPromotionsDaoImpl">
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+		<property name="modelService" ref="modelService"/>
+	</bean>
+	<bean id="beaconPromotionsService" class="com.acc.services.impl.BeaconPromotionsServiceImpl">
+		<property name="beaconPromotionsDao" ref="beaconPromotionsDao"/>
+	</bean>
+	
+	<bean id="beaconPopulator" class="com.acc.populator.BeaconPopulator" parent="abstractPopulatingConverter">
+		<property name="beaconConverter" ref="beaconConverter"/>
+	</bean>
+	
+	<bean id="beaconData" class="com.acc.data.BeaconData" scope="prototype"/>
+
+	<bean id="beaconConverter" parent="abstractPopulatingConverter">
+		<lookup-method name="createTarget" bean="beaconData"/>
+		<property name="populators">
+			<list>
+				<ref bean="beaconPopulator"/>
+			</list>
+		</property>
+	</bean>
+	
   <!--End of beans needed for sample data used in groovy tests  -->
   
 </beans>

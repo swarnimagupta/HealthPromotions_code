@@ -109,5 +109,13 @@
 	<bean class="com.acc.expressupdate.data.ProductExpressUpdateElementDataList">
 		<property name="productExpressUpdateElements" type="java.util.List&lt;com.acc.expressupdate.data.ProductExpressUpdateElementData>" />
 	</bean>
+	
+	<bean class="com.acc.data.BeaconData">
+		<property name="promotions" type="java.util.List&lt;de.hybris.platform.commercefacades.product.data.PromotionData>" />
+		<property name="identifier" type="String"/>
+		<property name="majorId" type="String"/>
+		<property name="minorId" type="String"/>
+		<property name="welcomeMessage" type="String"/>
+	</bean>	
 
 </beans>
