@@ -2,7 +2,7 @@ $productCatalog=electronicsProductCatalog
 $catalogVersion=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$productCatalog]),CatalogVersion.version[default=Staged])[default=$productCatalog:Staged]
 
 
-INSERT_UPDATE Beacon;identifier[unique=true];majorId;minorId;welcomeMessage;promotions(code)
+INSERT_UPDATE Beacon;identifier[unique=true];minorId;majorId;welcomeMessage;promotions(code)
 ;beacon_1;beacon_min01;beacon_maj01;"Welcome get exciting offers,grab exciting deals";JoggersDiscount30,WorkoutHappyDiscount,JoggersExcitingDiscount,WorkoutDiscount50
 ;beacon_2;beacon_min02;beacon_maj02;"Grab exciting deals";JoggersDiscount30,WorkoutHappyDiscount
 ;beacon_3;beacon_min03;beacon_maj03;"Welcome get exciting offers,grab exciting deals";JoggersExcitingDiscount,WorkoutDiscount50
