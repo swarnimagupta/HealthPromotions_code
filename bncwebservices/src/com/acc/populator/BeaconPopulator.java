@@ -14,6 +14,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.collections.CollectionUtils;
+
 import com.acc.data.BeaconData;
 import com.accenture.model.BeaconModel;
 
@@ -42,11 +44,14 @@ public class BeaconPopulator implements Populator<BeaconModel, BeaconData>
 			target.setMajorId(source.getMajorId());
 			target.setMinorId(source.getMinorId());
 			final List<PromotionData> promotionsDatas = new ArrayList<PromotionData>();
-			for (final AbstractPromotionModel model : source.getPromotions())
+			if (CollectionUtils.isNotEmpty(source.getPromotions()))
 			{
-				promotionsDatas.add(promotionsConverter.convert(model));
+				for (final AbstractPromotionModel model : source.getPromotions())
+				{
+					promotionsDatas.add(promotionsConverter.convert(model));
+				}
+				target.setPromotions(promotionsDatas);
 			}
-			target.setPromotions(promotionsDatas);
 		}
 	}
 
