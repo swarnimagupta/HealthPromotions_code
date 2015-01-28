@@ -272,6 +272,9 @@
 	</bean>
 	<bean id="beaconPromotionsService" class="com.acc.services.impl.BeaconPromotionsServiceImpl">
 		<property name="beaconPromotionsDao" ref="beaconPromotionsDao"/>
+		<property name="promotionsConverter" ref="promotionsConverter"/>
+		<property name="userService" ref="userService"/>
+		
 	</bean>
 	
 	<bean id="beaconPopulator" class="com.acc.populator.BeaconPopulator">
