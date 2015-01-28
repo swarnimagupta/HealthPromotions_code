@@ -873,6 +873,14 @@
 		<property name="aliasedClass"
 		          value="de.hybris.platform.commercefacades.storelocator.data.SpecialOpeningDayData"/>
 	</bean>
+	<bean class="de.hybris.platform.commercefacades.xstream.alias.TypeAliasMapping">
+		<property name="alias" value="beaconPromotions"/>
+		<property name="aliasedClass" value="com.acc.data.BeaconPromotionData"/>
+	</bean>
+	<bean class="de.hybris.platform.commercefacades.xstream.alias.TypeAliasMapping">
+		<property name="alias" value="beacon"/>
+		<property name="aliasedClass" value="com.acc.data.BeaconData"/>
+	</bean>
 
 	<!-- attribute converters -->
 	<bean

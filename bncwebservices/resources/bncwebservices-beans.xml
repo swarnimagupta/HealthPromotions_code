@@ -117,5 +117,8 @@
 		<property name="minorId" type="String"/>
 		<property name="welcomeMessage" type="String"/>
 	</bean>	
+	<bean class="com.acc.data.BeaconPromotionData" extends="com.acc.product.data.PromotionDataList">
+		<property name="welcomeMessage" type="String"/>
+	</bean>	
 
 </beans>
