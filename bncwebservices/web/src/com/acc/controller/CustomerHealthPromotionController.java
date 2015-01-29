@@ -27,7 +27,7 @@ public class CustomerHealthPromotionController
 	@Autowired
 	private BeaconPromotionsService beaconPromotionsService;
 
-	@RequestMapping(value = "/{emailId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{emailId:.+}", method = RequestMethod.GET)
 	@ResponseBody
 	public PromotionDataList getCustomerHeathPromotionData(@PathVariable final String emailId)
 
