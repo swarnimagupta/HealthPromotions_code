@@ -1,0 +1,48 @@
+$productCatalog=electronicsProductCatalog
+$productCatalogName=Electronics Product Catalog
+$catalogVersion=catalogversion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+
+INSERT_UPDATE Product;code[unique=true];beaconId;location;;$catalogVersion
+
+
+;prod_1000;beacon_1;Aisle 2B|Wing 4|Floor 3
+;prod_1001;beacon_1;Aisle 2B|Wing 4|Floor 3
+;prod_1002;beacon_1;Aisle 2B|Wing 4|Floor 3
+;prod_1003;beacon_1;Aisle 2B|Wing 4|Floor 3
+;prod_1004;beacon_1;Aisle 2B|Wing 4|Floor 3
+;prod_1005;beacon_1;Aisle 2B|Wing 4|Floor 3
+;prod_1006;beacon_1;Aisle 2B|Wing 4|Floor 3
+;prod_1007;beacon_1;Aisle 2B|Wing 4|Floor 3
+;prod_1008;beacon_1;Aisle 2B|Wing 4|Floor 3
+;prod_1009;beacon_1;Aisle 2B|Wing 4|Floor 3
+;prod_1010;beacon_1;Aisle 2B|Wing 4|Floor 3
+;prod_1011;beacon_2;Aisle 1B|Wing 2|Floor 3
+;prod_1012;beacon_2;Aisle 1B|Wing 2|Floor 3
+;prod_1013;beacon_2;Aisle 1B|Wing 2|Floor 3
+;prod_1014;beacon_2;Aisle 1B|Wing 2|Floor 3
+;prod_1015;beacon_2;Aisle 1B|Wing 2|Floor 3
+;prod_1016;beacon_2;Aisle 1B|Wing 2|Floor 3
+;prod_1017;beacon_2;Aisle 1B|Wing 2|Floor 3
+;prod_1018;beacon_2;Aisle 1B|Wing 2|Floor 3
+;prod_1019;beacon_2;Aisle 1B|Wing 2|Floor 3
+;prod_1020;beacon_2;Aisle 1B|Wing 2|Floor 3
+;prod_1021;beacon_3;Aisle 1A|Wing 1|Floor 3
+;prod_1022;beacon_3;Aisle 1A|Wing 1|Floor 3
+;prod_1023;beacon_3;Aisle 1A|Wing 1|Floor 3
+;prod_1024;beacon_3;Aisle 1A|Wing 1|Floor 3
+;prod_1025;beacon_3;Aisle 1A|Wing 1|Floor 3
+;prod_1026;beacon_3;Aisle 1A|Wing 1|Floor 3
+;prod_1027;beacon_3;Aisle 1A|Wing 1|Floor 3
+;prod_1028;beacon_3;Aisle 1A|Wing 1|Floor 3
+;prod_1029;beacon_4;Aisle 1A|Wing 1|Floor 3
+;prod_1030;beacon_4;Aisle 2A|Wing 3|Floor 3
+;prod_1031;beacon_4;Aisle 2A|Wing 3|Floor 3
+;prod_1032;beacon_4;Aisle 2A|Wing 3|Floor 3
+;prod_1033;beacon_4;Aisle 2A|Wing 3|Floor 3
+;prod_1034;beacon_4;Aisle 2A|Wing 3|Floor 3
+;prod_1035;beacon_4;Aisle 2A|Wing 3|Floor 3
+;prod_1036;beacon_5;Aisle 2C|Wing 4|Floor 3
+;prod_1037;beacon_5;Aisle 2C|Wing 4|Floor 3
+;prod_1038;beacon_5;Aisle 2C|Wing 4|Floor 3
+;prod_1039;beacon_5;Aisle 2C|Wing 4|Floor 3
+;prod_1040;beacon_5;Aisle 2C|Wing 4|Floor 3
