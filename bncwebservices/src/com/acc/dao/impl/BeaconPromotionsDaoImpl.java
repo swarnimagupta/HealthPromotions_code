@@ -9,11 +9,11 @@ import de.hybris.platform.servicelayer.internal.dao.AbstractItemDao;
 import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
 import de.hybris.platform.servicelayer.search.SearchResult;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 import com.acc.dao.BeaconPromotionsDao;
 import com.accenture.model.BeaconModel;
@@ -25,7 +25,7 @@ import com.accenture.model.BeaconModel;
  */
 public class BeaconPromotionsDaoImpl extends AbstractItemDao implements BeaconPromotionsDao
 {
-
+	private static final Logger LOG = Logger.getLogger(BeaconPromotionsDaoImpl.class);
 
 
 	/*
@@ -51,28 +51,31 @@ public class BeaconPromotionsDaoImpl extends AbstractItemDao implements BeaconPr
 	@Override
 	public List<PromotionUserRestrictionModel> getCustomerHeathPromotionData(final List<String> pkList)
 	{
-		final Map<String, Object> params = new HashMap<String, Object>();
 
-		System.out.println("::::::::::customerHealthDataModel :::::::::");
+		LOG.info("::::::::::customerHealthDataModel :::::::::");
 		final StringBuffer str = new StringBuffer();
-		str.append("SELECT {").append(PromotionUserRestrictionModel.PK).append("} ");
-		str.append("FROM {").append(PromotionUserRestrictionModel._TYPECODE).append("} ");
-		str.append("WHERE {").append(PromotionUserRestrictionModel.USERS).append("}");
+
+		LOG.info("::::::::::pklist :::::::::" + pkList);
+
 		for (final String string : pkList)
 		{
 
-			str.append(" IN ( ?string ) ");
-			params.put("string", string);
-
-			//str.append(StringUtils.isNotEmpty(str.toString()) ? " or " : "{users} like '%" + string + "%'");
+			if (StringUtils.isNotEmpty(str.toString()))
+			{
+				str.append(" or ");
+			}
+			str.append("{users} like '%" + string + "%'");
 		}
+		LOG.info("*****inside beaconpromotionsdaoimpl query***************" + str);
 
 
-		//final FlexibleSearchQuery query = new FlexibleSearchQuery("select {pk} from {promotionuserrestriction} where {users} "
-		//+ str.toString());
-		final SearchResult<PromotionUserRestrictionModel> result = getFlexibleSearchService().search(str.toString(), params);
+		final FlexibleSearchQuery query = new FlexibleSearchQuery("select {pk} from {promotionuserrestriction} where " + str);
+
+		final SearchResult<PromotionUserRestrictionModel> result = getFlexibleSearchService().search(query);
+
+		LOG.info("*****inside beaconpromotionsdaoimpl***************" + result);
+
 		return result.getResult();
-
 
 
 	}
