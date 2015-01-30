@@ -291,6 +291,34 @@
 		</property>
 	</bean>
 	
+	
+	<bean id="ProductLocationDao" class="com.acc.dao.impl.ProductLocationDaoImpl">
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+		<property name="modelService" ref="modelService"/>
+	</bean>
+	<bean id="ProductLocationService" class="com.acc.services.impl.ProductLocationServiceImpl">
+		<property name="ProductLocationDao" ref="ProductLocationDao"/>
+		<property name="productConverter" ref="productConverter"/>
+		
+	</bean>
+	
+	
+	<bean id="productWithLocationDetailsPopulator" class="com.acc.populator.ProductWithLocationDetailsPopulator" parent ="productPopulator">
+	</bean>
+	
+	
+	<alias name="defaultProductConverter" alias="productConverter"/>
+	<bean id="defaultProductConverter" parent="abstractPopulatingConverter">
+		<lookup-method name="createTarget" bean="productData"/>
+		<property name="populators">
+			<list>
+				<ref bean="productWithLocationDetailsPopulator"/>
+			</list>
+		</property>
+	</bean>
+	
+	
+	
   <!--End of beans needed for sample data used in groovy tests  -->
   
 </beans>
