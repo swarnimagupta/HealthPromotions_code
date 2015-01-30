@@ -4,7 +4,7 @@ INSERT_UPDATE Usergroup;uid[unique=true];locName;description
 ;WorkoutGroup;Workout Group;Workout Group
 
 #To create customer in HealthGroup
-INSERT_UPDATE Customer;uid[unique=true];name;description;groups(uid);
+INSERT_UPDATE Customer;uid[unique=true];name;description;groups(uid)[mode=append];
 ;xiaodong.b.zhang@accenture.com;"Zhang xiaodong";customer;JoggersGroup;
 ;bin.a.liu@accenture.com;"Liu bin";customer;JoggersGroup;
 ;neeraj.a.shah@accenture.com;"Neeraj Shah";customer;JoggersGroup;
