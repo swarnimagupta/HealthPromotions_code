@@ -18,6 +18,9 @@
 
 <items 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="items.xsd">
 	
+	<collectiontypes>
+		<collectiontype code="PromotionsCollection" elementtype="AbstractPromotion" autocreate="true" generate="false" />
+	</collectiontypes>
 	<relations>
 		<relation code="Beacon2PromotionsRel" localized="false" autocreate="true" generate="true">
 			<description>This is a link between beacon and the promotions.</description>
@@ -28,81 +31,96 @@
 	</relations>
 	<itemtypes>
 		<itemtype code="CustomerHealthData" autocreate="true" generate="true" extends="GenericItem">
-				<deployment table="CustomerHealthData" typecode="11006" />
+			<deployment table="CustomerHealthData" typecode="11006" />
+			<attributes>
+				<attribute qualifier="customerId" type="java.lang.String">
+					<description>Customer universally unique id for a device </description>
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="customerName " type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="heartBeatRate " type="java.lang.Integer">
+					<modifiers read="true" write="true" search="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="bloodPressure" type="java.lang.Integer">
+					<modifiers read="true" write="true" search="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="milesRun" type="java.lang.Integer">
+					<modifiers read="true" write="true" search="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="caloriesBurned" type="java.lang.Integer">
+					<modifiers write="true" read="true" search="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="timeTaken" type="java.lang.Integer">
+					<modifiers write="true" read="true" search="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="age" type="java.lang.Integer">
+					<modifiers write="true" read="true" search="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+			</attributes>
+		</itemtype>
+			
+		<itemtype code="Beacon" autocreate="true" generate="true" extends="GenericItem">
+			<deployment table="Beacon" typecode="11007" />
+			<attributes>
+				<attribute qualifier="identifier" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="majorId " type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="minorId " type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="welcomeMessage" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+			</attributes>
+		</itemtype>
+			
+		<itemtype code="Product" autocreate="false" generate="false">
+			<attributes>
+				<attribute qualifier="beaconId" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="location" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+			</attributes>
+		</itemtype>
+			
+		<itemtype code="EmailEligibleCustomersForPromotionsCronJob" autocreate="true"
+			generate="true" extends="CronJob"
+			jaloclass="com.acc.jalo.cronjob.EmailEligibleCustomersForPromotionsCronJob">
+		</itemtype>
+			
+		<typegroup name="Processes">
+			<itemtype code="CustomerPromotionsProcess" autocreate="true"
+				generate="true"
+				jaloclass="com.acc.jalo.CustomerPromotionsProcess"
+				extends="StoreFrontCustomerProcess">
 				<attributes>
-					<attribute qualifier="customerId" type="java.lang.String">
-						<description>Customer universally unique id for a device </description>
-						<modifiers read="true" write="true" search="true" optional="false" />
+					<attribute qualifier="promotionsList" type="PromotionsCollection">
 						<persistence type="property" />
-					</attribute>
-					<attribute qualifier="customerName " type="java.lang.String">
-						<modifiers read="true" write="true" search="true" optional="true" />
-						<persistence type="property" />
-					</attribute>
-					<attribute qualifier="heartBeatRate " type="java.lang.Integer">
-						<modifiers read="true" write="true" search="true" optional="true" />
-						<persistence type="property" />
-					</attribute>
-					<attribute qualifier="bloodPressure" type="java.lang.Integer">
-						<modifiers read="true" write="true" search="true" optional="true" />
-						<persistence type="property" />
-					</attribute>
-					<attribute qualifier="milesRun" type="java.lang.Integer">
-						<modifiers read="true" write="true" search="true" optional="true" />
-						<persistence type="property" />
-					</attribute>
-					<attribute qualifier="caloriesBurned" type="java.lang.Integer">
-						<modifiers write="true" read="true" search="true" optional="true" />
-						<persistence type="property" />
-					</attribute>
-					<attribute qualifier="timeTaken" type="java.lang.Integer">
-						<modifiers write="true" read="true" search="true" optional="true" />
-						<persistence type="property" />
-					</attribute>
-					<attribute qualifier="age" type="java.lang.Integer">
-						<modifiers write="true" read="true" search="true" optional="true" />
-						<persistence type="property" />
+						<description>Object storing promotions details.</description>
 					</attribute>
 				</attributes>
 			</itemtype>
-			
-			<itemtype code="Beacon" autocreate="true" generate="true" extends="GenericItem">
-				<deployment table="Beacon" typecode="11007" />
-				<attributes>
-					<attribute qualifier="identifier" type="java.lang.String">
-						<modifiers read="true" write="true" search="true" optional="false" />
-						<persistence type="property" />
-					</attribute>
-					<attribute qualifier="majorId " type="java.lang.String">
-						<modifiers read="true" write="true" search="true" optional="true" />
-						<persistence type="property" />
-					</attribute>
-					<attribute qualifier="minorId " type="java.lang.String">
-						<modifiers read="true" write="true" search="true" optional="true" />
-						<persistence type="property" />
-					</attribute>
-					<attribute qualifier="welcomeMessage" type="java.lang.String">
-						<modifiers read="true" write="true" search="true" optional="true" />
-						<persistence type="property" />
-					</attribute>
-				</attributes>
-			</itemtype>
-			
-			
-			<itemtype code="Product" autocreate="false" generate="false">
-			
-				<attributes>
-					<attribute qualifier="beaconId" type="java.lang.String">
-						<modifiers read="true" write="true" search="true" optional="false" />
-						<persistence type="property" />
-					</attribute>
-					<attribute qualifier="location" type="java.lang.String">
-						<modifiers read="true" write="true" search="true" optional="true" />
-						<persistence type="property" />
-					</attribute>
-					
-				</attributes>
-			</itemtype>
-			
+		</typegroup>
 	</itemtypes>
 </items>

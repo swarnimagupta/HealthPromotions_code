@@ -81,7 +81,38 @@
 	      	            !execution(* getPK(..))" />  	            
 	       <aop:pointcut id="profiledMethods" expression="execution(* *(..))" />	
 	  -->
+	<bean id="hPPromotionDao" class="com.acc.dao.impl.HPPromotionDaoImpl">
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+		<property name="modelService" ref="modelService"/>
+	</bean>
+	<bean id="hPPromotionService" class="com.acc.service.impl.HPPromotionServiceImpl">
+		<property name="hPPromotionDao" ref="hPPromotionDao"/>
+	</bean>  
 	
-			
-			
+	
+	<bean id="emailEligibleCustomersForPromotionsJob"
+			class="com.accenture.job.EmailEligibleCustomersForPromotionsJob"
+			parent="abstractJobPerformable">
+		<property name="userService" ref="userService"/>
+		<property name="customerConverter" ref="customerConverter"/>
+		<property name="modelService" ref="modelService"/>
+		<property name="businessProcessService" ref="businessProcessService"/>
+		<property name="baseSiteService" ref="baseSiteService"/>
+		<property name="hPPromotionService" ref="hPPromotionService"/>
+	</bean>
+	
+	<bean id="customerPromotionEmailProcessDefinitionResource"
+	      class="de.hybris.platform.processengine.definition.ProcessDefinitionResource" >
+		<property name="resource" value="classpath:/healthpromotionsaddon/processes/customerPromotionEmailProcess.xml"/>
+	</bean>
+	
+	<bean id="generateCustomerPromotionEmail" parent="abstractGenerateEmailAction">
+		<property name="frontendTemplateName" value="CustomerPromotionEmailTemplate"/>
+	</bean>
+	
+	<bean id="customerPromotionsEmailContext" class="com.acc.accenture.email.context.CustomerPromotionsEmailContext" parent="abstractEmailContext" scope="prototype" >
+		<property name="customerConverter" ref="customerConverter"/>
+		<property name="promotionsConverter" ref="promotionsConverter"/>
+	</bean>
+
 </beans>
