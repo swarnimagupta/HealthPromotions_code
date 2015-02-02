@@ -13,31 +13,17 @@
  */
 package com.acc.controller;
 
-import java.util.*;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.httpclient.util.DateParseException;
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.BeanPropertyBindingResult;
-import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
-import org.springframework.web.bind.annotation.*;
-
-import com.google.common.base.Splitter;
-import com.google.common.collect.Lists;
-
 import de.hybris.platform.catalog.enums.ProductReferenceTypeEnum;
 import de.hybris.platform.commercefacades.catalog.CatalogFacade;
 import de.hybris.platform.commercefacades.product.ProductExportFacade;
 import de.hybris.platform.commercefacades.product.ProductFacade;
 import de.hybris.platform.commercefacades.product.ProductOption;
-import de.hybris.platform.commercefacades.product.data.*;
+import de.hybris.platform.commercefacades.product.data.ProductData;
+import de.hybris.platform.commercefacades.product.data.ProductReferenceData;
+import de.hybris.platform.commercefacades.product.data.ProductReferencesData;
+import de.hybris.platform.commercefacades.product.data.ProductResultData;
+import de.hybris.platform.commercefacades.product.data.ReviewData;
+import de.hybris.platform.commercefacades.product.data.SuggestionData;
 import de.hybris.platform.commercefacades.search.ProductSearchFacade;
 import de.hybris.platform.commercefacades.search.data.AutocompleteSuggestionData;
 import de.hybris.platform.commercefacades.search.data.SearchStateData;
@@ -50,6 +36,35 @@ import de.hybris.platform.commerceservices.search.solrfacetsearch.data.SolrSearc
 import de.hybris.platform.commerceservices.store.data.GeoPoint;
 import de.hybris.platform.converters.Populator;
 import de.hybris.platform.servicelayer.dto.converter.Converter;
+import de.hybris.platform.site.BaseSiteService;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.httpclient.util.DateParseException;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BeanPropertyBindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.acc.constants.YcommercewebservicesConstants;
 import com.acc.expressupdate.data.ProductExpressUpdateElementData;
 import com.acc.expressupdate.data.ProductExpressUpdateElementDataList;
@@ -57,11 +72,12 @@ import com.acc.expressupdate.impl.ProductExpressUpdateQueue;
 import com.acc.formatters.WsDateFormatter;
 import com.acc.product.data.ProductDataList;
 import com.acc.product.data.SuggestionDataList;
+import com.acc.services.ProductLocationService;
 import com.acc.util.ws.SearchQueryCodec;
 import com.acc.validator.CustomValidationException;
 import com.acc.validator.ReviewDataValidator;
-import org.springframework.beans.factory.annotation.Autowired;
-import de.hybris.platform.site.BaseSiteService;
+import com.google.common.base.Splitter;
+import com.google.common.collect.Lists;
 
 
 /**
@@ -71,6 +87,7 @@ import de.hybris.platform.site.BaseSiteService;
 @RequestMapping(value = "/v1/{baseSiteId}/products")
 public class ProductsController extends BaseController
 {
+
 	private static final String BASIC_OPTION = "BASIC";
 	private static final String MAX_INTEGER = "2147483647";
 	private static final String DEFAULT_PAGE_VALUE = "0";
@@ -101,6 +118,8 @@ public class ProductsController extends BaseController
 	private CatalogFacade catalogFacade;
 	@Autowired
 	private BaseSiteService baseSiteService;
+	@Autowired
+	private ProductLocationService productLocationService;
 
 	/**
 	 * Web service handler for search. Implementation has to catch up once the SearchFacade exists.
@@ -358,14 +377,21 @@ public class ProductsController extends BaseController
 	public ProductData getProductByCode(@PathVariable final String code,
 			@RequestParam(required = false, defaultValue = BASIC_OPTION) final String options)
 	{
+
+		LOG.info("inside productcontroller**********");
 		if (LOG.isDebugEnabled())
 		{
 			LOG.debug("getProductByCode: code=" + code + " | options=" + options);
 		}
 
 		final Set<ProductOption> opts = extractOptions(options);
+		LOG.info("inside productcontroller**********" + opts);
+		
+		//return productFacade.getProductForCodeAndOptions(code, opts);
+		return productLocationService.getProductForCodeAndOptions(code, opts);
 
-		return productFacade.getProductForCodeAndOptions(code, opts);
+
+
 	}
 
 	/**

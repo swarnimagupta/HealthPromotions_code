@@ -15,4 +15,6 @@ import java.util.List;
 public interface ProductLocationDao
 {
 	public List<ProductModel> getProductsForBeaconId(String beaconId);
+
+	List<ProductModel> findProductsByCode(final String code);
 }

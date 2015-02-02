@@ -299,6 +299,8 @@
 	<bean id="ProductLocationService" class="com.acc.services.impl.ProductLocationServiceImpl">
 		<property name="ProductLocationDao" ref="ProductLocationDao"/>
 		<property name="productConverter" ref="productConverter"/>
+		<property name="productConfiguredPopulator" ref="productConfiguredPopulator"/>
+		
 		
 	</bean>
 	

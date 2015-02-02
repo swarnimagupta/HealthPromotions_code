@@ -17,6 +17,8 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
+import org.apache.log4j.Logger;
+
 import com.acc.dao.BeaconPromotionsDao;
 import com.acc.data.BeaconData;
 import com.acc.product.data.PromotionDataList;
@@ -32,6 +34,8 @@ import com.accenture.model.BeaconModel;
  */
 public class BeaconPromotionsServiceImpl implements BeaconPromotionsService
 {
+	private static final Logger LOG = Logger.getLogger(BeaconPromotionsServiceImpl.class);
+
 
 	private BeaconPromotionsDao beaconPromotionsDao;
 
@@ -114,32 +118,44 @@ public class BeaconPromotionsServiceImpl implements BeaconPromotionsService
 
 		final PromotionDataList promotionDataList = new PromotionDataList();
 
-
-		if (beaconPromotionsDao.CheckEmailId(emailId) != null)
+		try
 		{
-
-			final UserModel user = userService.getUserForUID(emailId);
-
-			System.out.println("###########user###########" + user);
-			final Set<PrincipalGroupModel> sets = user.getAllGroups();
-			System.out.println("allgroupssssssssssssssssssssss" + sets);
-			final List<String> pkList = new ArrayList<String>();
-			for (final PrincipalGroupModel principalGroup : sets)
+			if (beaconPromotionsDao.CheckEmailId(emailId) != null)
 			{
-				pkList.add(principalGroup.getPk().toString());
-			}
-			final List<PromotionUserRestrictionModel> restrictionList = getBeaconPromotionsDao().getCustomerHeathPromotionData(
-					pkList);
 
-			for (final PromotionUserRestrictionModel promotion : restrictionList)
+				final UserModel user = userService.getUserForUID(emailId);
+
+				LOG.info("###########user###########" + user);
+				final Set<PrincipalGroupModel> sets = user.getAllGroups();
+				LOG.info("allgroups******************" + sets);
+				final List<String> pkList = new ArrayList<String>();
+				for (final PrincipalGroupModel principalGroup : sets)
+				{
+					pkList.add(principalGroup.getPk().toString());
+				}
+				final List<PromotionUserRestrictionModel> restrictionList = getBeaconPromotionsDao().getCustomerHeathPromotionData(
+						pkList);
+
+				for (final PromotionUserRestrictionModel promotion : restrictionList)
+				{
+					final AbstractPromotionModel promotionOnEmailID = promotion.getPromotion();
+					promotionData = promotionsConverter.convert(promotionOnEmailID);
+					promotionList.add(promotionData);
+
+				}
+
+				promotionDataList.setPromotions(promotionList);
+
+			}
+			else
 			{
-				final AbstractPromotionModel promotionOnEmailID = promotion.getPromotion();
-				promotionData = promotionsConverter.convert(promotionOnEmailID);
-				promotionList.add(promotionData);
+				throw new ModelNotFoundException("UID not found!");
 
 			}
-
-			promotionDataList.setPromotions(promotionList);
+		}
+		catch (final Exception e)
+		{
+			LOG.error("Invalid EmailId, please try again", e);
 
 		}
 		return promotionDataList;

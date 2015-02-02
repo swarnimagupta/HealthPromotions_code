@@ -66,9 +66,6 @@ public class BeaconPromotionsDaoImpl extends AbstractItemDao implements BeaconPr
 			}
 			str.append("{users} like '%" + string + "%'");
 		}
-		LOG.info("*****inside beaconpromotionsdaoimpl query***************" + str);
-
-
 		final FlexibleSearchQuery query = new FlexibleSearchQuery("select {pk} from {promotionuserrestriction} where " + str);
 
 		final SearchResult<PromotionUserRestrictionModel> result = getFlexibleSearchService().search(query);
