@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.acc.dao.impl;
 
@@ -17,7 +17,7 @@ import com.accenture.model.CustomerHealthDataModel;
 
 /**
  * @author swarnima.gupta
- * 
+ *
  */
 public class CustomerHealthDataDaoImpl extends AbstractItemDao implements CustomerHealthDataDao
 {
@@ -25,13 +25,13 @@ public class CustomerHealthDataDaoImpl extends AbstractItemDao implements Custom
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.accenture.dao.CustomerHealthDataDao#saveCustomerHealthData(java.lang.String, java.lang.Integer,
 	 * java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer)
 	 */
 	@Override
 	public void saveCustomerHealthData(final String customerId, final Integer heartBeatRate, final Integer bloodPressure,
-			final Integer milesRun, final Integer caloriesBurned, final Integer timeTaken, final Integer age)
+			final Double milesRun, final Integer caloriesBurned, final Double timeTaken, final Integer age)
 	{
 		final CustomerHealthDataModel customerHealthDataModel = getCustomerHealthData(customerId) != null ? getCustomerHealthData(customerId)
 				: (CustomerHealthDataModel) getModelService().create(CustomerHealthDataModel.class);
@@ -49,7 +49,7 @@ public class CustomerHealthDataDaoImpl extends AbstractItemDao implements Custom
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.accenture.dao.CustomerHealthDataDao#getCustomerHealthData(java.lang.String)
 	 */
 	@Override
@@ -63,7 +63,7 @@ public class CustomerHealthDataDaoImpl extends AbstractItemDao implements Custom
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.acc.dao.CustomerHealthDataDao#isCustomerFound(java.lang.String)
 	 */
 	@Override

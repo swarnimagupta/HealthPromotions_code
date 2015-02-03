@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.acc.services.impl;
 
@@ -10,7 +10,7 @@ import com.accenture.model.CustomerHealthDataModel;
 
 /**
  * @author swarnima.gupta
- * 
+ *
  */
 public class CustomerHealthDataServiceImpl implements CustomerHealthDataService
 {
@@ -18,13 +18,13 @@ public class CustomerHealthDataServiceImpl implements CustomerHealthDataService
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.acc.services.CustomerHealthDataService#saveCustomerHealthData(java.lang.String, java.lang.Integer,
 	 * java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer, java.lang.Integer)
 	 */
 	@Override
 	public String saveCustomerHealthData(final String customerId, final Integer heartBeatRate, final Integer bloodPressure,
-			final Integer milesRun, final Integer caloriesBurned, final Integer timeTaken, final Integer age)
+			final Double milesRun, final Integer caloriesBurned, final Double timeTaken, final Integer age)
 	{
 		if (getCustomerHealthDataDao().isCustomerFound(customerId) == null)
 		{
@@ -37,7 +37,7 @@ public class CustomerHealthDataServiceImpl implements CustomerHealthDataService
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.acc.services.CustomerHealthDataService#getCustomerHealthData(java.lang.String)
 	 */
 	@Override

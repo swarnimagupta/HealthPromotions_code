@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.acc.dao;
 
@@ -11,12 +11,12 @@ import com.accenture.model.CustomerHealthDataModel;
 
 /**
  * @author swarnima.gupta
- * 
+ *
  */
 public interface CustomerHealthDataDao extends Dao
 {
 	/**
-	 * 
+	 *
 	 * @param customerId
 	 * @param heartBeatRate
 	 * @param bloodPressure
@@ -26,10 +26,10 @@ public interface CustomerHealthDataDao extends Dao
 	 * @param age
 	 */
 	public void saveCustomerHealthData(final String customerId, final Integer heartBeatRate, final Integer bloodPressure,
-			final Integer milesRun, final Integer caloriesBurned, final Integer timeTaken, final Integer age);
+			final Double milesRun, final Integer caloriesBurned, final Double timeTaken, final Integer age);
 
 	/**
-	 * 
+	 *
 	 * @param customerId
 	 * @return CustomerHealthDataModel
 	 */

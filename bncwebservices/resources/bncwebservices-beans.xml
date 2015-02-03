@@ -122,10 +122,16 @@
 	</bean>	
 	
 	<bean class="de.hybris.platform.commercefacades.product.data.ProductData">
-	    
 		<property name="beaconId" type="String"/>
 		<property name="location" type="String"/>
-		
 	</bean>
-
+	<bean class="com.acc.data.CustomerHealthData">
+		<property name="customerId" type="String" />
+		<property name="heartBeatRate" type="Integer"/>
+		<property name="bloodPressure" type="Integer"/>
+		<property name="milesRun" type="Double"/>
+		<property name="caloriesBurned" type="Integer"/>
+		<property name="timeTaken" type="Double"/>
+		<property name="age" type="Integer"/>
+	</bean>	
 </beans>

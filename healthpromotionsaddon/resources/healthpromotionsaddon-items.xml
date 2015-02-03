@@ -50,7 +50,7 @@
 					<modifiers read="true" write="true" search="true" optional="true" />
 					<persistence type="property" />
 				</attribute>
-				<attribute qualifier="milesRun" type="java.lang.Integer">
+				<attribute qualifier="milesRun" type="java.lang.Double">
 					<modifiers read="true" write="true" search="true" optional="true" />
 					<persistence type="property" />
 				</attribute>
@@ -58,7 +58,7 @@
 					<modifiers write="true" read="true" search="true" optional="true" />
 					<persistence type="property" />
 				</attribute>
-				<attribute qualifier="timeTaken" type="java.lang.Integer">
+				<attribute qualifier="timeTaken" type="java.lang.Double">
 					<modifiers write="true" read="true" search="true" optional="true" />
 					<persistence type="property" />
 				</attribute>
