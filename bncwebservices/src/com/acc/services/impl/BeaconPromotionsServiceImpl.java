@@ -9,6 +9,7 @@ import de.hybris.platform.core.model.user.UserModel;
 import de.hybris.platform.promotions.model.AbstractPromotionModel;
 import de.hybris.platform.promotions.model.PromotionUserRestrictionModel;
 import de.hybris.platform.servicelayer.dto.converter.Converter;
+import de.hybris.platform.servicelayer.exceptions.ModelNotFoundException;
 import de.hybris.platform.servicelayer.user.UserService;
 
 import java.util.ArrayList;
