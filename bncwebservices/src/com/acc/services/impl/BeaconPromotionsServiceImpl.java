@@ -9,7 +9,6 @@ import de.hybris.platform.core.model.user.UserModel;
 import de.hybris.platform.promotions.model.AbstractPromotionModel;
 import de.hybris.platform.promotions.model.PromotionUserRestrictionModel;
 import de.hybris.platform.servicelayer.dto.converter.Converter;
-import de.hybris.platform.servicelayer.exceptions.ModelNotFoundException;
 import de.hybris.platform.servicelayer.user.UserService;
 
 import java.util.ArrayList;
@@ -150,13 +149,14 @@ public class BeaconPromotionsServiceImpl implements BeaconPromotionsService
 			}
 			else
 			{
-				throw new ModelNotFoundException("UID not found!");
+				throw new Exception("UID not found!");
 
 			}
 		}
 		catch (final Exception e)
 		{
-			LOG.error("Invalid EmailId, please try again", e);
+			LOG.error(e.getMessage());
+			LOG.error("Invalid EmailId, please try again");
 
 		}
 		return promotionDataList;
