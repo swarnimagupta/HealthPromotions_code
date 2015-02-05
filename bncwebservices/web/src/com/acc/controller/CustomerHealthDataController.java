@@ -48,7 +48,7 @@ public class CustomerHealthDataController extends BaseController
 	@Autowired
 	private CustomerHealthDataService customerHealthDataService;
 
-	@RequestMapping(method = RequestMethod.PUT)
+	@RequestMapping(value = "/saveCustomerHealthData", method = RequestMethod.POST)
 	@ResponseBody
 	public String saveCustomerHeathData(final HttpServletRequest request) throws IOException, ParseException
 	{
