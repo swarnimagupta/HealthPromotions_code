@@ -3,8 +3,7 @@
  */
 package com.acc.dao;
 
-import de.hybris.platform.core.model.user.CustomerModel;
-import de.hybris.platform.promotions.model.PromotionUserRestrictionModel;
+import de.hybris.platform.promotions.model.AbstractPromotionModel;
 
 import java.util.List;
 
@@ -25,7 +24,7 @@ public interface BeaconPromotionsDao
 	 */
 	public BeaconModel getBeaconById(final String beaconId, final String majorId, final String minorId);
 
-	public List<PromotionUserRestrictionModel> getCustomerHeathPromotionData(final List<String> pkList);
+	public List<AbstractPromotionModel> getCustomerHeathPromotionData(final List<String> pkList);
 
-	public CustomerModel CheckEmailId(String emailId);
+
 }

@@ -3,8 +3,7 @@
  */
 package com.acc.dao.impl;
 
-import de.hybris.platform.core.model.user.CustomerModel;
-import de.hybris.platform.promotions.model.PromotionUserRestrictionModel;
+import de.hybris.platform.promotions.model.AbstractPromotionModel;
 import de.hybris.platform.servicelayer.internal.dao.AbstractItemDao;
 import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
 import de.hybris.platform.servicelayer.search.SearchResult;
@@ -49,7 +48,7 @@ public class BeaconPromotionsDaoImpl extends AbstractItemDao implements BeaconPr
 	 * @see com.acc.dao.BeaconPromotionsDao#saveCustomerHeathPromotionData(java.lang.String)
 	 */
 	@Override
-	public List<PromotionUserRestrictionModel> getCustomerHeathPromotionData(final List<String> pkList)
+	public List<AbstractPromotionModel> getCustomerHeathPromotionData(final List<String> pkList)
 	{
 
 		LOG.info("::::::::::customerHealthDataModel :::::::::");
@@ -66,9 +65,8 @@ public class BeaconPromotionsDaoImpl extends AbstractItemDao implements BeaconPr
 			}
 			str.append("{users} like '%" + string + "%'");
 		}
-		final FlexibleSearchQuery query = new FlexibleSearchQuery("select {pk} from {promotionuserrestriction} where " + str);
-
-		final SearchResult<PromotionUserRestrictionModel> result = getFlexibleSearchService().search(query);
+		final FlexibleSearchQuery query = new FlexibleSearchQuery("select {promotion} from {promotionuserrestriction} where " + str);
+		final SearchResult<AbstractPromotionModel> result = getFlexibleSearchService().search(query);
 
 		LOG.info("*****inside beaconpromotionsdaoimpl***************" + result);
 
@@ -77,14 +75,5 @@ public class BeaconPromotionsDaoImpl extends AbstractItemDao implements BeaconPr
 
 	}
 
-	@Override
-	public CustomerModel CheckEmailId(final String emailId)
-	{
-		final FlexibleSearchQuery flexibleQuery = new FlexibleSearchQuery("select {pk} from {Customer} where {uid} like '"
-				+ emailId + "%'");
-		final SearchResult<CustomerModel> result = getFlexibleSearchService().search(flexibleQuery);
-		return result != null && CollectionUtils.isNotEmpty(result.getResult()) ? result.getResult().get(0) : null;
-
-	}
 
 }

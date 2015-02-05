@@ -12,7 +12,6 @@ import de.hybris.platform.commercefacades.product.ProductOption;
 import de.hybris.platform.commercefacades.product.data.ProductData;
 import de.hybris.platform.core.model.product.ProductModel;
 import de.hybris.platform.servicelayer.dto.converter.Converter;
-import de.hybris.platform.servicelayer.exceptions.ModelNotFoundException;
 import de.hybris.platform.servicelayer.exceptions.UnknownIdentifierException;
 
 import java.util.ArrayList;
@@ -104,33 +103,28 @@ public class ProductLocationServiceImpl implements ProductLocationService
 		List<ProductModel> productList = new ArrayList<ProductModel>();
 		ProductData product = new ProductData();
 		final List<ProductData> productData = new ArrayList<ProductData>();
+
+
 		LOG.info("######inside ProductLocationServiceImpl########## " + getProductLocationDao().getProductsForBeaconId(beaconId));
 
-		try
+
+		productList = getProductLocationDao().getProductsForBeaconId(beaconId);
+
+		if (CollectionUtils.isNotEmpty(productList))
 		{
-
-
-			productList = getProductLocationDao().getProductsForBeaconId(beaconId);
-
-			if (CollectionUtils.isNotEmpty(productList))
+			for (final ProductModel model : productList)
 			{
-				for (final ProductModel model : productList)
-				{
-					product = productConverter.convert(model);
-					productData.add(product);
-
-				}
-			}
-			else
-			{
-				throw new ModelNotFoundException("Invalid BeaconID!");
+				product = productConverter.convert(model);
+				productData.add(product);
 
 			}
 		}
-		catch (final Exception e)
+		else
 		{
-			LOG.error("Invalid beaconID, please try again", e);
+			LOG.error("Invalid beaconID, please try again");
+
 		}
+
 
 		return productData;
 

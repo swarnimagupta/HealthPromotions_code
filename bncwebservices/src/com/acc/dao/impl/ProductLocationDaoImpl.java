@@ -11,11 +11,12 @@ import de.hybris.platform.catalog.model.CatalogModel;
 import de.hybris.platform.catalog.model.CatalogVersionModel;
 import de.hybris.platform.core.model.product.ProductModel;
 import de.hybris.platform.servicelayer.internal.dao.AbstractItemDao;
-import de.hybris.platform.servicelayer.search.FlexibleSearchQuery;
 import de.hybris.platform.servicelayer.search.SearchResult;
 import de.hybris.platform.servicelayer.user.UserService;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,22 +41,6 @@ public class ProductLocationDaoImpl extends AbstractItemDao implements ProductLo
 	private CatalogService catalogService;
 
 
-	/**
-	 * @return the catalogService
-	 */
-	public CatalogService getCatalogService()
-	{
-		return catalogService;
-	}
-
-	/**
-	 * @param catalogService
-	 *           the catalogService to set
-	 */
-	public void setCatalogService(final CatalogService catalogService)
-	{
-		this.catalogService = catalogService;
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -73,20 +58,26 @@ public class ProductLocationDaoImpl extends AbstractItemDao implements ProductLo
 	@Override
 	public List<ProductModel> getProductsForBeaconId(final String beaconId)
 	{
-
+		final Map<String, Object> params = new HashMap<String, Object>();
 		final CatalogVersionModel catalogVersion = getPresentCatalogVersion();
-		final String Catalog = catalogVersion.getPk().toString();
-		final FlexibleSearchQuery flexibleQuery = new FlexibleSearchQuery("select {pk} from {Product} where {beaconID}='"
-				+ beaconId + "' and {catalogversion}='" + Catalog + "'");
+		final String catalog = catalogVersion.getPk().toString();
+		final StringBuilder fQuery = new StringBuilder();
+		fQuery.append("SELECT {").append(ProductModel.PK).append("} ");
+		fQuery.append("FROM {").append(ProductModel._TYPECODE).append("} ");
+		fQuery.append("WHERE {").append(ProductModel.BEACONID).append("}");
+		fQuery.append(" = ?beaconId ");
+		fQuery.append("and");
+		fQuery.append("{").append(ProductModel.CATALOGVERSION).append("}");
+		fQuery.append(" = ?catalog ");
+		params.put("beaconId", beaconId);
+		params.put("catalog", catalog);
 
-		flexibleQuery.setUser(userService.getAdminUser());
 		catalogVersionService.setSessionCatalogVersion("electronicsProductCatalog", "Online");
+		LOG.info("catalog version" + catalogVersionService.getSessionCatalogVersionForCatalog("electronicsProductCatalog"));
+		LOG.info("#########inside productLocationDaoImpl#########" + fQuery);
 
-		LOG.info("#########inside productLocationDaoImpl#########" + flexibleQuery);
-		
-		final SearchResult<ProductModel> result = getFlexibleSearchService().search(flexibleQuery);
+		final SearchResult<ProductModel> result = search(fQuery.toString(), params);
 
-		LOG.info("#########inside productLocationDaoImpl#########" + result.getResult().get(0).getLocation());
 
 		return result.getResult();
 	}
@@ -99,20 +90,26 @@ public class ProductLocationDaoImpl extends AbstractItemDao implements ProductLo
 	@Override
 	public List<ProductModel> findProductsByCode(final String code)
 	{
-
+		final Map<String, Object> params = new HashMap<String, Object>();
 		final CatalogVersionModel catalogVersion = getPresentCatalogVersion();
-		final String Catalog = catalogVersion.getPk().toString();
-
+		final String catalog = catalogVersion.getPk().toString();
+		final StringBuilder fQuery = new StringBuilder();
 		validateParameterNotNull(code, "Product code must not be null!");
-		final FlexibleSearchQuery flexibleQuery = new FlexibleSearchQuery("select {pk} from {Product} where {code}='" + code
-				+ "' and {catalogversion}='" + Catalog + "'");
+		fQuery.append("SELECT {").append(ProductModel.PK).append("} ");
+		fQuery.append("FROM {").append(ProductModel._TYPECODE).append("} ");
+		fQuery.append("WHERE {").append(ProductModel.CODE).append("}");
+		fQuery.append(" = ?code ");
+		fQuery.append("and");
+		fQuery.append("{").append(ProductModel.CATALOGVERSION).append("}");
+		fQuery.append(" = ?catalog ");
+		params.put("code", code);
+		params.put("catalog", catalog);
 
-		flexibleQuery.setUser(userService.getAdminUser());
 		catalogVersionService.setSessionCatalogVersion("electronicsProductCatalog", "Online");
 
-		LOG.info("##insidefindProductsByCode##findProductsByCode###" + flexibleQuery);
-	
-		final SearchResult<ProductModel> result = getFlexibleSearchService().search(flexibleQuery);
+		LOG.info("##insidefindProductsByCode##findProductsByCode###" + fQuery);
+
+		final SearchResult<ProductModel> result = search(fQuery.toString(), params);
 
 		LOG.info("####inside findProductsByCode#####findProductsByCode###" + result.getResult().get(0).getLocation());
 

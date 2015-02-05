@@ -7,7 +7,6 @@ import de.hybris.platform.commercefacades.product.data.PromotionData;
 import de.hybris.platform.core.model.security.PrincipalGroupModel;
 import de.hybris.platform.core.model.user.UserModel;
 import de.hybris.platform.promotions.model.AbstractPromotionModel;
-import de.hybris.platform.promotions.model.PromotionUserRestrictionModel;
 import de.hybris.platform.servicelayer.dto.converter.Converter;
 import de.hybris.platform.servicelayer.user.UserService;
 
@@ -118,47 +117,39 @@ public class BeaconPromotionsServiceImpl implements BeaconPromotionsService
 
 		final PromotionDataList promotionDataList = new PromotionDataList();
 
-		try
+
+
+		final UserModel user = userService.getUserForUID(emailId);
+		if (user != null)
 		{
-			if (beaconPromotionsDao.CheckEmailId(emailId) != null)
+
+			LOG.info("###########user###########" + user);
+			final Set<PrincipalGroupModel> sets = user.getAllGroups();
+			LOG.info("allgroups******************" + sets);
+			final List<String> pkList = new ArrayList<String>();
+			for (final PrincipalGroupModel principalGroup : sets)
 			{
+				pkList.add(principalGroup.getPk().toString());
+			}
+			final List<AbstractPromotionModel> restrictionList = getBeaconPromotionsDao().getCustomerHeathPromotionData(pkList);
 
-				final UserModel user = userService.getUserForUID(emailId);
-
-				LOG.info("###########user###########" + user);
-				final Set<PrincipalGroupModel> sets = user.getAllGroups();
-				LOG.info("allgroups******************" + sets);
-				final List<String> pkList = new ArrayList<String>();
-				for (final PrincipalGroupModel principalGroup : sets)
-				{
-					pkList.add(principalGroup.getPk().toString());
-				}
-				final List<PromotionUserRestrictionModel> restrictionList = getBeaconPromotionsDao().getCustomerHeathPromotionData(
-						pkList);
-
-				for (final PromotionUserRestrictionModel promotion : restrictionList)
-				{
-					final AbstractPromotionModel promotionOnEmailID = promotion.getPromotion();
-					promotionData = promotionsConverter.convert(promotionOnEmailID);
-					promotionList.add(promotionData);
-
-				}
-
-				promotionDataList.setPromotions(promotionList);
+			for (final AbstractPromotionModel promotion : restrictionList)
+			{
+				promotionData = promotionsConverter.convert(promotion);
+				promotionList.add(promotionData);
 
 			}
-			else
-			{
-				throw new Exception("UID not found!");
 
-			}
+			promotionDataList.setPromotions(promotionList);
+
 		}
-		catch (final Exception e)
+		else
 		{
-			LOG.error(e.getMessage());
 			LOG.error("Invalid EmailId, please try again");
 
 		}
+
+
 		return promotionDataList;
 	}
 }
