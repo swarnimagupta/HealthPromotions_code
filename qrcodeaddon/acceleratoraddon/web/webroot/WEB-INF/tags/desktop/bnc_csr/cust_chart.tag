@@ -1,18 +1,37 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+
 <div class="chart">
 	<div class="ichrt">
 		<div><img src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_images/new/sixty.png"/></div>
-		<div class="chrtt">60% - Queued</div>
-	</div>
+		<c:url value="/customerlist/customerdeatils" var="queuedURL">
+				<c:param name="status" value="LOGGEDIN"></c:param>
+			</c:url>
+		<div class="chrtt"><a href="${queuedURL}"  style="text-decoration: none;color:#6f6f6f;">60%-Queued</a></div>
+		
+		
+		</div>
+	
 	<div class="ichrt">
 		<div><img src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_images/new/twenty.png"/></div>
-		<div class="chrtt">20% - Active</div>
+		<c:url value="/customerlist/customerdeatils" var="activeURL">
+				<c:param name="status" value="INSERVICE"></c:param>
+			</c:url>
+		
+		<div class="chrtt"><a href="${activeURL}" style="text-decoration: none;color:#6f6f6f;">20%-Active</a></div>
+		
 	</div>
 	<div class="ichrt">
 		<div><img src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_images/new/nine.png"/></div>
-		<div class="chrtt">9% - Serviced</div>
+		<c:url value="/customerlist/customerdeatils" var="servicedURL">
+				<c:param name="status" value="COMPLETED"></c:param>
+			</c:url>
+				
+		<div class="chrtt"><a href="${servicedURL}"  style="text-decoration: none;color:#6f6f6f;">9%-Serviced</a></div>
+		
+		
 	</div>
 	<div class="ichrt">
 		<div><img src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_images/new/forty.png"/></div>
