@@ -120,27 +120,7 @@ public class PickInStoreOrdersListPageController extends AbstractAddOnPageContro
 		return ControllerConstants.Views.Pages.Account.ordersListPage;
 	}
 
-	@SuppressWarnings("boxing")
-	@RequestMapping(value = ORDERS, method = RequestMethod.GET, produces = "application/json")
-	public String getAjaxOrdersList(final Model model, final HttpServletRequest request, final HttpServletResponse response)
-			throws CMSItemNotFoundException
-	{
-		final List<CollectOrderData> collectOrderDataList = customerCollectOrderFacade.getCollectOrders();
-		model.addAttribute("Queued", getStatusCount(collectOrderDataList, CollectOrderStatus.PENDING));
-		model.addAttribute("Active", getStatusCount(collectOrderDataList, CollectOrderStatus.COMPLETED));
-		model.addAttribute("Serviced", getStatusCount(collectOrderDataList, CollectOrderStatus.COLLECTED));
-		final String status = request.getParameter("status");
-		final List<CollectOrderData> collectOrderDataForStatusList = customerCollectOrderFacade
-				.getCollectOrdersByStatus(StringUtils.isNotEmpty(status) ? status : CollectOrderStatus.PENDING.toString());
-		model.addAttribute("collectOrdersDataList", collectOrderDataForStatusList);
-		final OrderData orderData = CollectionUtils.isEmpty(collectOrderDataForStatusList) ? new OrderData()
-				: customerCollectOrderFacade.getOrderDetailsForCode(collectOrderDataForStatusList.get(0).getOrderId());
-		model.addAttribute("orderData", orderData);
-		model.addAttribute("collectOrderStatusList", BnCGenericUtil.getStatusList());
-		model.addAttribute("collectOrderData", CollectionUtils.isEmpty(collectOrderDataForStatusList) ? new CollectOrderData()
-				: customerCollectOrderFacade.getCollectOrderByOrderCode(collectOrderDataForStatusList.get(0).getOrderId()));
-		return ControllerConstants.Views.Fragments.Cart.OrdersListFragmentPage;
-	}
+	
 
 
 	@RequestMapping(value = ORDER + ORDER_CODE_PATH_VARIABLE_PATTERN, method = RequestMethod.GET, produces = "application/json")

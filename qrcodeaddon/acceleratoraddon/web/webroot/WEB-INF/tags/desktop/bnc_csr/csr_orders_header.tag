@@ -15,7 +15,7 @@
 <div id="head">
 	<div class="contain_block">
 		<div id="menu_top"><a href="javascript:void(0);" class="mClose">Menu</a></div>
-		<div class="sitename">CSR Dashboard</div>
+		<div class="sitename">Order Dashboard</div>
 		<div class="username_blk">
 			<div class="reminder">
 				<div class="bell"> <span class="remind_round" id="bell_number">${Queued}</span> </div>

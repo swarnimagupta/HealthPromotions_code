@@ -54,7 +54,7 @@ public class StoreCustomerDaoImpl extends AbstractItemDao implements StoreCustom
 
 
 		final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		final SimpleDateFormat sdf1 = new SimpleDateFormat("dd.MM.yyyy hh:mm aa");
+		final SimpleDateFormat sdf1 = new SimpleDateFormat("MM/dd/yyyy hh:mm aa");
 		String fDate = null;
 		String tDate = null;
 		SearchResult<CSRCustomerDetailsModel> result = null;

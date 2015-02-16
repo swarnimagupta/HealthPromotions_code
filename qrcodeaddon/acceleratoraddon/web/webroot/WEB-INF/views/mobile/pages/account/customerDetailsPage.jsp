@@ -136,6 +136,21 @@
 		setTimeout(function () {window.location.href="${contextPath}/customerlist/customerdeatils?size="+'${Queued}'+"&status="+'${param.status}';}, 60000);
 	});
 	</script>
+	<script src="${commonResourcePath}/../../addons/qrcodeaddon/mobile/common/bnc_js/jquery.knob.js"></script>
+	<style>
+	.circle_progress_bar{font:normal 20px Arial!important; text-align: center; color:#626262!important; }
+	</style>
+	<script type="text/javascript">
+		$(window).load(function(){
+		$(".dial").knob({
+			readOnly: true,
+			fgColor: "#13ccde",
+			bgColor: "#efefef",
+			thickness: 0.20
+						});
+	});
+	
+	</script>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 		<title>Customers Dashboard</title>

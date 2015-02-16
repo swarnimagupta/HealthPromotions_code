@@ -1,6 +1,30 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<div class="chart">
+	<div class="ichrt">
+		<div><img src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_images/new/sixty.png"/></div>
+		<div class="chrtt">60% - Queued</div>
+	</div>
+	<div class="ichrt">
+		<div><img src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_images/new/twenty.png"/></div>
+		<div class="chrtt">20% - Active</div>
+	</div>
+	<div class="ichrt">
+		<div><img src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_images/new/nine.png"/></div>
+		<div class="chrtt">9% - Serviced</div>
+	</div>
+	<div class="ichrt">
+		<div><img src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_images/new/forty.png"/></div>
+		<div class="chrtt">40% - Target</div>
+	</div>
+</div>
+	
+	
+	
+	
+
+<%-- 
 <div class="chart_block">
 	<c:choose>
 		<c:when test="${param.status=='INSERVICE'}">
@@ -20,7 +44,7 @@
 		</c:otherwise>
 	</c:choose>
 	<div class="diagram_block${queuedCurrent}">
-		<div id="diagram-id-1" class="diagram" data-percent="${Queued}"></div>
+		<input type="text" class="dial circle_progress_bar" value="${Queued}" readonly="readonly" />
 		<div class="digram_txt">
 			<c:url value="/customerlist/customerdeatils" var="queuedURL">
 				<c:param name="status" value="LOGGEDIN"></c:param>
@@ -29,7 +53,7 @@
 		</div>
 	</div>
 	<div class="diagram_block${activeCurrent}">
-		<div id="diagram-id-2" class="diagram" data-percent="${Active}"></div>
+		<input type="text" class="dial circle_progress_bar" value="${Active}" readonly="readonly" />
 		<div class="digram_txt">
 			<c:url value="/customerlist/customerdeatils" var="activeURL">
 				<c:param name="status" value="INSERVICE"></c:param>
@@ -38,7 +62,7 @@
 		</div>
 	</div>
 	<div class="diagram_block${servicedCurrent}">
-		<div id="diagram-id-3" class="diagram" data-percent="${Serviced}"></div>
+		<input type="text" class="dial circle_progress_bar" value="${Serviced}" readonly="readonly" />
 		<div class="digram_txt">
 			<c:url value="/customerlist/customerdeatils" var="servicedURL">
 				<c:param name="status" value="COMPLETED"></c:param>
@@ -52,7 +76,7 @@
 		<c:if test="${Serviced==0 or  Total==0}">
 			<fmt:formatNumber var="target" value="0" maxFractionDigits="0"/>
 		</c:if>
-		<div id="diagram-id-4" class="diagram" data-percent="${target}%"></div>
+		<input type="text" class="dial circle_progress_bar" value="${target}%" readonly="readonly" />
 		<div class="digram_txt">Target</div>
-	</div>
-</div>
+	</div> --%>
+

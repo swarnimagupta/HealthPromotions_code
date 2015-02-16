@@ -38,6 +38,11 @@
 		<value>COLLECTED</value>
 	</enum>
 	
+	<enum class="de.hybris.platform.commercefacades.product.ProductOption">
+		<value>IMAGES</value>
+		<value>URL</value>
+	</enum>
+	
 	
 	<bean class="com.acc.facades.CSRCustomerDetails.data.CSRCustomerDetailsData">
 		<property name="pk" type="String"/>

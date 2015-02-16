@@ -1,22 +1,19 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib prefix="formElement"
-	tagdir="/WEB-INF/tags/desktop/formElement"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib prefix="theme" tagdir="/WEB-INF/tags/shared/theme"%>
-<%@ taglib prefix="ycommerce" uri="http://hybris.com/tld/ycommercetags"%>
-<%@ taglib prefix="template" tagdir="/WEB-INF/tags/desktop/template"%>
-<%@ taglib prefix="breadcrumb"
-	tagdir="/WEB-INF/tags/desktop/nav/breadcrumb"%>
-<%@ taglib prefix="cms" uri="http://hybris.com/tld/cmstags"%>
-<%@ taglib prefix="common" tagdir="/WEB-INF/tags/desktop/common"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="bnc" tagdir="/WEB-INF/tags/addons/qrcodeaddon/desktop/bnc_csr" %>
 <!DOCTYPE html>
 <html>
 	<head>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script  src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/jquery.slimscroll.min.js"></script>
+	<script type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/datepicker.js"></script>
+	<script type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/library.js"></script>
+	<script type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/tabModule.js"></script>
+	<script type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/jquery.tinycarousel.min.js"></script>
+	<script type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/slideshow.min.js"></script>
 	<script type="text/javascript">
 	function loadOrderDetails(orderCode)
 	{
@@ -40,8 +37,8 @@
 			data : "customerPK="+customerPK,
 			dataType : 'json',
 			success : function(response) {
-				$("a").removeClass("current");
-				$("#"+customerPK).addClass("current");
+				$("a").removeClass("active");
+				$("#"+customerPK).addClass("active");
 				$("#customer_details_block").html(response.customer_details);
 			},
 			error : function(e) {
@@ -81,20 +78,20 @@
 	{
 		
 		
-		var fdate = document.getElementById('searchTimeBarFromDate').value;
-		var tdate = document.getElementById('searchTimeBarToDate').value;
+		var fdate = document.getElementById('datepicker').value;
+		var tdate = document.getElementById('datepicker1').value;
 		var ftime = document.getElementById('searchTimeBarFromTime').value;
 		var ttime = document.getElementById('searchTimeBarToTime').value;
 		if (fdate =='' ) 
 		{ 
 			alert("Please enter the from Date!");
-			document.getElementById('searchTimeBarFromDate').focus();
+			document.getElementById('datepicker').focus();
 			return false;
 		}
 		if (tdate =='' ) 
 		{ 
 			alert("Please enter the to Date!");
-			document.getElementById('searchTimeBarToDate').focus();
+			document.getElementById('datepicker1').focus();
 			return false;
 		}
 		if (ftime =='' ) 
@@ -133,40 +130,40 @@
 	}
 	
 	$(document).ready(function() {
-		setTimeout(function () {window.location.href="${contextPath}/customerlist/customerdeatils?size="+'${Queued}'+"&status="+'${param.status}';}, 60000);
+		setTimeout(function () {window.location.href="${contextPath}/customerlist/customerdeatils?size="+'${Queued}'+"&status="+'${param.status}';}, 30000);
 	});
 	</script>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-		<title>Customers Dashboard</title>
-		<link type="text/css" rel="stylesheet" href="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_css/style.css" />
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+	<title>Customers Dashboard</title>
+	<link type="text/css" rel="stylesheet" href="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_css/style_new.css" />
 	</head>
 	<body>
-		<div id="main_wrapper" style="position: relative">
-			<bnc:csr_customers_header/>
-			<div class="clearboth"></div>
-			<!--Content Starts here-->
-			<div id="main_content_blk">
-				<div class="top_banner">
-					<bnc:cust_chart/>
-					<div class="clearboth"></div>
-					<bnc:cust_dateTime/>
-				</div>
-				
-				<div class="clearboth"></div>
-				<div class="inner_content_blk">
-					<div class="left_block bigger_menu" id="customer_list_block">
-						<bnc:customerslist/>
-					</div>
-					<div class="right_block smaller_blovk" id="customer_details_block">
-							<!--------Personal Details Table Will go here-------->
-							
-					</div>
-					<div class="clearboth"></div>
-					<div id ="customerByTimeDivId"></div>
+		<bnc:csr_customers_header/>
+		<div class="clearboth"></div>
+		<!--Content Starts here-->
+		<div class="cnt">
+			<!--Left Menu Area Starts here-->
+			<div class="cntl" id="customer_list_block">
+				<bnc:customerslist/>
+			</div>
+			<!--Left Menu Area Ends here-->
+			<div class="cntr">
+				<bnc:cust_chart/>
+				<bnc:cust_dateTime/>
+				<div id="customer_details_block">
+					<!-- Customer Details will go here -->
 				</div>
 			</div>
-			<c:if test="${not empty param.size && Queued!=param.size}">
+		</div>
+		<!--Content Ends here-->
+		<!--Footer Area Starts here-->
+  		<div class="ftr"> © Accenture 2015, All Rights Reserved.</div>
+  		<!--Footer Area Ends here-->
+
+		<!-- Script includes -->
+		<script src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/launcher.js"></script>
+		<c:if test="${not empty param.size && Queued!=param.size}">
 			<script type="text/javascript">
 				var audio = {};
 				audio["walk"] = new Audio();
@@ -175,9 +172,5 @@
 				document.getElementById("bell_number").innerHTML = ${Queued};
 			</script>
 		</c:if>
-			<!--Content Ends here-->
-			<script src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/jquery.diagram.js"></script>
-			<script src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/script.js"></script>
-		</div>
 	</body>
 </html>

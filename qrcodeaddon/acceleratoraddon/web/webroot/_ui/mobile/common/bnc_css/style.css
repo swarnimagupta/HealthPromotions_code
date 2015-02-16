@@ -31,7 +31,8 @@ display:block; text-align:center; margin-left:10px; font:normal 16px Arial, Helv
 #main_content_blk .top_banner{height:auto;}
 #main_content_blk .top_banner .chart_block{ background:#fbfbfb; border-bottom:2px solid #f3f3f3; float:left; width:100%; padding:0;}
 #main_content_blk .top_banner .chart_block .diagram{ margin-left:12%;}
-#main_content_blk .top_banner .chart_block .diagram_block{ width:9.9%; float:left; margin:3% 7.5% 0; padding-bottom:3.5%}
+#main_content_blk .top_banner .chart_block .diagram_block{float: left; margin: 3% 7.5% 0; padding-bottom: 3.5%;width: 9.9%;}
+canvas{margin-left:10px;}
 #main_content_blk .top_banner .chart_block .diagramcurrent{ border-bottom:5px solid #b9e753;}
 #main_content_blk .top_banner .chart_block .diagram_block .digram_txt{ text-align:center; color:#6f6f6f; font:normal 18px Arial, Helvetica, sans-serif; margin-top:10px;}
 

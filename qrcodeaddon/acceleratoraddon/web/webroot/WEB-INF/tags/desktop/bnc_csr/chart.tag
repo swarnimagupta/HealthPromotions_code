@@ -20,7 +20,7 @@
 		</c:otherwise>
 	</c:choose>
 	<div class="diagram_block${queuedCurrent}">
-		<div id="diagram-id-1" class="diagram" data-percent="${Queued}"></div>
+		<input type="text" class="dial circle_progress_bar" value="${Queued}" readonly="readonly" />
 		<div class="digram_txt">
 			<c:url value="/orderslist/vieworders" var="queuedURL">
 				<c:param name="status" value="PENDING"></c:param>
@@ -29,7 +29,7 @@
 		</div>
 	</div>
 	<div class="diagram_block${activeCurrent}">
-		<div id="diagram-id-2" class="diagram" data-percent="${Active}"></div>
+		<input type="text" class="dial circle_progress_bar" value="${Active}" readonly="readonly" />
 		<div class="digram_txt">
 			<c:url value="/orderslist/vieworders" var="activeURL">
 				<c:param name="status" value="COMPLETED"></c:param>
@@ -38,7 +38,7 @@
 		</div>
 	</div>
 	<div class="diagram_block${servicedCurrent}">
-		<div id="diagram-id-3" class="diagram" data-percent="${Serviced}"></div>
+		<input type="text" class="dial circle_progress_bar" value="${Serviced}" readonly="readonly" />
 		<div class="digram_txt">
 			<c:url value="/orderslist/vieworders" var="servicedURL">
 				<c:param name="status" value="COLLECTED"></c:param>
@@ -52,7 +52,7 @@
 		<c:if test="${Serviced==0 or  Total==0}">
 			<fmt:formatNumber var="target" value="0" maxFractionDigits="0"/>
 		</c:if>
-		<div id="diagram-id-4" class="diagram" data-percent="${target}%"></div>
+		<input type="text" class="dial circle_progress_bar" value="${target}%" readonly="readonly" />
 		<div class="digram_txt">Target</div>
 	</div>
 </div>

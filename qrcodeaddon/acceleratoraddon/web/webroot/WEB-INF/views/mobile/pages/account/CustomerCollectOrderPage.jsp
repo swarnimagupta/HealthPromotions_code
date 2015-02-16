@@ -14,7 +14,7 @@
 
 <template:page pageTitle="${pageTitle}">
 <jsp:body>
-<nav:myaccountNav/>
+<nav:accountNav selected="customerpickuporders" />
 	<div data-theme="e" class="item_container_holder account-order-history">
 	<div id="globalMessages" data-theme="e">
 				<common:globalMessages />

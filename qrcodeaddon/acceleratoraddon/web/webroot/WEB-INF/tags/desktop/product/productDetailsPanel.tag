@@ -81,7 +81,7 @@
 			data : "code="+'${product.code}',
 			dataType : 'json',
 			success : function(response) {
-				alert("success");
+				//success
 			},
 			error : function(e) {
 				alert("error");

@@ -9,6 +9,7 @@ import de.hybris.platform.core.model.user.UserModel;
 import de.hybris.platform.servicelayer.dto.converter.ConversionException;
 import de.hybris.platform.servicelayer.user.UserService;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.acc.facades.CSRCustomerDetails.data.CSRCustomerDetailsData;
@@ -23,7 +24,6 @@ import com.accenture.model.CSRCustomerDetailsModel;
 public class CSRCustomerDetailsPopulator implements Populator<CSRCustomerDetailsModel, CSRCustomerDetailsData>
 {
 
-	final String contextPath = "/bncstorefront/_ui/desktop/common/images/Dummy.jpg";
 	@Autowired
 	private UserService userService;
 
@@ -46,7 +46,7 @@ public class CSRCustomerDetailsPopulator implements Populator<CSRCustomerDetails
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see de.hybris.platform.converters.Populator#populate(java.lang.Object, java.lang.Object)
 	 */
 	@Override
@@ -66,7 +66,7 @@ public class CSRCustomerDetailsPopulator implements Populator<CSRCustomerDetails
 			if (userModel instanceof CustomerModel)
 			{
 				final CustomerModel customerModel = (CustomerModel) userModel;
-				target.setProfilePictureURL((null == customerModel.getProfilePicture() ? contextPath : customerModel
+				target.setProfilePictureURL((null == customerModel.getProfilePicture() ? StringUtils.EMPTY : customerModel
 						.getProfilePicture().getURL2()));
 			}
 

@@ -11,11 +11,6 @@ $product=product(code, $productCV)
 $category=category(code, $productCV)
 
 
-############## Template ########################
-# Modifying front end template name
-# for desktop
-INSERT_UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];name;frontendTemplateName;restrictedPageTypes(code);active[default=true]
-;;ProductDetailsPageTemplate;Product Details Page Template;addon:/qrcodeaddon/pages/product/productLayout2Page;ProductPage
 
 ########### Component #############
 insert_update UCOIDOnOrderConfirmationComponent;catalogVersion(catalog(id),version)[unique=true,allownull=true];name;onlyOneRestrictionMustApply[allownull=true];uid[unique=true,allownull=true];visible[allownull=true]
@@ -57,3 +52,10 @@ insert_update ContentSlot;active[allownull=true];catalogVersion(catalog(id),vers
 
 insert_update ContentSlotForPage;catalogVersion(catalog(id),version)[unique=true,allownull=true];contentSlot(catalogVersion(catalog(id),version),uid)[allownull=true];page(catalogVersion(catalog(id),version),uid)[allownull=true];position[allownull=true];uid[unique=true,allownull=true]
 ;electronicsContentCatalog:Staged;electronicsContentCatalog:Staged:account-collectorderhistoryparacomponentslot;electronicsContentCatalog:Staged:account;TopContent;account-collectorderhistoryparacomponentCFP
+
+############## Template ########################
+# Modifying front end template name
+# for desktop
+INSERT_UPDATE PageTemplate;$contentCV[unique=true];uid[unique=true];name;frontendTemplateName;restrictedPageTypes(code);active[default=true]
+;;ProductDetailsPageTemplate;Product Details Page Template;addon:/qrcodeaddon/pages/product/productLayout2Page;ProductPage
+;;ProductListPageTemplate;Product List Page Template;addon:/qrcodeaddon/pages/product/productListPage;CategoryPage
