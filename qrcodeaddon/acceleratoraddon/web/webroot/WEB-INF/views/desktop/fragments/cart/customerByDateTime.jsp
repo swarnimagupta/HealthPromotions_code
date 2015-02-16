@@ -24,15 +24,16 @@
 						<div class="fl pdg">
 							${logedInUser.customerName}<br/>
 							<span class="time">
-								Logged in by ${logedInUser.loginTime}
+								<fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${logedInUser.loginTime}"/>
 							</span>
-							<c:if test="${logedInUser.status=='INSERVICE' || logedInUser.status=='COMPLETED'}">
-								<br>
-								<span class="time">
-									${logedInUser.status} assisted by ${logedInUser.processedBy}
-								</span>
-							</c:if>
 						</div>
+						<br>
+						<c:if test="${logedInUser.status=='INSERVICE' || logedInUser.status=='COMPLETED'}">
+						<br><br>
+							<span class="time">
+								${logedInUser.status} assisted by ${logedInUser.processedBy}
+							</span>
+						</c:if>
 					</a>
 				</li>
 			</c:forEach>

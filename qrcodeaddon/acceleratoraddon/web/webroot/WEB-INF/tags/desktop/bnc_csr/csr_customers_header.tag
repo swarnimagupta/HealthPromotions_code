@@ -59,7 +59,7 @@
 			</a>
 			<div class="ddmenu">
 				<ul class="ddmenuul">
-					<li><a href="#">Signout</a></li>
+					<li><a href="<c:url value='/logout'/>">Signout</a></li>
 				</ul>
 			</div>
 		</div>

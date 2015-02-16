@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="json" uri="http://www.atg.com/taglibs/json" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <json:object>
 	<json:property name="searchby_customername" escapeXml="false">
 		<div class="srch"><input type="text" value="" placeholder="Search" class="inpt" id="customername" onblur="javascript:searchByCustomerName();"/></div>
@@ -22,15 +23,16 @@
 						<div class="fl pdg">
 							${logedInUser.customerName}<br/>
 							<span class="time">
-								Logged in by ${logedInUser.loginTime}
+								<fmt:formatDate type="both" dateStyle="short" timeStyle="short" value="${logedInUser.loginTime}"/>
 							</span>
-							<c:if test="${logedInUser.status=='INSERVICE' || logedInUser.status=='COMPLETED'}">
-								<br>
-								<span class="time">
-									${logedInUser.status} assisted by ${logedInUser.processedBy}
-								</span>
-							</c:if>
 						</div>
+						<br>
+						<c:if test="${logedInUser.status=='INSERVICE' || logedInUser.status=='COMPLETED'}">
+						<br><br>
+							<span class="time">
+								${logedInUser.status} assisted by ${logedInUser.processedBy}
+							</span>
+						</c:if>
 					</a>
 				</li>
 			</c:forEach>
