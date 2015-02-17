@@ -26,5 +26,7 @@ public interface BeaconPromotionsDao
 
 	public List<AbstractPromotionModel> getCustomerHeathPromotionData(final List<String> pkList);
 
+	public List<BeaconModel> getBeaconDetails();
+
 
 }

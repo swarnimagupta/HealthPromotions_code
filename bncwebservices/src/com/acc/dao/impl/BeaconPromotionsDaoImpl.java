@@ -75,5 +75,19 @@ public class BeaconPromotionsDaoImpl extends AbstractItemDao implements BeaconPr
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.acc.dao.BeaconPromotionsDao#getBeaconDetails()
+	 */
+	@Override
+	public List<BeaconModel> getBeaconDetails()
+	{
+		LOG.info("*****inside beacondetailsdao***************");
+		final FlexibleSearchQuery flexibleQuery = new FlexibleSearchQuery("select {pk} from {Beacon}");
+		final SearchResult<BeaconModel> result = getFlexibleSearchService().search(flexibleQuery);
+		LOG.info("*****inside beacondetailsdao***************" + result);
+		return result.getResult();
+	}
 
 }

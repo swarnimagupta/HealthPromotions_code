@@ -152,4 +152,33 @@ public class BeaconPromotionsServiceImpl implements BeaconPromotionsService
 
 		return promotionDataList;
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.acc.services.BeaconPromotionsService#getBeaconDetails()
+	 */
+	@Override
+	public List<BeaconData> getBeaconDetails()
+	{
+		// YTODO Auto-generated method stub
+
+		BeaconData beaconData = new BeaconData();
+		final List<BeaconData> beaconList = new ArrayList<BeaconData>();
+		List<BeaconModel> beaconModel = new ArrayList<BeaconModel>();
+		LOG.info("*****inside beacondetailsservice***************");
+		beaconModel = getBeaconPromotionsDao().getBeaconDetails();
+		if (null != beaconModel)
+		{
+			for (final BeaconModel beaconDetails : beaconModel)
+			{
+				beaconData = beaconConverter.convert(beaconDetails);
+				beaconData.setPromotions(null);
+				beaconData.setWelcomeMessage(null);
+				beaconList.add(beaconData);
+				LOG.info("*****inside beacondetailsservice***************" + beaconList.get(0).getMajorId());
+			}
+		}
+		return beaconList;
+	}
 }
