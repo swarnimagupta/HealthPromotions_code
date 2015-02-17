@@ -5,6 +5,7 @@ package com.acc.controller;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletInputStream;
@@ -50,7 +51,7 @@ public class CustomerHealthDataController extends BaseController
 
 	@RequestMapping(value = "/saveCustomerHealthData", method = RequestMethod.POST)
 	@ResponseBody
-	public String saveCustomerHeathData(final HttpServletRequest request) throws IOException, ParseException
+	public List<String> saveCustomerHeathData(final HttpServletRequest request) throws IOException, ParseException
 	{
 		LOG.info("::::::: in saveCustomerHeathData GET request method :::::::" + request.getParameter(HEALTH_DATA));
 		final StringBuffer sbuf = getJsonBodyString(request);
@@ -61,7 +62,9 @@ public class CustomerHealthDataController extends BaseController
 		final String responseString = customerHealthDataService.saveCustomerHealthData(customerHealthData.getCustomerId(),
 				customerHealthData.getHeartBeatRate(), customerHealthData.getBloodPressure(), customerHealthData.getMilesRun(),
 				customerHealthData.getCaloriesBurned(), customerHealthData.getTimeTaken(), customerHealthData.getAge());
-		return "{\"response\":\"" + responseString + "\"}";
+		final List<String> list = new ArrayList<String>();
+		list.add(responseString);
+		return list;
 	}
 
 	/**
