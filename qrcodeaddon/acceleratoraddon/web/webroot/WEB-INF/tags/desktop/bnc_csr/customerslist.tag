@@ -6,7 +6,9 @@
 		if(document.getElementById("currentUserId")!=null)
 		{
 			getCustomerDetails(document.getElementById("currentUserId").value);
-			setTimeout(function () {$("#accordion").accordion();}, 3000);
+			setTimeout(function () {$("#accordion").accordion({
+				active: false,
+				collapsible: true,});}, 5000);
 		}
 	});
 	

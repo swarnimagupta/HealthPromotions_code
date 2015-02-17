@@ -8,6 +8,7 @@
 <html>
 	<head>
 	<script  src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/jquery-1.11.0.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 	<script type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/jquery.slimscroll.min.js"></script>
 	<script type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/datepicker.js"></script>
 	<script type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/library.js"></script>
@@ -65,7 +66,9 @@
 				if(document.getElementById("currentUserId")!=null)
 				{
 					getCustomerDetails(document.getElementById("currentUserId").value);
-					setTimeout(function () {$("#accordion").accordion();}, 3000);
+					setTimeout(function () {$("#accordion").accordion({
+						  active: false,
+						  collapsible: true,});}, 5000);
 				} 
 			},
 			error : function(e) {
@@ -116,7 +119,9 @@
 				if(document.getElementById("currentUserId")!=null)
 				{
 					getCustomerDetails(document.getElementById("currentUserId").value);
-					setTimeout(function () {$("#accordion").accordion();}, 5000);
+					setTimeout(function () {$("#accordion").accordion({
+						  active: false,
+						  collapsible: true,});}, 5000);
 				}
 				else
 				{
