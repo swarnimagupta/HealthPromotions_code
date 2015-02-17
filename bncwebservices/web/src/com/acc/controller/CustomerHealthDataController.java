@@ -57,9 +57,11 @@ public class CustomerHealthDataController extends BaseController
 		LOG.info("::::::: json object string is :::::::" + sbuf);
 		final CustomerHealthData customerHealthData = new CustomerHealthData();
 		getHealthDataFromJsonString(sbuf, customerHealthData);
-		return customerHealthDataService.saveCustomerHealthData(customerHealthData.getCustomerId(),
+		//returning JSON object
+		final String responseString = customerHealthDataService.saveCustomerHealthData(customerHealthData.getCustomerId(),
 				customerHealthData.getHeartBeatRate(), customerHealthData.getBloodPressure(), customerHealthData.getMilesRun(),
 				customerHealthData.getCaloriesBurned(), customerHealthData.getTimeTaken(), customerHealthData.getAge());
+		return "{\"response\":\"" + responseString + "\"}";
 	}
 
 	/**
