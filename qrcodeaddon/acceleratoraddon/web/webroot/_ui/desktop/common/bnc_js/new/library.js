@@ -4,14 +4,14 @@ $(document).ready(function(){
 $("#slider1").tinycarousel();
 $( "#datepicker" ).datepicker({
 showOn: "button",
-buttonImage: "${commonResourcePath}/../../_ui/addons/qrcodeaddon/desktop/common/bnc_images/new/cal.png",
+buttonImage: "images/cal.png",
 buttonImageOnly: true,
 buttonText: "Select date"
 });
 
 $( "#datepicker1" ).datepicker({
 showOn: "button",
-buttonImage: "${commonResourcePath}/../../_ui/addons/qrcodeaddon/desktop/common/bnc_images/new/cal.png",
+buttonImage: "images/cal.png",
 buttonImageOnly: true,
 buttonText: "Select date"
 });
@@ -34,4 +34,9 @@ $("#lmenu").animate({width: 'toggle'},200);
 $("#slimtest").slimScroll();
 
 
+Pizza.init();
+$(document).foundation();
+
+
 });
+

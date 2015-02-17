@@ -194,6 +194,8 @@ overflow: hidden;
 .chrtt{
 color:#3F5C9A;
 font-size:14px;
+text-align:center;
+width:110%;
 }
 
 .ichrt{
@@ -667,7 +669,7 @@ height:300px;
 padding:10px;
 font-size:12px;
 font-weight:normal;
-line-height:20px;
+line-height:22px;
 }
   
   /* Tiny Carousel */
@@ -968,6 +970,37 @@ height:680px;
 .cntl .slimScrollBar {
 background: none repeat scroll 0 0 #fff !important;
 opacity: 0.5 !important;
+}
+
+
+[data-pie-id] > *:nth-child(7n+1), [data-bar-id] > *:nth-child(7n+1), [data-line-id] > *:nth-child(7n+1) {
+  color: #E97C30; }
+[data-pie-id] > *:nth-child(7n+2), [data-bar-id] > *:nth-child(7n+2), [data-line-id] > *:nth-child(7n+2) {
+  color: #5A99D3; }
+
+#pie, #pie1{
+  max-height: 450px;
+  }
+
+
+svg {
+  width: 100%;
+  height: auto;
+  }
+
+
+ul[data-pie-id] {
+  list-style: none;
+  display:none;
+ }
+
+.row {
+float: left;
+width: 24%;
+margin-top:-10px;
+}
+[data-id] {
+box-shadow: 10px 10px 10px red;
 }
 
 @media only screen and (max-width:1024px) {
