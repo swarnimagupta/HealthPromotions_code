@@ -134,4 +134,7 @@
 		<property name="timeTaken" type="Double"/>
 		<property name="age" type="Integer"/>
 	</bean>	
+	<bean class="com.acc.data.WebserviceResponseData">
+		<property name="response" type="String"/>
+	</bean>
 </beans>
