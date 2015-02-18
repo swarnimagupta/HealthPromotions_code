@@ -71,4 +71,10 @@
 		type="java.util.List&lt;com.acc.facades.wishlist.data.Wishlist2EntryData>" />
 	</bean>
 	<!--End: Wishlist2Data -->
+	
+	<bean class="de.hybris.platform.commercefacades.order.data.OrderData"
+	      extends="de.hybris.platform.commercefacades.order.data.AbstractOrderData">
+		<property name="ucoid" type="String"/>
+	</bean>
+	
 </beans>

@@ -217,4 +217,19 @@
           <property name="sessionService" ref="sessionService"/>
 		</bean>
 		
+	<alias name="defaultOrderConverter" alias="orderConverter"/>
+	<bean id="defaultOrderConverter" parent="abstractPopulatingConverter">
+		<lookup-method name="createTarget" bean="orderData"/>
+		<property name="populators">
+			<list>
+				<ref bean="customOrderPopulator"/>
+				<ref bean="orderAppliedVouchersPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultCustomOrderPopulator" alias="customOrderPopulator"/>
+	<bean id="defaultCustomOrderPopulator"
+	      class="com.acc.populator.CustomOrderPopulator"
+	      parent="orderPopulator"/>
 </beans>
