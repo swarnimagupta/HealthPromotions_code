@@ -319,7 +319,26 @@
 		</property>
 	</bean>
 	
+	<bean id="collectOrderDao" class="com.acc.dao.impl.CustomerCollectOrderDaoImpl">
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+		<property name="modelService" ref="modelService"/>
+	</bean>
+	<bean id="collectOrderService" class="com.acc.services.impl.CustomerCollectOrderServiceImpl">
+		<property name="collectOrderDao" ref="collectOrderDao"/>
+	</bean>
 	
+	<bean id="collectOrderWsPopulator" class="com.acc.populator.CollectOrderPopulator" />
+
+	<bean id="collectOrderWsData" class="com.acc.data.CollectOrderWsData" scope="prototype"/>
+		
+	<bean id="collectOrderWsConverter" parent="abstractPopulatingConverter">
+		<lookup-method name="createTarget" bean="collectOrderWsData"/>
+		<property name="populators">
+			<list>
+				<ref bean="collectOrderWsPopulator" />
+			</list>
+		</property>
+	</bean>
 	
   <!--End of beans needed for sample data used in groovy tests  -->
   
