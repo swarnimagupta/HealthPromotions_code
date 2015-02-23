@@ -128,12 +128,59 @@
 	</bean>
 	<bean class="com.acc.data.CustomerHealthData">
 		<property name="customerId" type="String" />
-		<property name="heartBeatRate" type="Integer"/>
-		<property name="bloodPressure" type="Integer"/>
-		<property name="milesRun" type="Double"/>
-		<property name="caloriesBurned" type="Integer"/>
-		<property name="timeTaken" type="Double"/>
-		<property name="age" type="Integer"/>
+		<property name="HKCategoryTypeIdentifierSleepAnalysis" type="String"/>
+		<property name="HKQuantityTypeIdentifierBodyMass" type="String"/>
+		<property name="HKQuantityTypeIdentifierBodyMassIndex" type="String"/>
+		<property name="HKQuantityTypeIdentifierBodyFatPercentage" type="String"/>
+		<property name="HKQuantityTypeIdentifierHeartRate" type="String"/>
+		<property name="HKQuantityTypeIdentifierBloodPressureSystolic" type="String"/>
+		<property name="HKQuantityTypeIdentifierStepCount" type="String" />
+		<property name="HKQuantityTypeIdentifierRespiratoryRate" type="String" />
+		<property name="HKQuantityTypeIdentifierDistanceCycling" type="String" />
+		<property name="HKQuantityTypeIdentifierOxygenSaturation" type="String" />
+		<property name="HKQuantityTypeIdentifierDistanceWalkingRunning" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryManganese" type="String" />
+		<property name="HKQuantityTypeIdentifierBasalEnergyBurned" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryCalcium" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryFiber" type="String" />
+		<property name="HKQuantityTypeIdentifierBloodPressureDiastolic" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryFatSaturated" type="String" />
+		<property name="HKQuantityTypeIdentifierFlightsClimbed" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryMagnesium" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryIron" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryCopper" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryPotassium" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryPantothenicAcid" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryCaffeine" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryFatPolyunsaturated" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryFatMonounsaturated" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryNiacin" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryChromium" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryCarbohydrates" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryVitaminK" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryFolate" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryBiotin" type="String" />
+		<property name="HKQuantityTypeIdentifierDietarySodium" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryMolybdenum" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryChloride" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryIodine" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryPhosphorus" type="String" />
+		<property name="HKQuantityTypeIdentifierDietarySugar" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryEnergyConsumed" type="String" />
+		<property name="HKQuantityTypeIdentifierActiveEnergyBurned" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryVitaminB6" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryZinc" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryFatTotal" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryVitaminE" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryVitaminA" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryVitaminD" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryVitaminC" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryThiamin" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryRiboflavin" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryProtein" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryVitaminB12" type="String" />
+		<property name="HKQuantityTypeIdentifierDietarySelenium" type="String" />
+		
 	</bean>	
 	<bean class="com.acc.data.WebserviceResponseData">
 		<property name="response" type="String"/>
