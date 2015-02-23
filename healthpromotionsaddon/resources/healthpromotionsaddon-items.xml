@@ -38,34 +38,219 @@
 					<modifiers read="true" write="true" search="true" optional="false" />
 					<persistence type="property" />
 				</attribute>
-				<attribute qualifier="customerName " type="java.lang.String">
+				<attribute qualifier="hkCategoryTypeIdentifierSleepAnalysis " type="java.lang.String">
 					<modifiers read="true" write="true" search="true" optional="true" />
 					<persistence type="property" />
 				</attribute>
-				<attribute qualifier="heartBeatRate " type="java.lang.Integer">
+				<attribute qualifier="hkQuantityTypeIdentifierBodyMass " type="java.lang.String">
 					<modifiers read="true" write="true" search="true" optional="true" />
 					<persistence type="property" />
 				</attribute>
-				<attribute qualifier="bloodPressure" type="java.lang.Integer">
+				<attribute qualifier="hkQuantityTypeIdentifierBodyMassIndex" type="java.lang.String">
 					<modifiers read="true" write="true" search="true" optional="true" />
 					<persistence type="property" />
 				</attribute>
-				<attribute qualifier="milesRun" type="java.lang.Double">
+				<attribute qualifier="hkQuantityTypeIdentifierBodyFatPercentage" type="java.lang.String">
 					<modifiers read="true" write="true" search="true" optional="true" />
 					<persistence type="property" />
 				</attribute>
-				<attribute qualifier="caloriesBurned" type="java.lang.Integer">
+				<attribute qualifier="hkQuantityTypeIdentifierHeartRate" type="java.lang.String">
 					<modifiers write="true" read="true" search="true" optional="true" />
 					<persistence type="property" />
 				</attribute>
-				<attribute qualifier="timeTaken" type="java.lang.Double">
+				<attribute qualifier="hkQuantityTypeIdentifierBloodPressureSystolic" type="java.lang.String">
 					<modifiers write="true" read="true" search="true" optional="true" />
 					<persistence type="property" />
 				</attribute>
-				<attribute qualifier="age" type="java.lang.Integer">
+				<attribute qualifier="hkQuantityTypeIdentifierStepCount" type="java.lang.String">
 					<modifiers write="true" read="true" search="true" optional="true" />
 					<persistence type="property" />
 				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierRespiratoryRate" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDistanceCycling" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierOxygenSaturation" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDistanceWalkingRunning" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDietaryManganese" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierBasalEnergyBurned" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDietaryCalcium" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDietaryFiber" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierBloodPressureDiastolic" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDietaryFatSaturated" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierFlightsClimbed" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDietaryMagnesium" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDietaryIron" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDietaryCopper" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDietaryPotassium" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDietaryPantothenicAcid" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDietaryCaffeine" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDietaryFatPolyunsaturated" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDietaryFatMonounsaturated" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDietaryNiacin" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDietaryChromium" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDietaryCarbohydrates" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDietaryVitaminK" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDietaryFolate" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDietaryBiotin" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDietaryCholesterol" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDietarySodium" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDietaryMolybdenum" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDietaryChloride" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDietaryIodine" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDietaryPhosphorus" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDietarySugar" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDietaryEnergyConsumed" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierActiveEnergyBurned" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDietaryVitaminB6" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDietaryZinc" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDietaryFatTotal" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDietaryVitaminE" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDietaryVitaminA" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDietaryVitaminD" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDietaryVitaminC" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDietaryThiamin" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDietaryRiboflavin" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDietaryProtein" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDietaryVitaminB12" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="hkQuantityTypeIdentifierDietarySelenium" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" />
+					<persistence type="property" />
+				</attribute>
+				
 			</attributes>
 		</itemtype>
 			

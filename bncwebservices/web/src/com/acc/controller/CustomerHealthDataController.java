@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.acc.controller.constants.ControllerConstants;
 import com.acc.data.CustomerHealthData;
 import com.acc.data.WebserviceResponseData;
 import com.acc.services.CustomerHealthDataService;
@@ -29,7 +30,7 @@ import com.acc.services.CustomerHealthDataService;
 
 /**
  * @author swarnima.gupta
- *
+ * 
  */
 @Controller
 @RequestMapping(value = "/v1/{baseSiteId}/CustomerHealthData")
@@ -38,13 +39,7 @@ public class CustomerHealthDataController extends BaseController
 	private static final String HEALTH_DATA = "HealthData";
 	private static final String TYPE = "type";
 	private static final String VALUE = "Value";
-	private static final String AGE = "age";
-	private static final String TIMETAKEN = "timetaken";
-	private static final String CALORIESBURNED = "caloriesburned";
-	private static final String MILESRUN = "milesrun";
-	private static final String BLOODPRESSURE = "bloodpressure";
-	private static final String HEARTBEATRATE = "heartbeatrate";
-	private static final String CUSTOMERID = "customerid";
+
 	private static final Logger LOG = Logger.getLogger(CustomerHealthDataController.class);
 	@Autowired
 	private CustomerHealthDataService customerHealthDataService;
@@ -60,10 +55,61 @@ public class CustomerHealthDataController extends BaseController
 		getHealthDataFromJsonString(sbuf, customerHealthData);
 		//returning JSON object
 		final String responseString = customerHealthDataService.saveCustomerHealthData(customerHealthData.getCustomerId(),
-				customerHealthData.getHeartBeatRate(), customerHealthData.getBloodPressure(), customerHealthData.getMilesRun(),
-				customerHealthData.getCaloriesBurned(), customerHealthData.getTimeTaken(), customerHealthData.getAge());
+				customerHealthData.getHKCategoryTypeIdentifierSleepAnalysis(),
+				customerHealthData.getHKQuantityTypeIdentifierActiveEnergyBurned(),
+				customerHealthData.getHKQuantityTypeIdentifierBasalEnergyBurned(),
+				customerHealthData.getHKQuantityTypeIdentifierBloodPressureDiastolic(),
+				customerHealthData.getHKQuantityTypeIdentifierBloodPressureSystolic(),
+				customerHealthData.getHKQuantityTypeIdentifierBodyFatPercentage(),
+				customerHealthData.getHKQuantityTypeIdentifierBodyMass(),
+				customerHealthData.getHKQuantityTypeIdentifierBodyMassIndex(),
+				customerHealthData.getHKQuantityTypeIdentifierDietaryBiotin(),
+				customerHealthData.getHKQuantityTypeIdentifierDietaryCaffeine(),
+				customerHealthData.getHKQuantityTypeIdentifierDietaryCalcium(),
+				customerHealthData.getHKQuantityTypeIdentifierDietaryCarbohydrates(),
+				customerHealthData.getHKQuantityTypeIdentifierDietaryChloride(),
+				customerHealthData.getHKQuantityTypeIdentifierDietaryChromium(),
+				customerHealthData.getHKQuantityTypeIdentifierDietaryCopper(),
+				customerHealthData.getHKQuantityTypeIdentifierDietaryEnergyConsumed(),
+				customerHealthData.getHKQuantityTypeIdentifierDietaryFatMonounsaturated(),
+				customerHealthData.getHKQuantityTypeIdentifierDietaryFatPolyunsaturated(),
+				customerHealthData.getHKQuantityTypeIdentifierDietaryFatSaturated(),
+				customerHealthData.getHKQuantityTypeIdentifierDietaryFatTotal(),
+				customerHealthData.getHKQuantityTypeIdentifierDietaryFiber(),
+				customerHealthData.getHKQuantityTypeIdentifierDietaryFolate(),
+				customerHealthData.getHKQuantityTypeIdentifierDietaryIodine(),
+				customerHealthData.getHKQuantityTypeIdentifierDietaryIron(),
+				customerHealthData.getHKQuantityTypeIdentifierDietaryMagnesium(),
+				customerHealthData.getHKQuantityTypeIdentifierDietaryManganese(),
+				customerHealthData.getHKQuantityTypeIdentifierDietaryMolybdenum(),
+				customerHealthData.getHKQuantityTypeIdentifierDietaryNiacin(),
+				customerHealthData.getHKQuantityTypeIdentifierDietaryPantothenicAcid(),
+				customerHealthData.getHKQuantityTypeIdentifierDietaryPhosphorus(),
+				customerHealthData.getHKQuantityTypeIdentifierDietaryPotassium(),
+				customerHealthData.getHKQuantityTypeIdentifierDietaryProtein(),
+				customerHealthData.getHKQuantityTypeIdentifierDietaryRiboflavin(),
+				customerHealthData.getHKQuantityTypeIdentifierDietarySelenium(),
+				customerHealthData.getHKQuantityTypeIdentifierDietarySodium(),
+				customerHealthData.getHKQuantityTypeIdentifierDietarySugar(),
+				customerHealthData.getHKQuantityTypeIdentifierDietaryThiamin(),
+				customerHealthData.getHKQuantityTypeIdentifierDietaryVitaminA(),
+				customerHealthData.getHKQuantityTypeIdentifierDietaryVitaminB12(),
+				customerHealthData.getHKQuantityTypeIdentifierDietaryVitaminB6(),
+				customerHealthData.getHKQuantityTypeIdentifierDietaryVitaminC(),
+				customerHealthData.getHKQuantityTypeIdentifierDietaryVitaminD(),
+				customerHealthData.getHKQuantityTypeIdentifierDietaryVitaminE(),
+				customerHealthData.getHKQuantityTypeIdentifierDietaryVitaminK(),
+				customerHealthData.getHKQuantityTypeIdentifierDietaryZinc(),
+				customerHealthData.getHKQuantityTypeIdentifierDistanceCycling(),
+				customerHealthData.getHKQuantityTypeIdentifierDistanceWalkingRunning(),
+				customerHealthData.getHKQuantityTypeIdentifierFlightsClimbed(),
+				customerHealthData.getHKQuantityTypeIdentifierHeartRate(),
+				customerHealthData.getHKQuantityTypeIdentifierOxygenSaturation(),
+				customerHealthData.getHKQuantityTypeIdentifierRespiratoryRate(),
+				customerHealthData.getHKQuantityTypeIdentifierStepCount());
 		final WebserviceResponseData data = new WebserviceResponseData();
 		data.setResponse(responseString);
+		LOG.info("data customer healthdata controller " + data);
 		return data;
 	}
 
@@ -97,26 +143,168 @@ public class CustomerHealthDataController extends BaseController
 		{
 			switch (JSONObject.get(TYPE).toString().toLowerCase())
 			{
-				case CUSTOMERID:
+				case ControllerConstants.CUSTOMERID:
 					customerHealthData.setCustomerId(String.valueOf(JSONObject.get(VALUE)));
 					continue;
-				case HEARTBEATRATE:
-					customerHealthData.setHeartBeatRate(Integer.valueOf(JSONObject.get(VALUE).toString()));
+				case ControllerConstants.HKCATEGORYTYPEIDENTIFIERSLEEPANALYSIS:
+					customerHealthData.setHKCategoryTypeIdentifierSleepAnalysis(String.valueOf(JSONObject.get(VALUE)));
 					continue;
-				case BLOODPRESSURE:
-					customerHealthData.setBloodPressure(Integer.valueOf(JSONObject.get(VALUE).toString()));
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERACTIVEENERGYBURNED:
+					customerHealthData.setHKQuantityTypeIdentifierActiveEnergyBurned(String.valueOf(JSONObject.get(VALUE)));
 					continue;
-				case MILESRUN:
-					customerHealthData.setMilesRun(Double.valueOf(JSONObject.get(VALUE).toString()));
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERBASALENERGYBURNED:
+					customerHealthData.setHKQuantityTypeIdentifierBasalEnergyBurned(String.valueOf(JSONObject.get(VALUE)));
 					continue;
-				case CALORIESBURNED:
-					customerHealthData.setCaloriesBurned(Integer.valueOf(JSONObject.get(VALUE).toString()));
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERBLOODPRESSUREDIASTOLIC:
+					customerHealthData.setHKQuantityTypeIdentifierBloodPressureDiastolic(String.valueOf(JSONObject.get(VALUE)));
 					continue;
-				case TIMETAKEN:
-					customerHealthData.setTimeTaken(Double.valueOf(JSONObject.get(VALUE).toString()));
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERBLOODPRESSURESYSTOLIC:
+					customerHealthData.setHKQuantityTypeIdentifierBloodPressureSystolic(String.valueOf(JSONObject.get(VALUE)));
 					continue;
-				case AGE:
-					customerHealthData.setAge(Integer.valueOf(JSONObject.get(VALUE).toString()));
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERBODYFATPERCENTAGE:
+					customerHealthData.setHKQuantityTypeIdentifierBodyFatPercentage(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERBODYMASS:
+					customerHealthData.setHKQuantityTypeIdentifierBodyMass(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERBODYMASSINDEX:
+					customerHealthData.setHKQuantityTypeIdentifierBodyMassIndex(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYBIOTIN:
+					customerHealthData.setHKQuantityTypeIdentifierDietaryBiotin(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYCAFFEINE:
+					customerHealthData.setHKQuantityTypeIdentifierDietaryCaffeine(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYCALCIUM:
+					customerHealthData.setHKQuantityTypeIdentifierDietaryCalcium(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYCARBOHYDRATES:
+					customerHealthData.setHKQuantityTypeIdentifierDietaryCarbohydrates(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYCHLORIDE:
+					customerHealthData.setHKQuantityTypeIdentifierDietaryChloride(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYCHROMIUM:
+					customerHealthData.setHKQuantityTypeIdentifierDietaryChromium(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYCOPPER:
+					customerHealthData.setHKQuantityTypeIdentifierDietaryCopper(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYENERGYCONSUMED:
+					customerHealthData.setHKQuantityTypeIdentifierDietaryEnergyConsumed(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYFATMONOUNSATURATED:
+					customerHealthData.setHKQuantityTypeIdentifierDietaryFatMonounsaturated(String.valueOf(JSONObject.get(VALUE)));
+
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYFATPOLYUNSATURATED:
+					customerHealthData.setHKQuantityTypeIdentifierDietaryFatPolyunsaturated(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYFATSATURATED:
+					customerHealthData.setHKQuantityTypeIdentifierDietaryFatSaturated(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYFATTOTAL:
+					customerHealthData.setHKQuantityTypeIdentifierDietaryFatTotal(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYFIBER:
+					customerHealthData.setHKQuantityTypeIdentifierDietaryFiber(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYFOLATE:
+					customerHealthData.setHKQuantityTypeIdentifierDietaryFolate(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYIODINE:
+					customerHealthData.setHKQuantityTypeIdentifierDietaryIron(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYIRON:
+					customerHealthData.setHKQuantityTypeIdentifierDietaryIron(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYMAGNESIUM:
+					customerHealthData.setHKQuantityTypeIdentifierDietaryMagnesium(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYMANGANESE:
+					customerHealthData.setHKQuantityTypeIdentifierDietaryManganese(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYMOLYBDENUM:
+					customerHealthData.setHKQuantityTypeIdentifierDietaryMolybdenum(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYNIACIN:
+					customerHealthData.setHKQuantityTypeIdentifierDietaryNiacin(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYPANTOTHENICACID:
+					customerHealthData.setHKQuantityTypeIdentifierDietaryPantothenicAcid(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYPHOSPHORUS:
+					customerHealthData.setHKQuantityTypeIdentifierDietaryPhosphorus(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYPOTASSIUM:
+					customerHealthData.setHKQuantityTypeIdentifierDietaryPotassium(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYPROTEIN:
+					customerHealthData.setHKQuantityTypeIdentifierDietaryProtein(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYRIBOFLAVIN:
+					customerHealthData.setHKQuantityTypeIdentifierDietaryRiboflavin(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYSELENIUM:
+					customerHealthData.setHKQuantityTypeIdentifierDietarySelenium(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYSODIUM:
+					customerHealthData.setHKQuantityTypeIdentifierDietarySodium(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYSUGAR:
+					customerHealthData.setHKQuantityTypeIdentifierDietarySugar(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYTHIAMIN:
+					customerHealthData.setHKQuantityTypeIdentifierDietaryThiamin(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYVITAMINA:
+					customerHealthData.setHKQuantityTypeIdentifierDietaryVitaminA(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYVITAMINB12:
+					customerHealthData.setHKQuantityTypeIdentifierDietaryVitaminB12(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYVITAMINB6:
+					customerHealthData.setHKQuantityTypeIdentifierDietaryVitaminB6(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYVITAMINC:
+					customerHealthData.setHKQuantityTypeIdentifierDietaryVitaminC(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYVITAMIND:
+					customerHealthData.setHKQuantityTypeIdentifierDietaryVitaminD(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYVITAMINE:
+					customerHealthData.setHKQuantityTypeIdentifierDietaryVitaminE(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYVITAMINK:
+					customerHealthData.setHKQuantityTypeIdentifierDietaryVitaminK(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYZINC:
+					customerHealthData.setHKQuantityTypeIdentifierDietaryZinc(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDISTANCECYCLING:
+					customerHealthData.setHKQuantityTypeIdentifierDistanceCycling(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDISTANCEWALKINGRUNNING:
+					customerHealthData.setHKQuantityTypeIdentifierDistanceWalkingRunning(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERFLIGHTSCLIMBED:
+					customerHealthData.setHKQuantityTypeIdentifierFlightsClimbed(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERHEARTRATE:
+					customerHealthData.setHKQuantityTypeIdentifierHeartRate(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIEROXYGENSATURATION:
+					customerHealthData.setHKQuantityTypeIdentifierOxygenSaturation(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERRESPIRATORYRATE:
+					customerHealthData.setHKQuantityTypeIdentifierRespiratoryRate(String.valueOf(JSONObject.get(VALUE)));
+					continue;
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERSTEPCOUNT:
+					customerHealthData.setHKQuantityTypeIdentifierStepCount(String.valueOf(JSONObject.get(VALUE)));
 					continue;
 			}
 		}
