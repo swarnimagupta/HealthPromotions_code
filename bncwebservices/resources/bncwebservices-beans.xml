@@ -119,6 +119,7 @@
 	</bean>	
 	<bean class="com.acc.data.BeaconPromotionData" extends="com.acc.product.data.PromotionDataList">
 		<property name="welcomeMessage" type="String"/>
+		<property name="response" type="String"/>
 	</bean>	
 	
 	<bean class="de.hybris.platform.commercefacades.product.data.ProductData">

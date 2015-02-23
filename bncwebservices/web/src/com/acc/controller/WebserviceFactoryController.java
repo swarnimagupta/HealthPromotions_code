@@ -52,12 +52,13 @@ public class WebserviceFactoryController
 
 	@RequestMapping(value = "/performBeaconFunction", method = RequestMethod.POST)
 	@ResponseBody
-	public Object performBeaconFuntion(final HttpServletRequest request) throws IOException, ParseException
+	public BeaconPromotionData performBeaconFuntion(final HttpServletRequest request) throws IOException, ParseException
 	{
 
 		LOG.info("::::::: in performBeaconFuntion POST request method :::::::");
 		final StringBuffer sbuf = getJsonBodyString(request);
 		LOG.info("::::::: json object string is :::::::" + sbuf);
+		final BeaconPromotionData beaconPromotionsData = new BeaconPromotionData();
 		if (StringUtils.isNotEmpty(sbuf.toString()))
 		{
 			final JSONParser parser = new JSONParser();
@@ -71,16 +72,16 @@ public class WebserviceFactoryController
 				final String storeId = String.valueOf(obj.get(STORE_ID));
 				LOG.info(":::::::::::uuid is " + HASH_STRING + deviceId + HASH_STRING + "::::::::::storeid is::::::::: " + storeId
 						+ "AND Customer ID :::::::" + deviceId);
-				return storeLoginService.saveCustomerLoginDetails(HASH_STRING + deviceId + HASH_STRING, storeId, deviceId);
+				beaconPromotionsData.setResponse(storeLoginService.saveCustomerLoginDetails(HASH_STRING + deviceId + HASH_STRING,
+						storeId, deviceId));
+				return beaconPromotionsData;
 			}
 			final BeaconData beacon = beaconPromotionsService.getBeaconById(beaconId, majorId, minorId);
-			final BeaconPromotionData beaconPromotionsData = new BeaconPromotionData();
 			beaconPromotionsData.setWelcomeMessage(beacon.getWelcomeMessage());
 			beaconPromotionsData.setPromotions(CollectionUtils.isNotEmpty(beacon.getPromotions()) ? beacon.getPromotions()
 					: Collections.EMPTY_LIST);
-			return beaconPromotionsData;
 		}
-		return null;
+		return beaconPromotionsData;
 	}
 
 	/**
