@@ -3,6 +3,8 @@
  */
 package com.acc.controller;
 
+import de.hybris.platform.util.Config;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Collections;
@@ -36,6 +38,8 @@ import com.acc.services.StoreLoginService;
 @RequestMapping(value = "/v1/{baseSiteId}")
 public class WebserviceFactoryController
 {
+	private static final String DEFAULT_WELCOME_BEACON = "12168afc-c27e-4845-ba90-e7b5484bdbba";
+	private static final String WELCOME_BEACON_ID = "welcome.beacon.id";
 	private static final String HASH_STRING = "#";
 	private static final String STORE_ID = "storeId";
 	private static final String DEVICE_ID = "deviceId";
@@ -66,7 +70,7 @@ public class WebserviceFactoryController
 			final String beaconId = String.valueOf(obj.get(BEACON_ID));
 			final String majorId = String.valueOf(obj.get(MAJOR_ID));
 			final String minorId = String.valueOf(obj.get(MINOR_ID));
-			if ("12168afc-c27e-4845-ba90-e7b5484bdbba".equals(beaconId))
+			if (Config.getString(WELCOME_BEACON_ID, DEFAULT_WELCOME_BEACON).equals(beaconId))
 			{
 				final String deviceId = String.valueOf(obj.get(DEVICE_ID));
 				final String storeId = String.valueOf(obj.get(STORE_ID));
@@ -74,7 +78,6 @@ public class WebserviceFactoryController
 						+ "AND Customer ID :::::::" + deviceId);
 				beaconPromotionsData.setResponse(storeLoginService.saveCustomerLoginDetails(HASH_STRING + deviceId + HASH_STRING,
 						storeId, deviceId));
-				return beaconPromotionsData;
 			}
 			final BeaconData beacon = beaconPromotionsService.getBeaconById(beaconId, majorId, minorId);
 			beaconPromotionsData.setWelcomeMessage(beacon.getWelcomeMessage());
