@@ -141,7 +141,7 @@ public class CustomerHealthDataController extends BaseController
 	{
 		for (final JSONObject JSONObject : JSONObjectList)
 		{
-			switch (JSONObject.get(TYPE).toString().toLowerCase())
+			switch (JSONObject.get(TYPE).toString())
 			{
 				case ControllerConstants.CUSTOMERID:
 					customerHealthData.setCustomerId(String.valueOf(JSONObject.get(VALUE)));
