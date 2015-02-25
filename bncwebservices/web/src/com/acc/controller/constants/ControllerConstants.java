@@ -42,6 +42,7 @@ public interface ControllerConstants
 	static final String HKQUANTITYTYPEIDENTIFIERDIETARYVITAMINK = "HKQuantityTypeIdentifierDietaryVitaminK";
 	static final String HKQUANTITYTYPEIDENTIFIERDIETARYFOLATE = "HKQuantityTypeIdentifierDietaryFolate";
 	static final String HKQUANTITYTYPEIDENTIFIERDIETARYBIOTIN = "HKQuantityTypeIdentifierDietaryBiotin";
+	static final String HKQUANTITYTYPEIDENTIFIERDIETARYCHOLESTEROL = "HKQuantityTypeIdentifierDietaryCholesterol";
 	static final String HKQUANTITYTYPEIDENTIFIERDIETARYSODIUM = "HKQuantityTypeIdentifierDietarySodium";
 	static final String HKQUANTITYTYPEIDENTIFIERDIETARYMOLYBDENUM = "HKQuantityTypeIdentifierDietaryMolybdenum";
 	static final String HKQUANTITYTYPEIDENTIFIERDIETARYCHLORIDE = "HKQuantityTypeIdentifierDietaryChloride";

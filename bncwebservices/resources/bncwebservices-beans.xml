@@ -160,6 +160,7 @@
 		<property name="HKQuantityTypeIdentifierDietaryVitaminK" type="String" />
 		<property name="HKQuantityTypeIdentifierDietaryFolate" type="String" />
 		<property name="HKQuantityTypeIdentifierDietaryBiotin" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryCholesterol" type="String" />
 		<property name="HKQuantityTypeIdentifierDietarySodium" type="String" />
 		<property name="HKQuantityTypeIdentifierDietaryMolybdenum" type="String" />
 		<property name="HKQuantityTypeIdentifierDietaryChloride" type="String" />

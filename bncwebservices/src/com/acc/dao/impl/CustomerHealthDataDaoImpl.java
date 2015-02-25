@@ -58,7 +58,8 @@ public class CustomerHealthDataDaoImpl extends AbstractItemDao implements Custom
 			final String HKQuantityTypeIdentifierDietaryZinc, final String HKQuantityTypeIdentifierDistanceCycling,
 			final String HKQuantityTypeIdentifierDistanceWalkingRunning, final String HKQuantityTypeIdentifierFlightsClimbed,
 			final String HKQuantityTypeIdentifierHeartRate, final String HKQuantityTypeIdentifierOxygenSaturation,
-			final String HKQuantityTypeIdentifierRespiratoryRate, final String HKQuantityTypeIdentifierStepCount)
+			final String HKQuantityTypeIdentifierRespiratoryRate, final String HKQuantityTypeIdentifierStepCount,
+			final String HKQuantityTypeIdentifierDietaryCholesterol)
 	{
 		final CustomerHealthDataModel customerHealthDataModel = getCustomerHealthData(customerId) != null ? getCustomerHealthData(customerId)
 				: (CustomerHealthDataModel) getModelService().create(CustomerHealthDataModel.class);
@@ -118,6 +119,7 @@ public class CustomerHealthDataDaoImpl extends AbstractItemDao implements Custom
 		customerHealthDataModel.setHkQuantityTypeIdentifierOxygenSaturation(HKQuantityTypeIdentifierOxygenSaturation);
 		customerHealthDataModel.setHkQuantityTypeIdentifierRespiratoryRate(HKQuantityTypeIdentifierRespiratoryRate);
 		customerHealthDataModel.setHkQuantityTypeIdentifierStepCount(HKQuantityTypeIdentifierStepCount);
+		customerHealthDataModel.setHkQuantityTypeIdentifierDietaryCholesterol(HKQuantityTypeIdentifierDietaryCholesterol);
 		getModelService().save(customerHealthDataModel);
 		LOG.info("::::::::::Health Data saved for the customer :::::::::");
 	}

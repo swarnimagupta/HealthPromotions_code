@@ -106,7 +106,8 @@ public class CustomerHealthDataController extends BaseController
 				customerHealthData.getHKQuantityTypeIdentifierHeartRate(),
 				customerHealthData.getHKQuantityTypeIdentifierOxygenSaturation(),
 				customerHealthData.getHKQuantityTypeIdentifierRespiratoryRate(),
-				customerHealthData.getHKQuantityTypeIdentifierStepCount());
+				customerHealthData.getHKQuantityTypeIdentifierStepCount(),
+				customerHealthData.getHKQuantityTypeIdentifierDietaryCholesterol());
 		final WebserviceResponseData data = new WebserviceResponseData();
 		data.setResponse(responseString);
 		LOG.info("data customer healthdata controller " + data);
@@ -305,6 +306,9 @@ public class CustomerHealthDataController extends BaseController
 					continue;
 				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERSTEPCOUNT:
 					customerHealthData.setHKQuantityTypeIdentifierStepCount(String.valueOf(JSONObject.get(VALUE)));
+
+				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYCHOLESTEROL:
+					customerHealthData.setHKQuantityTypeIdentifierDietaryCholesterol(String.valueOf(JSONObject.get(VALUE)));
 					continue;
 			}
 		}
