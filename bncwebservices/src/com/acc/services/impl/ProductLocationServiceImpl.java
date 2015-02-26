@@ -11,8 +11,14 @@ import de.hybris.platform.commercefacades.converter.ConfigurablePopulator;
 import de.hybris.platform.commercefacades.product.ProductOption;
 import de.hybris.platform.commercefacades.product.data.ProductData;
 import de.hybris.platform.core.model.product.ProductModel;
+import de.hybris.platform.core.model.user.UserModel;
+import de.hybris.platform.product.ProductService;
 import de.hybris.platform.servicelayer.dto.converter.Converter;
 import de.hybris.platform.servicelayer.exceptions.UnknownIdentifierException;
+import de.hybris.platform.servicelayer.model.ModelService;
+import de.hybris.platform.servicelayer.search.FlexibleSearchService;
+import de.hybris.platform.servicelayer.search.SearchResult;
+import de.hybris.platform.servicelayer.user.UserService;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -22,9 +28,12 @@ import javax.annotation.Resource;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.acc.dao.ProductLocationDao;
+import com.acc.services.CustomerHealthDataService;
 import com.acc.services.ProductLocationService;
+import com.accenture.model.ConfigModel;
 
 
 /**
@@ -37,6 +46,16 @@ public class ProductLocationServiceImpl implements ProductLocationService
 	private ProductLocationDao productLocationDao;
 	@Resource(name = "productConverter")
 	private Converter<ProductModel, ProductData> productConverter;
+	@Autowired
+	private CustomerHealthDataService customerHealthDataService;
+	@Autowired
+	private UserService userService;
+	@Autowired
+	private ProductService productService;
+	@Autowired
+	private FlexibleSearchService flexibleSearchService;
+	@Autowired
+	private ModelService modelService;
 
 	private ConfigurablePopulator<ProductModel, ProductData, ProductOption> productConfiguredPopulator;
 
@@ -148,6 +167,37 @@ public class ProductLocationServiceImpl implements ProductLocationService
 				format("Product code '%s' is not unique, %d products found!", code, Integer.valueOf(products.size())));
 
 		final ProductModel productModel = products.get(0);
+		if (!userService.isAnonymousUser(userService.getCurrentUser()))
+		{
+			final UserModel currentUser = userService.getCurrentUser();
+			List<ProductModel> list = new ArrayList<ProductModel>();
+			final List<ProductModel> listlatest = new ArrayList<ProductModel>();
+			list = (List<ProductModel>) currentUser.getRecentlyviewedproducts();
+			if (!list.contains(productModel))
+			{
+				for (final ProductModel productModel2 : list)
+				{
+					listlatest.add(productModel2);
+				}
+				final SearchResult<ConfigModel> searchResult = flexibleSearchService.search("select {pk} from {Config}");
+				if (list.size() < searchResult.getResult().get(0).getValueHolder().intValue())
+				{
+					listlatest.add(productModel);
+					currentUser.setRecentlyviewedproducts(listlatest);
+					modelService.save(currentUser);
+					LOG.info("******** Product saved to recent list in if condition ************");
+				}
+				else
+				{
+					listlatest.remove(0);
+					listlatest.add(productModel);
+					currentUser.setRecentlyviewedproducts(listlatest);
+					modelService.save(currentUser);
+					LOG.info("******** Product saved to recent list in else condition ************");
+				}
+			}
+
+		}
 		return getProductForOptions(productModel, options);
 
 	}
