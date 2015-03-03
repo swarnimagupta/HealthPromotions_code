@@ -3,6 +3,7 @@
  */
 package com.acc.controller;
 
+import de.hybris.platform.catalog.CatalogService;
 import de.hybris.platform.commercefacades.product.data.ProductData;
 import de.hybris.platform.core.model.product.ProductModel;
 import de.hybris.platform.core.model.user.UserModel;
@@ -42,6 +43,7 @@ import com.acc.product.data.ProductDataList;
  * @author swarnima.gupta
  *
  */
+@SuppressWarnings("deprecation")
 @Controller
 @RequestMapping(value = "/v1/{baseSiteId}/wishlist")
 public class WishlistController extends BaseController
@@ -61,11 +63,14 @@ public class WishlistController extends BaseController
 	private Converter<ProductModel, ProductData> productConverter;
 	@Autowired
 	private ProductService productService;
+	@Autowired
+	private CatalogService catalogService;
 
 	@RequestMapping(value = "/get", method = RequestMethod.POST)
 	@ResponseBody
 	public ProductDataList getWishlistProducts(final HttpServletRequest request) throws IOException, ParseException
 	{
+		catalogService.setSessionCatalogVersion("electronicsProductCatalog", "Online");
 		LOG.info("::::::: in getWishlistProducts POST request method :::::::");
 		final StringBuffer sbuf = getJsonBodyString(request);
 		LOG.info("::::::: json object string is :::::::" + sbuf);
@@ -91,6 +96,7 @@ public class WishlistController extends BaseController
 	@ResponseBody
 	public ProductDataList addWishlistProducts(final HttpServletRequest request) throws IOException, ParseException
 	{
+		catalogService.setSessionCatalogVersion("electronicsProductCatalog", "Online");
 		LOG.info("::::::: in addWishlistProducts POST request method :::::::");
 		final StringBuffer sbuf = getJsonBodyString(request);
 		LOG.info("::::::: json object string is :::::::" + sbuf);
