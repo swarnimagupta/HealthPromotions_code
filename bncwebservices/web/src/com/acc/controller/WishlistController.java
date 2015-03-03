@@ -41,7 +41,7 @@ import com.acc.product.data.ProductDataList;
 
 /**
  * @author swarnima.gupta
- *
+ * 
  */
 @SuppressWarnings("deprecation")
 @Controller
@@ -87,6 +87,7 @@ public class WishlistController extends BaseController
 			if (CollectionUtils.isNotEmpty(wishList.getEntries()))
 			{
 				productDataList.setProducts(getWishlistProductsList(wishList));
+				LOG.info("get all wishlist product" + productDataList.getProducts());
 			}
 		}
 		return productDataList;
@@ -132,8 +133,43 @@ public class WishlistController extends BaseController
 				productEntry.setPriority(Wishlist2EntryPriority.LOW);
 				productEntry.setAddedDate(new Date());
 				wishlistService.addWishlistEntry(wishList, productEntry);
+				LOG.info("product added" + productEntry.getProduct());
 			}
 			productDataList.setProducts(getWishlistProductsList(wishList));
+		}
+		return productDataList;
+	}
+
+
+	@RequestMapping(value = "/remove", method = RequestMethod.POST)
+	@ResponseBody
+	public ProductDataList removeWishlistProducts(final HttpServletRequest request) throws IOException, ParseException
+	{
+		catalogService.setSessionCatalogVersion("electronicsProductCatalog", "Online");
+
+		LOG.info("::::::: in removeWishlistProducts POST request method :::::::");
+		final StringBuffer sbuf = getJsonBodyString(request);
+		LOG.info("::::::: json object string is :::::::" + sbuf);
+		final ProductDataList productDataList = new ProductDataList();
+		if (StringUtils.isNotEmpty(sbuf.toString()))
+		{
+			final JSONParser parser = new JSONParser();
+			final JSONObject obj = (JSONObject) parser.parse(sbuf.toString());
+			final ProductModel productModel = productService.getProductForCode(String.valueOf(obj.get(PRODUCT_ID)));
+			final String uid = String.valueOf(obj.get(UID));
+			final UserModel userModel = userService.getUserForUID(uid);
+			final Wishlist2Model wishLists = wishlistService.getDefaultWishlist(userModel);
+			final Wishlist2EntryModel productEnteries = new Wishlist2EntryModel();
+			productEnteries.setProduct(productModel);
+			productEnteries.setPriority(Wishlist2EntryPriority.LOW);
+			productEnteries.setAddedDate(new Date());
+			wishlistService.removeWishlistEntryForProduct(productModel, wishLists);
+
+			productDataList.setProducts(getWishlistProductsList(wishLists));
+			LOG.info("::::::: after removal :::::::" + productDataList.getProducts());
+
+
+
 		}
 		return productDataList;
 	}
