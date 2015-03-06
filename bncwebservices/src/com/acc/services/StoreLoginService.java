@@ -13,8 +13,13 @@
  */
 package com.acc.services;
 
+import de.hybris.platform.core.model.user.CustomerModel;
+
+
 public interface StoreLoginService
 {
 
 	public String saveCustomerLoginDetails(String uuID, String storeID, String customerID);
+
+	public CustomerModel isCustomerFound(final String customerID);
 }

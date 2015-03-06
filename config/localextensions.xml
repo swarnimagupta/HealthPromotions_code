@@ -249,10 +249,10 @@
 		<!-- <extension name="ytelcoacceleratorinitialdata" />-->
 
 												
-		<!-- <extension name="yacceleratorcore" />-->
+		<extension name="yacceleratorcore" />
 
 												
-		<!-- <extension name="yacceleratorfacades" />-->
+		<extension name="yacceleratorfacades" />
 
 												
 		<!-- <extension name="ychinaacceleratorstorefront" />-->
@@ -278,7 +278,7 @@
 		<extension name="bncwebserviceshmc" />
 		<extension name="qrcodeaddon" />
 		<extension name="healthpromotionsaddon" />
-		<extension name="hpwebservicesaddon"/> 
+<!-- 		<extension name="hpwebservicesaddon"/>  -->
 				
 	</extensions>
 </hybrisconfig>

@@ -101,4 +101,15 @@ public class StoreLoginServiceImpl implements StoreLoginService
 		return finalResult;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.acc.services.StoreLoginService#isCustomerFound(java.lang.String)
+	 */
+	@Override
+	public CustomerModel isCustomerFound(final String customerID)
+	{
+		return storeLoginDao.isCustomerFound(customerID);
+	}
+
 }
