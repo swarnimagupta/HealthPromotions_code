@@ -7,13 +7,13 @@ import de.hybris.platform.jalo.type.ComposedType;
 
 import org.apache.log4j.Logger;
 
-import com.acc.jalo.GeneratedCustomerHealthData;
+import com.acc.jalo.GeneratedBeacon;
 
 
-public class CustomerHealthData extends GeneratedCustomerHealthData
+public class Beacon extends GeneratedBeacon
 {
 	@SuppressWarnings("unused")
-	private final static Logger LOG = Logger.getLogger(CustomerHealthData.class.getName());
+	private final static Logger LOG = Logger.getLogger(Beacon.class.getName());
 
 	@Override
 	protected Item createItem(final SessionContext ctx, final ComposedType type, final ItemAttributeMap allAttributes)
