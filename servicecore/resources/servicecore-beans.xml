@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+ [y] hybris Platform
+
+ Copyright (c) 2000-2013 hybris AG
+ All rights reserved.
+
+ This software is the confidential and proprietary information of hybris
+ ("Confidential Information"). You shall not disclose such Confidential
+ Information and shall use it only in accordance with the terms of the
+ license agreement you entered into with hybris.
+-->
+
+<!--
+	ATTENTION: This is just an example file. You have to edit it according to your needs.
+-->
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="beans.xsd">
+
+	<!--
+		Example Data POJO
+	
+	<bean class="com.acc.data.MyPojo">
+		<property name="id" type="String"/>
+		<property name="flag" type="boolean"/>
+	</bean>
+	-->
+	<bean class="com.acc.data.BeaconData">
+		<property name="promotions" type="java.util.List&lt;de.hybris.platform.commercefacades.product.data.PromotionData>" />
+		<property name="identifier" type="String"/>
+		<property name="majorId" type="String"/>
+		<property name="minorId" type="String"/>
+		<property name="welcomeMessage" type="String"/>
+	</bean>	
+	<bean class="com.acc.data.BeaconPromotionData" extends="com.acc.product.data.PromotionDataList">
+		<property name="welcomeMessage" type="String"/>
+		<property name="response" type="String"/>
+	</bean>	
+	
+	<bean class="de.hybris.platform.commercefacades.product.data.ProductData">
+		<property name="beaconId" type="String"/>
+		<property name="location" type="String"/>
+	</bean>
+	<bean class="com.acc.data.CustomerHealthData">
+		<property name="customerId" type="String" />
+		<property name="HKCategoryTypeIdentifierSleepAnalysis" type="String"/>
+		<property name="HKQuantityTypeIdentifierBodyMass" type="String"/>
+		<property name="HKQuantityTypeIdentifierBodyMassIndex" type="String"/>
+		<property name="HKQuantityTypeIdentifierBodyFatPercentage" type="String"/>
+		<property name="HKQuantityTypeIdentifierHeartRate" type="String"/>
+		<property name="HKQuantityTypeIdentifierBloodPressureSystolic" type="String"/>
+		<property name="HKQuantityTypeIdentifierStepCount" type="String" />
+		<property name="HKQuantityTypeIdentifierRespiratoryRate" type="String" />
+		<property name="HKQuantityTypeIdentifierDistanceCycling" type="String" />
+		<property name="HKQuantityTypeIdentifierOxygenSaturation" type="String" />
+		<property name="HKQuantityTypeIdentifierDistanceWalkingRunning" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryManganese" type="String" />
+		<property name="HKQuantityTypeIdentifierBasalEnergyBurned" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryCalcium" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryFiber" type="String" />
+		<property name="HKQuantityTypeIdentifierBloodPressureDiastolic" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryFatSaturated" type="String" />
+		<property name="HKQuantityTypeIdentifierFlightsClimbed" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryMagnesium" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryIron" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryCopper" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryPotassium" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryPantothenicAcid" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryCaffeine" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryFatPolyunsaturated" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryFatMonounsaturated" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryNiacin" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryChromium" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryCarbohydrates" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryVitaminK" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryFolate" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryBiotin" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryCholesterol" type="String" />
+		<property name="HKQuantityTypeIdentifierDietarySodium" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryMolybdenum" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryChloride" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryIodine" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryPhosphorus" type="String" />
+		<property name="HKQuantityTypeIdentifierDietarySugar" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryEnergyConsumed" type="String" />
+		<property name="HKQuantityTypeIdentifierActiveEnergyBurned" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryVitaminB6" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryZinc" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryFatTotal" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryVitaminE" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryVitaminA" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryVitaminD" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryVitaminC" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryThiamin" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryRiboflavin" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryProtein" type="String" />
+		<property name="HKQuantityTypeIdentifierDietaryVitaminB12" type="String" />
+		<property name="HKQuantityTypeIdentifierDietarySelenium" type="String" />
+		
+	</bean>	
+	<bean class="com.acc.data.WebserviceResponseData">
+		<property name="response" type="String"/>
+	</bean>
+	
+	<bean class="com.acc.data.CollectOrderWsData">
+		<property name="pk" type="String"/>
+		<property name="ucoid" type="String"/>
+		<property name="orderId" type="String"/>
+		<property name="customerId" type="String"/>
+		<property name="pId" type="String"/>
+		<property name="status" type="com.acc.data.CollectOrderWsStatus"/>
+		<property name="createdTS" type="java.util.Date"/>
+	</bean>
+	
+	<enum class="com.acc.data.CollectOrderWsStatus">
+		<value>PENDING</value>
+		<value>COMPLETED</value>
+		<value>COLLECTED</value>
+	</enum>
+	
+	<bean class="com.acc.data.CollectOrderDataList">
+		<property name="collectOrders" type="java.util.List&lt;com.acc.data.CollectOrderWsData>" />
+	</bean>
+
+</beans>
