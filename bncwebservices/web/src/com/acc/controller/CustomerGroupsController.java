@@ -19,7 +19,6 @@ import de.hybris.platform.commercefacades.customergroups.exceptions.InvalidCusto
 import de.hybris.platform.commercefacades.user.UserGroupOption;
 import de.hybris.platform.commercefacades.user.data.UserGroupData;
 import de.hybris.platform.commercefacades.user.data.UserGroupDataList;
-import com.acc.error.data.ErrorData;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -41,6 +40,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+
+import com.acc.error.data.ErrorData;
 
 
 /**

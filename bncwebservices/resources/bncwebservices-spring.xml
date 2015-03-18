@@ -26,7 +26,6 @@
 	</bean>
 
 	<bean id="cwsProductFacade" parent="defaultProductFacade">
-		<property name="productConfiguredPopulator" ref="cwsProductConfiguredPopulator"/>
 		<property name="productConverter" ref="cwsProductConverter"/>
 	</bean>
 
@@ -248,98 +247,7 @@
 	      class="com.acc.search.solrfacetsearch.provider.impl.PointOfServiceFacetDisplayNameProvider">
 		<property name="pointOfServiceService" ref="pointOfServiceService"/>
 	</bean>
-	<bean id="storeLoginService" class="com.acc.services.impl.StoreLoginServiceImpl">
-		
-	</bean>
-	<alias name="storeLoginDaoImpl" alias="storeLoginDao"/>
-	<bean id="storeLoginDaoImpl"
-			class="com.acc.dao.impl.StoreLoginDaoImpl" parent="abstractItemDao">			   
-		<property name="flexibleSearchService" ref="flexibleSearchService"/>
-		<property name="modelService" ref="modelService"/>
-		</bean>
-		
-	<bean id="customerHealthDataDao" class="com.acc.dao.impl.CustomerHealthDataDaoImpl">
-		<property name="flexibleSearchService" ref="flexibleSearchService"/>
-		<property name="modelService" ref="modelService"/>
-	</bean>
-	<bean id="customerHealthDataService" class="com.acc.services.impl.CustomerHealthDataServiceImpl">
-		<property name="customerHealthDataDao" ref="customerHealthDataDao"/>
-	</bean>	
-	
-	<bean id="beaconPromotionsDao" class="com.acc.dao.impl.BeaconPromotionsDaoImpl">
-		<property name="flexibleSearchService" ref="flexibleSearchService"/>
-		<property name="modelService" ref="modelService"/>
-	</bean>
-	<bean id="beaconPromotionsService" class="com.acc.services.impl.BeaconPromotionsServiceImpl">
-		<property name="beaconPromotionsDao" ref="beaconPromotionsDao"/>
-		<property name="promotionsConverter" ref="promotionsConverter"/>
-		<property name="userService" ref="userService"/>
-		
-	</bean>
-	
-	<bean id="beaconPopulator" class="com.acc.populator.BeaconPopulator">
-	</bean>
-	
-	<bean id="beaconData" class="com.acc.data.BeaconData" scope="prototype"/>
 
-	<bean id="beaconConverter" parent="abstractPopulatingConverter">
-		<lookup-method name="createTarget" bean="beaconData"/>
-		<property name="populators">
-			<list>
-				<ref bean="beaconPopulator"/>
-			</list>
-		</property>
-	</bean>
-	
-	
-	<bean id="ProductLocationDao" class="com.acc.dao.impl.ProductLocationDaoImpl">
-		<property name="flexibleSearchService" ref="flexibleSearchService"/>
-		<property name="modelService" ref="modelService"/>
-	</bean>
-	<bean id="ProductLocationService" class="com.acc.services.impl.ProductLocationServiceImpl">
-		<property name="ProductLocationDao" ref="ProductLocationDao"/>
-		<property name="productConverter" ref="productConverter"/>
-		<property name="productConfiguredPopulator" ref="productConfiguredPopulator"/>
-		
-		
-	</bean>
-	
-	
-	<bean id="productWithLocationDetailsPopulator" class="com.acc.populator.ProductWithLocationDetailsPopulator" parent ="productPopulator">
-	</bean>
-	
-	
-	<alias name="defaultProductConverter" alias="productConverter"/>
-	<bean id="defaultProductConverter" parent="abstractPopulatingConverter">
-		<lookup-method name="createTarget" bean="productData"/>
-		<property name="populators">
-			<list>
-				<ref bean="productWithLocationDetailsPopulator"/>
-			</list>
-		</property>
-	</bean>
-	
-	<bean id="collectOrderDao" class="com.acc.dao.impl.CustomerCollectOrderDaoImpl">
-		<property name="flexibleSearchService" ref="flexibleSearchService"/>
-		<property name="modelService" ref="modelService"/>
-	</bean>
-	<bean id="collectOrderService" class="com.acc.services.impl.CustomerCollectOrderServiceImpl">
-		<property name="collectOrderDao" ref="collectOrderDao"/>
-	</bean>
-	
-	<bean id="collectOrderWsPopulator" class="com.acc.populator.CollectOrderPopulator" />
-
-	<bean id="collectOrderWsData" class="com.acc.data.CollectOrderWsData" scope="prototype"/>
-		
-	<bean id="collectOrderWsConverter" parent="abstractPopulatingConverter">
-		<lookup-method name="createTarget" bean="collectOrderWsData"/>
-		<property name="populators">
-			<list>
-				<ref bean="collectOrderWsPopulator" />
-			</list>
-		</property>
-	</bean>
-	
   <!--End of beans needed for sample data used in groovy tests  -->
   
 </beans>

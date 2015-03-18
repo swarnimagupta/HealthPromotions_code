@@ -72,7 +72,6 @@ import com.acc.expressupdate.impl.ProductExpressUpdateQueue;
 import com.acc.formatters.WsDateFormatter;
 import com.acc.product.data.ProductDataList;
 import com.acc.product.data.SuggestionDataList;
-import com.acc.services.ProductLocationService;
 import com.acc.util.ws.SearchQueryCodec;
 import com.acc.validator.CustomValidationException;
 import com.acc.validator.ReviewDataValidator;
@@ -118,8 +117,9 @@ public class ProductsController extends BaseController
 	private CatalogFacade catalogFacade;
 	@Autowired
 	private BaseSiteService baseSiteService;
-	@Autowired
-	private ProductLocationService productLocationService;
+
+	//@Autowired
+	//private ProductLocationService productLocationService;
 
 	/**
 	 * Web service handler for search. Implementation has to catch up once the SearchFacade exists.
@@ -386,9 +386,9 @@ public class ProductsController extends BaseController
 
 		final Set<ProductOption> opts = extractOptions(options);
 		LOG.info("inside productcontroller**********" + opts);
-		
-		//return productFacade.getProductForCodeAndOptions(code, opts);
-		return productLocationService.getProductForCodeAndOptions(code, opts);
+
+		return productFacade.getProductForCodeAndOptions(code, opts);
+		//return productLocationService.getProductForCodeAndOptions(code, opts);
 
 
 
@@ -431,8 +431,7 @@ public class ProductsController extends BaseController
 
 	/**
 	 * Web service handler for the postReview call. Review will be posted as anonymous principal. Method uses
-	 * {@link com.acc.populator.HttpRequestReviewDataPopulator} to populate review data
-	 * from request parameters.
+	 * {@link com.acc.populator.HttpRequestReviewDataPopulator} to populate review data from request parameters.
 	 * <p/>
 	 * There is no default validation for the posted value!
 	 * <p/>

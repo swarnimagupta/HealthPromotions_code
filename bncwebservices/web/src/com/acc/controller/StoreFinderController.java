@@ -14,21 +14,28 @@
 package com.acc.controller;
 
 
-import com.google.common.base.Function;
-import com.google.common.collect.Lists;
 import de.hybris.platform.commercefacades.storefinder.StoreFinderFacade;
 import de.hybris.platform.commercefacades.storelocator.data.PointOfServiceData;
 import de.hybris.platform.commerceservices.search.pagedata.PageableData;
 import de.hybris.platform.commerceservices.store.data.GeoPoint;
 import de.hybris.platform.commerceservices.storefinder.data.StoreFinderSearchPageData;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Nullable;
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.common.base.Function;
+import com.google.common.collect.Lists;
 
 
 @Controller
@@ -80,11 +87,12 @@ public class StoreFinderController extends BaseController
 		return result;
 	}
 
-    @RequestMapping(value = "/v1/{baseSiteId}/stores/{name}", method = RequestMethod.GET)
-    @ResponseBody
-    public PointOfServiceData locationDetails(@PathVariable final String name){
-        return storeFinderFacade.getPointOfServiceForName(name);
-    }
+	@RequestMapping(value = "/v1/{baseSiteId}/stores/{name}", method = RequestMethod.GET)
+	@ResponseBody
+	public PointOfServiceData locationDetails(@PathVariable final String name)
+	{
+		return storeFinderFacade.getPointOfServiceForName(name);
+	}
 
 	protected double getInKilometres(final double radius, final double accuracy)
 	{
