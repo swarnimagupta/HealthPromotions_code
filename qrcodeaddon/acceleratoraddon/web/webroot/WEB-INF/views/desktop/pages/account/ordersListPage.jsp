@@ -26,7 +26,7 @@
 			
 			setTimeout(function () {
 			
-			window.location.href="${contextPath}/orderslist/vieworders?size="+'${Queued}'+"&status="+'${param.status}';}, 10000);
+			window.location.href="${contextPath}/orderslist/vieworders?size="+'${Queued}'+"&status="+'${param.status}';}, 30000);
 		});
 		</script> 
 		<script src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/jquery.knob.js"></script>

@@ -4,17 +4,16 @@
 <%@ taglib prefix="format" tagdir="/WEB-INF/tags/shared/format"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-<script	src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/jquery-1.11.0.min.js"></script>
-<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
-<script type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/jquery.slimscroll.min.js"></script>
-<script type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/datepicker.js"></script>
-<script type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/library.js"></script>
-<script type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/tabModule.js"></script>
-<script type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/jquery.tinycarousel.min.js"></script>
-<script type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/slideshow.min.js"></script>
+<%-- <script type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/library.js"></script> --%>
 
 <script type="text/javascript">
 	$(document).ready(function() {
+		tabModule.init();	
+		$("#slider1").tinycarousel();
+		$("#slider2").tinycarousel();
+		$("#slider3").tinycarousel();
+		 $(".slmscr").slimScroll({railVisible: true, railColor: '#f00'});
+		 $(".slmscr1").slimScroll({railVisible: true, railColor: '#f00'});
 		$("#accordion").accordion({
 			active: false,
 		    collapsible: true});
@@ -41,6 +40,7 @@
 		<ul class="tab-legend">
 			<li class="active">Customer Details</li>
 			<li>Orders Details</li>
+			<li>History</li>
 		</ul>
 		<ul class="tab-content">
 			<li>
@@ -93,8 +93,7 @@
 								end="0">
 								<h3 onclick="javascript:loadOrderDetails('${order.orderCode}');">
 									<span
-										style="font: normal 16px/20px Arial, Helvetica, sans-serif; color: #6f6f6f;">${order.orderCode}&nbsp;&nbsp;&nbsp;&nbsp;Total:${order.total}&nbsp;&nbsp;&nbsp;&nbsp;Placed
-										on ${order.placedDate}</span>
+										style="font: normal 15px/20px Helvetica, sans-serif; color: #181818;text-align: left;"><b>Order #</b>${order.orderCode}&emsp;&emsp;<b>Total</b> - &#36; ${order.total}&emsp;&emsp;<b>Date Placed</b> ${order.placedDate}</span>
 								</h3>
 								<div id="orderDetails_${order.orderCode}">
 									<table width="100%" border="0" cellspacing="0" cellpadding="0"
@@ -139,97 +138,63 @@
 				</div>
 			</li>
 
+			<li>
+				<div class="slmscr1">
+					<c:if test="${not empty wishlist.entries}">
+						<div class="tabt1">Wish List</div>
+						<div id="slider1">
+							<a class="buttons prev" href="javascript:void(0);">left</a>
+							<div class="viewport">
+								<ul class="overview">
+									<c:if test="${not empty wishlist.entries}">
+										<c:forEach items="${wishlist.entries}" var="wishlist">
+											<li>
+												<product:productPrimaryImage product="${wishlist.product}" format="thumbnail" />
+											</li>
+										</c:forEach>
+									</c:if>
+								</ul>
+							</div>
+							<a class="buttons next" href="javascript:void(0);">right</a>
+						</div>
+					</c:if>
+					<c:if test="${not empty productData}">
+						<div class="tabt1 pt20">Recently Viewed</div>
+						<div id="slider2">
+							<a class="buttons prev" href="javascript:void(0);">left</a>
+							<div class="viewport">
+								<ul class="overview">
+									<c:forEach items="${productData}" var="product">
+										<c:url value="${product.url}" var="productQuickViewUrl" />
+										<li>
+											<product:productPrimaryImage product="${product}" format="thumbnail" />
+										</li>
+									</c:forEach>
+								</ul>
+							</div>
+							<a class="buttons next" href="javascript:void(0);">right</a>
+						</div>
+					</c:if>
+					<c:if test="${not empty recommendedProductsData}">
+						<div class="tabt1 pt20">Recommendations</div>
+						<div id="slider3">
+							<a class="buttons prev" href="javascript:void(0);">left</a>
+							<div class="viewport">
+								<ul class="overview">
+									<c:forEach items="${recommendedProductsData}" var="product">
+										<c:url value="${product.url}" var="productQuickViewUrl" />
+										<li>
+											<product:productPrimaryImage product="${product}" format="thumbnail" />
+										</li>
+									</c:forEach>
+								</ul>
+							</div>
+							<a class="buttons next" href="javascript:void(0);">right</a>
+						</div>
+					</c:if>
+					
+				</div>
+			</li>
 		</ul>
 	</div>
 </div>
-
-<div class="wshltc">
-	<div id="slideshow" class="disabled">
-		<button class="previous" id="prevSlideShow">
-			<b>« Previous</b>
-		</button>
-		<button class="next" id="nextSlideShow">
-			<b>Next »</b>
-		</button>
-
-		<div class="strip">
-			<div class="slide sticky">Wish List</div>
-			<div class="slide">Recently View</div>
-			<div class="slide">Recommendations</div>
-		</div>
-		<div id="slider1"> 
-			<a class="buttons prev" href="#">left</a>
-			<div class="viewport">
-				<div id="wishlistProducts" style="display:block;">
-					<ul class="overview">
-						<c:if test="${not empty wishlist.entries}">
-							<c:forEach items="${wishlist.entries}" var="wishlist">
-								<li>
-									<product:productPrimaryImage product="${wishlist.product}" format="thumbnail" />
-								</li>
-							</c:forEach>
-						</c:if>
-					</ul>
-				</div>
-				<div id="recentlyViewedProducts" style="display:none;">
-					<ul class="overview">
-						<c:forEach items="${productData}" var="product">
-							<c:url value="${product.url}" var="productQuickViewUrl" />
-							<li>
-								<product:productPrimaryImage product="${product}" format="thumbnail" />
-							</li>
-						</c:forEach>
-					</ul>
-				</div>
-				<div id="recommendedProducts" style="display:none;">
-					<ul class="overview">
-						<c:forEach items="${recommendedProductsData}" var="product">
-							<c:url value="${product.url}" var="productQuickViewUrl" />
-							<li>
-								<product:productPrimaryImage product="${product}" format="thumbnail" />
-							</li>
-						</c:forEach>
-					</ul>
-				</div>
-			</div>
-			<a class="buttons next" href="#">right</a>
-		</div>
-	</div>
-</div>
-<script src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/launcher.js"></script>
-<script type="text/javascript">
-	$("#nextSlideShow").click(
-		function()
-		{
-			if($(".sticky").html()=='Wish List')
-			{
-				$("#wishlistProducts").css('display','none');
-				$("#recentlyViewedProducts").css('display','block');
-				$("#recommendedProducts").css('display','none');
-			}
-			if($(".sticky").html()=='Recently View')
-			{
-				$("#wishlistProducts").css('display','none');
-				$("#recentlyViewedProducts").css('display','none');
-				$("#recommendedProducts").css('display','block');
-			}
-		}
-	);
-	$("#prevSlideShow").click(
-		function()
-		{
-			if($(".sticky").html()=='Recently View')
-			{
-				$("#wishlistProducts").css('display','block');
-				$("#recentlyViewedProducts").css('display','none');
-				$("#recommendedProducts").css('display','none');
-			}
-			if($(".sticky").html()=='Recommendations')
-			{
-				$("#wishlistProducts").css('display','none');
-				$("#recentlyViewedProducts").css('display','block');
-				$("#recommendedProducts").css('display','none');
-			}
-		}
-	);
-</script>

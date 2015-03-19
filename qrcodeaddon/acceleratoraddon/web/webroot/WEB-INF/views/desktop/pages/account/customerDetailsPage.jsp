@@ -7,14 +7,17 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	<script  src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/jquery-1.11.0.min.js"></script>
-	<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+	<link type="text/css" rel="stylesheet" href="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_css/style_new.css" />
+	<script  type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/library.js"></script>
 	<script type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/jquery.slimscroll.min.js"></script>
 	<script type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/datepicker.js"></script>
-	<script type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/library.js"></script>
 	<script type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/tabModule.js"></script>
 	<script type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/jquery.tinycarousel.min.js"></script>
-	<script type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/slideshow.min.js"></script>
+	<script type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/dependencies.js"></script>
+	<script type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/modernizr.js"></script>
+	<script type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/pizza.js"></script>
+	<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 	<script type="text/javascript">
 	function loadOrderDetails(orderCode)
 	{
@@ -125,7 +128,7 @@
 				}
 				else
 				{
-					$("#customer_details_block").html("<p style='color:red;'>Please enter dates in proper format! Dates as DD.MM.YYYY and Time as HH:MM AM/PM!!\n\n FromDate should be before ToDate!! OR No customers logged in for the given dates!!</p>");
+					$("#customer_details_block").html("<p style='color:red;'>Please enter dates in proper format! Dates as MM/dd/YYYY and Time as HH:MM AM/PM!!\n\n FromDate should be before ToDate!! OR No customers logged in for the given dates!!</p>");
 				}
 			},
 			error : function(e) {
@@ -138,10 +141,24 @@
 		setTimeout(function () {window.location.href="${contextPath}/customerlist/customerdeatils?size="+'${Queued}'+"&status="+'${param.status}';}, 30000);
 	});
 	</script>
+	<script src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/jquery.knob.js"></script>
+	<style>
+	.circle_progress_bar{font:normal 20px Arial!important; text-align: center; color:#626262!important; }
+	</style>
+	<script type="text/javascript">
+		$(window).load(function(){
+		$(".dial").knob({
+			readOnly: true,
+			fgColor: "#465bdc",
+			bgColor: "#C9C8C8",
+			thickness: 0.20
+						});
+	});
+	
+	</script>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 	<title>Customers Dashboard</title>
-	<link type="text/css" rel="stylesheet" href="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_css/style_new.css" />
 	</head>
 	<body>
 		<bnc:csr_customers_header/>
@@ -163,11 +180,10 @@
 		</div>
 		<!--Content Ends here-->
 		<!--Footer Area Starts here-->
-  		<div class="ftr"> © Accenture 2015, All Rights Reserved.</div>
+  		<div class="ftr"> <div class="ftri">© Accenture 2015, All Rights Reserved.</div></div>
   		<!--Footer Area Ends here-->
 
 		<!-- Script includes -->
-		<script src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/launcher.js"></script>
 		<c:if test="${not empty param.size && Queued!=param.size}">
 			<script type="text/javascript">
 				var audio = {};
@@ -177,5 +193,6 @@
 				document.getElementById("bell_number").innerHTML = ${Queued};
 			</script>
 		</c:if>
+		<script src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/jquery.diagram.js"></script> 
 	</body>
 </html>

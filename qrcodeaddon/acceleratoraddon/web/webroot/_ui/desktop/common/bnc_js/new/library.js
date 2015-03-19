@@ -1,17 +1,23 @@
 $(document).ready(function(){
-	tabModule.init();	
 
-$("#slider1").tinycarousel();
+$("#slimtest").slimScroll();
+
+var loc = location.href;
+var imagePath = "${commonResourcePath}/../../_ui/addons/qrcodeaddon/desktop/common/bnc_images/new/cal.png";
+if(loc.contains("electronics\/en"))
+{
+	imagePath = imagePath.replace("${commonResourcePath}\/..\/..\/","${commonResourcePath}\/..\/..\/..\/..\/");
+}
 $( "#datepicker" ).datepicker({
 showOn: "button",
-buttonImage: "images/cal.png",
+buttonImage: imagePath,
 buttonImageOnly: true,
 buttonText: "Select date"
 });
 
 $( "#datepicker1" ).datepicker({
 showOn: "button",
-buttonImage: "images/cal.png",
+buttonImage: imagePath,
 buttonImageOnly: true,
 buttonText: "Select date"
 });
@@ -29,13 +35,11 @@ $(".mClose").click(function() {
 $("#lmenu").animate({width: 'toggle'},200);
 });
 
- $(".slmscr").slimScroll({railVisible: true, railColor: '#f00'});
- $(".slmscr1").slimScroll({railVisible: true, railColor: '#f00'});
-$("#slimtest").slimScroll();
-
 
 Pizza.init();
 $(document).foundation();
+
+
 
 
 });
