@@ -15,8 +15,8 @@ INSERT_UPDATE Usergroup;uid[unique=true];locName;description
 #To create customer in HealthGroup
 INSERT_UPDATE Customer;uid[unique=true];name;description;groups(uid)[mode=append];
 ;xiaodong.b.zhang@accenture.com;"Zhang xiaodong";customer;JoggersGroup;
-;bin.a.liu@accenture.com;"Liu bin";customer;JoggersGroup;
-;neeraj.a.shah@accenture.com;"Neeraj Shah";customer;JoggersGroup;
+;swapnil.a.pandey@accenture.com;"Swapnil Pandey";customer;JoggersGroup;
+;swarnima.gupta@accenture.com;"Swarnima Gupta";customer;JoggersGroup;
 ;kishor.chockalingam@accenture.com;"Kishore Chockalingam";customer;WorkoutGroup
 ;vijayanand.hongal@accenture.com;"vijayanand hongal";customer;WorkoutGroup
 

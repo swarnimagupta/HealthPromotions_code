@@ -128,8 +128,7 @@
 							<c:forEach items="${customerOrderDataList}" var="order" begin="1">
 								<h3 onclick="javascript:loadOrderDetails('${order.orderCode}');">
 									<span
-										style="font: normal 16px/20px Arial, Helvetica, sans-serif; color: #6f6f6f;">${order.orderCode}&nbsp;&nbsp;&nbsp;&nbsp;Total:${order.total}&nbsp;&nbsp;&nbsp;&nbsp;Placed
-										on ${order.placedDate}</span>
+										style="font: normal 15px/20px Helvetica, sans-serif; color: #181818;text-align: left;"><b>Order #</b>${order.orderCode}&emsp;&emsp;<b>Total</b> - &#36; ${order.total}&emsp;&emsp;<b>Date Placed</b>  ${order.placedDate}</span>
 								</h3>
 								<div id="orderDetails_${order.orderCode}"></div>
 							</c:forEach>
