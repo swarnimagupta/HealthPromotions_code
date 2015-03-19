@@ -20,17 +20,14 @@
 	});
 	function assistCustomer()
 	{
-		alert('${param.customerPK}');
 		window.location = "${contextPath}/customerlist/statusUpdate?status=InService&customerPK=${param.customerPK}";
 	}
 	function noThanksUpdate()
 	{
-		alert('${param.customerPK}');
 		window.location = "${contextPath}/customerlist/statusUpdate?status=NoThanks&customerPK=${param.customerPK}";
 	}
 	function servicedCustomer()
 	{
-		alert('${param.customerPK}');
 		window.location = "${contextPath}/customerlist/statusUpdate?status=Completed&customerPK=${param.customerPK}";
 	}
 </script>
