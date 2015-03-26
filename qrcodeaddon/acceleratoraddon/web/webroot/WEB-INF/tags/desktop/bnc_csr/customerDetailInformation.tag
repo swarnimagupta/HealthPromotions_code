@@ -53,19 +53,6 @@
 							</c:if>
 							<img src="${imageUrl}" class="fl img-width" /> <span class="tabt">${storecustomerData.customerName}</span>
 						</div>
-
-						<div class="oh pdtb20">
-							<span class="fl lftt">Date of Birth:</span> <span class="fl rgtt">${informationDto.dob}</span>
-						</div>
-
-						<div class="oh pdtb20">
-							<span class="fl lftt">Address:</span> <span class="fl rgtt">${informationDto.line1}&nbsp;${informationDto.line2}&nbsp;${informationDto.apartment}&nbsp;${informationDto.postalCode}</span>
-						</div>
-
-						<div class="oh pdtb20">
-							<span class="fl lftt">UID:</span> <span class="fl rgtt">${storecustomerData.customerId}
-							</span>
-						</div>
 						<div class="oh pdtb20">
 							<c:choose>
 								<c:when test="${storecustomerData.custStatus=='InService' && not empty storecustomerData.processedBy && storecustomerData.processedBy==CSR_USER}">
@@ -79,6 +66,32 @@
 								</c:otherwise>
 							</c:choose>
 						</div>
+
+						<div class="oh pdtb20">
+							<span class="fl lftt">Date of Birth:</span> <span class="fl rgtt">${informationDto.dob}</span>
+						</div>
+
+						<div class="oh pdtb20">
+							<span class="fl lftt">Address:</span> <span class="fl rgtt">${informationDto.line1}&nbsp;${informationDto.line2}&nbsp;${informationDto.apartment}&nbsp;${informationDto.postalCode}</span>
+						</div>
+
+						<div class="oh pdtb20">
+							<span class="fl lftt">UID:</span> <span class="fl rgtt">${storecustomerData.customerId}
+							</span>
+						</div>
+						<%-- <div class="oh pdtb20">
+							<c:choose>
+								<c:when test="${storecustomerData.custStatus=='InService' && not empty storecustomerData.processedBy && storecustomerData.processedBy==CSR_USER}">
+									<button id="btn1" class="assbt" onclick="javascript:servicedCustomer();">Serviced</button>
+								</c:when>
+								<c:when test="${storecustomerData.custStatus=='Completed'}">
+								</c:when>
+								<c:otherwise>
+									<button id="btn2" class="assbt" onclick="javascript:assistCustomer();">Assist</button>&nbsp;&nbsp;
+									<button id="btn3" class="assbt" onclick="javascript:noThanksUpdate();">No Thanks</button>
+								</c:otherwise>
+							</c:choose>
+						</div> --%>
 					</div>
 				</div>
 			</li>
