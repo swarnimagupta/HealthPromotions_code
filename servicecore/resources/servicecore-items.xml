@@ -262,12 +262,12 @@
 					<modifiers read="true" write="true" search="true" optional="false" />
 					<persistence type="property" />
 				</attribute>
-				<attribute qualifier="majorId " type="java.lang.String">
-					<modifiers read="true" write="true" search="true" optional="true" />
+				<attribute qualifier="majorId " type="java.lang.String" >
+					<modifiers read="true" write="true" search="true" optional="true" unique="true"/>
 					<persistence type="property" />
 				</attribute>
 				<attribute qualifier="minorId " type="java.lang.String">
-					<modifiers read="true" write="true" search="true" optional="true" />
+					<modifiers read="true" write="true" search="true" optional="true" unique="true"/>
 					<persistence type="property" />
 				</attribute>
 				<attribute qualifier="welcomeMessage" type="java.lang.String">

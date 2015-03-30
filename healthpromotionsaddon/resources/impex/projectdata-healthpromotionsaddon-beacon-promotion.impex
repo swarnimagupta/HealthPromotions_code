@@ -2,6 +2,6 @@ $productCatalog=electronicsProductCatalog
 $catalogVersion=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$productCatalog]),CatalogVersion.version[default=Staged])[default=$productCatalog:Staged]
 
 
-INSERT_UPDATE Beacon;identifier[unique=true];minorId;majorId;welcomeMessage;promotions(code)
+INSERT_UPDATE Beacon;identifier;minorId[unique=true];majorId[unique=true];welcomeMessage;promotions(code)
 ;12168afc-c27e-4845-ba90-e7b5484bdbba;3.00;2.00;"Welcome to our Store! 30% to 50% off on Health products for today only";JoggersDiscount30,WorkoutHappyDiscount,JoggersExcitingDiscount,WorkoutDiscount50
 ;d2afdf3e-34eb-41f8-8c3f-f9ed26fa954e;1.00;1.00;"Welcome to our Store! 30% to 50% off on Health products for today only";JoggersDiscount30,WorkoutHappyDiscount
