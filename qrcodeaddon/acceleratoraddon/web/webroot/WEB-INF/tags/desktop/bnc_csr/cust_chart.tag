@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<div class="chart_block" style="text-align: center;margin-bottom: 20px;margin-top: 12px;font-size: 13px">
+<div class="chart_block" style="text-align: center;margin-bottom: 20px;margin-top: 12px;font-size: 13px" id="chartsRefresh">
 	<c:choose>
 		<c:when test="${param.status=='INSERVICE'}">
 			<c:set var="queuedCurrent" value=""/>
@@ -27,7 +27,7 @@
 	}
 	</style>
 	<div class="diagram_block" style="float: left;margin: auto;padding-left: 55px;padding-top: 10px;width: 18%;">
-		<input type="text" class="dial circle_progress_bar" value="${Queued}" readonly="readonly" />
+		<input type="text" class="dial circle_progress_bar" value="${Queued}" readonly="readonly" id="queuedNumber"/>
 		<div class="${queuedCurrent}" style="margin-top:6px">
 			<c:url value="/customerlist/customerdeatils" var="queuedURL">
 				<c:param name="status" value="LOGGEDIN"></c:param>

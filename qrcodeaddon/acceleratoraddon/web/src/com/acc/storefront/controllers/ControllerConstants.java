@@ -163,6 +163,8 @@ public interface ControllerConstants
 				String CustomerDetailsFragment = "pages/addon:/qrcodeaddon/fragments/cart/customerdetailsfragment";
 				String CustomerByDateTime = "pages/addon:/qrcodeaddon/fragments/cart/customerByDateTime";
 				String OrderDetailsAccordion = "pages/addon:/qrcodeaddon/fragments/cart/orderDetailsAccordion";
+				String CustomerListFragment = "pages/addon:/qrcodeaddon/fragments/cart/customerlistfragment";
+				String ChartsRefresh = "pages/addon:/qrcodeaddon/fragments/cart/chartsRefresh";
 			}
 
 			interface Account

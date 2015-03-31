@@ -310,6 +310,117 @@ public class CustomerListController extends AbstractAddOnPageController
 		return ControllerConstants.Views.Pages.Account.customerDetailsPage;
 
 	}
+	
+	
+	@SuppressWarnings("boxing")
+	@RequestMapping(value = "/customerdetails", method = RequestMethod.GET)
+	public String ajaxCustomerListDetails(final Model model, final HttpServletRequest request, final HttpServletResponse response)
+			throws CMSItemNotFoundException
+	{
+		final List<StoreCustomerData> customerStatusDataList = new ArrayList<StoreCustomerData>();
+		final List<StoreCustomerData> customerInServiceDataList = new ArrayList<StoreCustomerData>();
+		final List<StoreCustomerData> customerNoThanxDataList = new ArrayList<StoreCustomerData>();
+		final List<CSRCustomerDetailsModel> csrCustomerDetailsList = StoreCustomerFacade.getCSRCustomerDetails();
+		final String status = request.getParameter("status");
+		final List<CSRCustomerDetailsModel> csrCustomerDetailsByStatusList = StoreCustomerFacade
+				.getCSRCustomerDetailsByStatus(StringUtils.isEmpty(status) ? CSRStoreStatus.LOGGEDIN : CSRStoreStatus.valueOf(status));
+		try
+		{
+			if (null != csrCustomerDetailsByStatusList)
+			{
+				for (final CSRCustomerDetailsModel customerDetails : csrCustomerDetailsByStatusList)
+				{
+					final UserModel userModel = userService.getUserForUID(customerDetails.getCustomerId());
+					String profilePictureURL = "";
+					if (null != userModel && userModel instanceof CustomerModel)
+					{
+						final CustomerModel customerModel = (CustomerModel) userModel;
+						profilePictureURL = (null == customerModel.getProfilePicture() ? StringUtils.EMPTY : customerModel
+								.getProfilePicture().getURL2());
+					}
+					final StoreCustomerData storecustomerData = new StoreCustomerData();
+					final String time = returnLoginFromTime(customerDetails.getLoginTime());
+					final String loggedTime = returnLoggedInTime(customerDetails.getLoginTime());
+					storecustomerData.setCustomerId(customerDetails.getCustomerId());
+					storecustomerData.setCustomerName(customerDetails.getCustomerName());
+					storecustomerData.setStoreCustomerPK(customerDetails.getPk().getLongValueAsString());
+					storecustomerData.setWaitingTime(time);
+					storecustomerData.setLoginTime(loggedTime);
+					storecustomerData.setProfilePictureURL(profilePictureURL);
+					storecustomerData
+							.setProcessedBy((null == customerDetails.getProcessedBy() ? "" : customerDetails.getProcessedBy()));
+					customerStatusDataList.add(storecustomerData);
+				}
+			}
+		}
+		catch (final UnknownIdentifierException e)
+		{
+			//
+		}
+		model.addAttribute("customerLoggedInDataList", customerStatusDataList);
+		model.addAttribute("csrCustomerDetailsByStatusList", csrCustomerDetailsByStatusList);
+		model.addAttribute("Queue", getStatusCount(csrCustomerDetailsList, CSRStoreStatus.LOGGEDIN));
+		model.addAttribute("Active", getStatusCount(csrCustomerDetailsList, CSRStoreStatus.INSERVICE));
+		model.addAttribute("Serviced", getStatusCount(csrCustomerDetailsList, CSRStoreStatus.COMPLETED));
+		model.addAttribute("CSR_USER", sessionService.getAttribute("CSR_USER"));
+		return ControllerConstants.Views.Fragments.Cart.CustomerListFragment;
+
+	}
+	
+	@SuppressWarnings("boxing")
+	@RequestMapping(value = "/getChartFragment", method = RequestMethod.GET)
+	public String getChartFragment(final Model model, final HttpServletRequest request, final HttpServletResponse response)
+			throws CMSItemNotFoundException
+	{
+		final List<StoreCustomerData> customerStatusDataList = new ArrayList<StoreCustomerData>();
+		final List<StoreCustomerData> customerInServiceDataList = new ArrayList<StoreCustomerData>();
+		final List<StoreCustomerData> customerNoThanxDataList = new ArrayList<StoreCustomerData>();
+		final List<CSRCustomerDetailsModel> csrCustomerDetailsList = StoreCustomerFacade.getCSRCustomerDetails();
+		final String status = request.getParameter("status");
+		final List<CSRCustomerDetailsModel> csrCustomerDetailsByStatusList = StoreCustomerFacade
+				.getCSRCustomerDetailsByStatus(StringUtils.isEmpty(status) ? CSRStoreStatus.LOGGEDIN : CSRStoreStatus.valueOf(status));
+		try
+		{
+			if (null != csrCustomerDetailsByStatusList)
+			{
+				for (final CSRCustomerDetailsModel customerDetails : csrCustomerDetailsByStatusList)
+				{
+					final UserModel userModel = userService.getUserForUID(customerDetails.getCustomerId());
+					String profilePictureURL = "";
+					if (null != userModel && userModel instanceof CustomerModel)
+					{
+						final CustomerModel customerModel = (CustomerModel) userModel;
+						profilePictureURL = (null == customerModel.getProfilePicture() ? StringUtils.EMPTY : customerModel
+								.getProfilePicture().getURL2());
+					}
+					final StoreCustomerData storecustomerData = new StoreCustomerData();
+					final String time = returnLoginFromTime(customerDetails.getLoginTime());
+					final String loggedTime = returnLoggedInTime(customerDetails.getLoginTime());
+					storecustomerData.setCustomerId(customerDetails.getCustomerId());
+					storecustomerData.setCustomerName(customerDetails.getCustomerName());
+					storecustomerData.setStoreCustomerPK(customerDetails.getPk().getLongValueAsString());
+					storecustomerData.setWaitingTime(time);
+					storecustomerData.setLoginTime(loggedTime);
+					storecustomerData.setProfilePictureURL(profilePictureURL);
+					storecustomerData
+							.setProcessedBy((null == customerDetails.getProcessedBy() ? "" : customerDetails.getProcessedBy()));
+					customerStatusDataList.add(storecustomerData);
+				}
+			}
+		}
+		catch (final UnknownIdentifierException e)
+		{
+			//
+		}
+		model.addAttribute("customerLoggedInDataList", customerStatusDataList);
+		model.addAttribute("csrCustomerDetailsByStatusList", csrCustomerDetailsByStatusList);
+		model.addAttribute("Queue", getStatusCount(csrCustomerDetailsList, CSRStoreStatus.LOGGEDIN));
+		model.addAttribute("Activ", getStatusCount(csrCustomerDetailsList, CSRStoreStatus.INSERVICE));
+		model.addAttribute("Service", getStatusCount(csrCustomerDetailsList, CSRStoreStatus.COMPLETED));
+		model.addAttribute("CSR_USER", sessionService.getAttribute("CSR_USER"));
+		return ControllerConstants.Views.Fragments.Cart.ChartsRefresh;
+
+	}
 
 	/**
 	 * @param cSRCustomerDetailsModelsList

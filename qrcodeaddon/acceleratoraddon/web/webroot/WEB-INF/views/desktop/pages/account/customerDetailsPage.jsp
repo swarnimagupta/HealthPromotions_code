@@ -138,7 +138,40 @@
 	}
 	
 	$(document).ready(function() {
-		setTimeout(function () {window.location.href="${contextPath}/customerlist/customerdeatils?size="+'${Queued}'+"&status="+'${param.status}';}, 30000);
+		setInterval(function () {
+			$.ajax({
+				type : 'GET',
+				url : "${contextPath}/customerlist/customerdetails",
+				data : "size="+'${Queued}'+"&status=LOGGEDIN",
+				dataType : 'json',
+				success : function(response) {
+					if('${param.status}'=='LOGGEDIN' || '${param.status}'=='')
+					{
+						$("#customer_list_block").html(response.customerslist);
+						var customerId = document.getElementById("currentUserId");
+						if(customerId!=null && '${Queued}'==0)
+						{
+							getCustomerDetails(customerId.value);
+						}
+					}
+					$.ajax({
+						type : 'GET',
+						url : "${contextPath}/customerlist/getChartFragment",
+						data : "status="+'${param.status}',
+						dataType : 'json',
+						success : function(response) {
+							$("#chartsRefresh").html(response.chartsRefresh);
+							$(".dial").knob({
+								readOnly: true,
+								fgColor: "#465bdc",
+								bgColor: "#C9C8C8",
+								thickness: 0.20
+								});
+						}
+					});
+				}
+			});
+			}, 30000);
 	});
 	</script>
 	<script src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/jquery.knob.js"></script>
