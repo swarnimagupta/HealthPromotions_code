@@ -106,7 +106,7 @@
 									<span
 										style="font: normal 15px/20px Helvetica, sans-serif; color: #181818;text-align: left;"><b>Order #</b>${order.orderCode}&emsp;&emsp;<b>Total</b> - &#36; ${order.total}&emsp;&emsp;<b>Date Placed</b>  ${order.placedDate}</span>
 								</h3>
-								<div id="orderDetails_${order.orderCode}"></div>
+								<div id="orderDetails_${order.orderCode}" style="background-color:#FFFFFF"></div>
 							</c:forEach>
 						</div>
 					</c:if>
