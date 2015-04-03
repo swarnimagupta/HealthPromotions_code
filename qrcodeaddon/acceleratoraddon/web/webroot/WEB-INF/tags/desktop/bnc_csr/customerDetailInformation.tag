@@ -16,7 +16,9 @@
 		 $(".slmscr1").slimScroll({railVisible: true, railColor: '#f00'});
 		$("#accordion").accordion({
 			active: false,
-		    collapsible: true});
+		    collapsible: true
+		   
+		});
 	});
 	function assistCustomer()
 	{
@@ -98,7 +100,7 @@
 			<li>
 				<div class="slmscr1">
 					<c:if test="${not empty customerOrderDataList}">
-						<div id="accordion">
+						<div id="accordion"  style="position: relative; clear:both; display:-moz-groupbox;margin-top: -95px; margin-left: -258px; top: 13%; left: 42%;">
 							<c:forEach items="${customerOrderDataList}" var="order" begin="0">
 								<h3 onclick="javascript:loadOrderDetails('${order.orderCode}');">
 									<span
