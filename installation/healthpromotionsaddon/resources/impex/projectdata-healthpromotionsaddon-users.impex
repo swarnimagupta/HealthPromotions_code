@@ -1,0 +1,30 @@
+$passwordEncoding=md5
+$defaultPassword=12341234
+$setPassword=@password[translator=de.hybris.platform.impex.jalo.translators.ConvertPlaintextToEncodedUserPasswordTranslator][default='$passwordEncoding:$defaultPassword']
+$defaultLanguage=en
+$profilePicture=profilePicture(code, $contentCV)
+$picture=media(code, $contentCV)
+$contentCatalog=electronicsContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$siteResource=jar:com.accenture.constants.QrcodeaddonConstants&/qrcodeaddon/import
+
+################### Electronics site Customer for BNC ##############################
+
+INSERT_UPDATE Media;$contentCV[unique=true];code[unique=true];realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/jpeg'];altText;folder(qualifier)[default='images']
+;;KishorProfilePic;Kishor.jpg;$siteResource/images/Kishor.jpg;;Kishor Chockalingam;;
+;;VijayProfilePic;Vijay.jpg;$siteResource/images/Vijay.jpg;;vijayanand hongal;;
+
+INSERT_UPDATE Customer;groups(uid);uid[unique=true];name;$setPassword;customerId;$profilePicture;&userId;UUID
+;"customergroup";"xiaodong.b.zhang@accenture.com";"Zhang xiaodong";;C795E236-574F-4B6D-B257-15AE9904962D;;zhangID;#C795E236-574F-4B6D-B257-15AE9904962D#
+;"customergroup";"swapnil.a.pandey@accenture.com";"Swapnil Pandey";;650B5451-2C9A-4709-A209-744165793164;;swapnilID;#650B5451-2C9A-4709-A209-744165793164#
+;"customergroup";"swarnima.gupta@accenture.com";"Swarnima Gupta";;BE38A5BB-7974-4D3C-ADDA-A760096AF8ED;;swarnimaID;#BE38A5BB-7974-4D3C-ADDA-A760096AF8ED#
+;"customergroup";"kishor.chockalingam@accenture.com";"Kishore Chockalingam";;09F2AFE7-17FC-4D4D-A606-FD30575B21C6;KishorProfilePic;kishoreID;#09F2AFE7-17FC-4D4D-A606-FD30575B21C6#
+;"customergroup";"vijayanand.hongal@accenture.com";"vijayanand hongal";;047d4ba1-6f1e-3753-be8a-530f41a3e908;VijayProfilePic;vijayanandID;#047d4ba1-6f1e-3753-be8a-530f41a3e908#
+ 
+
+INSERT_UPDATE Address;&addId;owner(&userId);streetname[unique=true];postalcode[unique=true];duplicate[unique=true];town;country(isocode);billingAddress;contactAddress;shippingAddress;unloadingAddress;firstname;lastname;email;gender(code);middlename;phone1;title(code);url;company;fax;department;appartment;dateOfBirth[dateformat=MM/dd/yyyy]
+;ZhangAddressID;zhangID;300 BOYLSTON AVE E;98102;false;BOYLSTON;US;false;true;false;false;Zhang;xiaodong;xiaodong.b.zhang@accenture.com;MALE;;+44 1234567;mr;;Hybris;;;Birla Appartment;05/11/1981
+;SwapnilAddressID;swapnilID;100 MAIN ST;98104;false;SEATTLE WA;US;false;true;false;false;Swapnil;Pandey;swapnil.a.pandey@accenture.com;FEMALE;;+44 1234567;ms;;Hybris;;;ABC Appartment;10/11/1990
+;SwarnimaAddressID;swarnimaID;BITBOOST;85728;false;TUCSON AZ;US;false;true;false;false;Swarnima;Gupta;swarnima.gupta@accenture.com;FEMALE;;+44 1234567;ms;;Hybris;;;Panchkula Appartment;11/02/1987
+;KishoreAddressID;kishoreID;421 E DRACHMAN;85705-7598;false;TUCSON AZ;US;false;true;false;false;Kishore;Chockalingam;kishor.chockalingam@accenture.com;MALE;;+44 1234567;mr;;Hybris;;;Lal Villa Appartment;02/14/1976
+;VijayanandAddressID;vijayanandID;421 E DRACHMAN;85705-7598;false;TUCSON AZ;US;false;true;false;false;Vijayanand;Hongal;vijayanand.hongal@accenture.co;MALE;;+44 1234567;mr;;Hybris;;;Silver Stone Appartment;02/14/1979

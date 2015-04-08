@@ -1,0 +1,8 @@
+#To create csrGroup if not created
+INSERT_UPDATE Usergroup;uid[unique=true];locName;description
+;csrGroup;CSR Group;CSR Group
+
+#To create CSR User in csrGroup
+INSERT_UPDATE Customer;uid[unique=true];name;description;groups(uid);password
+;peter;Peter Gabriel;CSR Lead;csrGroup;12341234
+;csrUser;CSR User;CSR Lead;csrGroup;12341234
