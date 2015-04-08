@@ -29,5 +29,6 @@ public interface BeaconPromotionsDao
 
 	public List<BeaconModel> getBeaconDetails();
 
+	public List<AbstractPromotionModel> getPromotionsForUsers(final String name);
 
 }

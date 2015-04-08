@@ -21,4 +21,9 @@ public interface BeaconPromotionsService
 	public PromotionDataList getCustomerHeathPromotionData(String emailId);
 
 	public List<BeaconData> getBeaconDetails();
+
+	public PromotionDataList getPromotionsForUsers(final String name);
+
+
+
 }

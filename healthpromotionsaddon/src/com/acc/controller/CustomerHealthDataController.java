@@ -3,8 +3,13 @@
  */
 package com.acc.controller;
 
+import de.hybris.platform.commercefacades.product.data.PromotionData;
+import de.hybris.platform.util.Config;
+
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.ServletInputStream;
@@ -23,8 +28,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.acc.controller.constants.ControllerConstants;
+import com.acc.data.BeaconPromotionData;
 import com.acc.data.CustomerHealthData;
-import com.acc.data.WebserviceResponseData;
+import com.acc.product.data.PromotionDataList;
+import com.acc.services.BeaconPromotionsService;
 import com.acc.services.CustomerHealthDataService;
 
 
@@ -39,6 +46,15 @@ public class CustomerHealthDataController
 	private static final String HEALTH_DATA = "HealthData";
 	private static final String TYPE = "type";
 	private static final String VALUE = "Value";
+	private static final String HEALTHDATA_HEARTRATE_THRESHOLDVALUE = "healthdata.heartrate.thresholdvalue";
+	private static final String HEALTHDATA_STEPCOUNT_THRESHOLDVALUE = "healthdata.stepcount.thresholdvalue";
+	private static final String HEALTHDATA_BODYMASS_THRESHOLDVALUE = "healthdata.bodymass.thresholdvalue";
+	private static final String HEALTHDATA_CHOLESTEROL_THRESHOLDVALUE = "healthdata.cholesterol.thresholdvalue";
+	private static final String HEALTHDATA_FATTOTAL_THRESHOLDVALUE = "healthdata.fattotal.thresholdvalue";
+
+	@Autowired
+	private BeaconPromotionsService beaconPromotionsService;
+
 
 	private static final Logger LOG = Logger.getLogger(CustomerHealthDataController.class);
 	@Autowired
@@ -46,15 +62,17 @@ public class CustomerHealthDataController
 
 	@RequestMapping(value = "/saveCustomerHealthData", method = RequestMethod.POST)
 	@ResponseBody
-	public WebserviceResponseData saveCustomerHeathData(final HttpServletRequest request) throws IOException, ParseException
+	public BeaconPromotionData saveCustomerHeathData(final HttpServletRequest request) throws IOException, ParseException
 	{
 		LOG.info("::::::: in saveCustomerHeathData GET request method :::::::" + request.getParameter(HEALTH_DATA));
 		final StringBuffer sbuf = getJsonBodyString(request);
 		LOG.info("::::::: json object string is :::::::" + sbuf);
 		final CustomerHealthData customerHealthData = new CustomerHealthData();
-		getHealthDataFromJsonString(sbuf, customerHealthData);
+		BeaconPromotionData beaconPromotionsData = new BeaconPromotionData();
+
+		beaconPromotionsData = getHealthDataFromJsonString(sbuf, customerHealthData);
 		//returning JSON object
-		final String responseString = customerHealthDataService.saveCustomerHealthData(customerHealthData.getCustomerId(),
+		customerHealthDataService.saveCustomerHealthData(customerHealthData.getCustomerId(),
 				customerHealthData.getHKCategoryTypeIdentifierSleepAnalysis(),
 				customerHealthData.getHKQuantityTypeIdentifierActiveEnergyBurned(),
 				customerHealthData.getHKQuantityTypeIdentifierBasalEnergyBurned(),
@@ -108,10 +126,11 @@ public class CustomerHealthDataController
 				customerHealthData.getHKQuantityTypeIdentifierRespiratoryRate(),
 				customerHealthData.getHKQuantityTypeIdentifierStepCount(),
 				customerHealthData.getHKQuantityTypeIdentifierDietaryCholesterol());
-		final WebserviceResponseData data = new WebserviceResponseData();
-		data.setResponse(responseString);
-		LOG.info("data customer healthdata controller " + data);
-		return data;
+
+		LOG.info("data customer healthdata controller promotions " + beaconPromotionsData.getPromotions());
+
+		LOG.info("data customer healthdata controller " + beaconPromotionsData.getPromotions().get(0).getCode());
+		return beaconPromotionsData;
 	}
 
 	/**
@@ -119,9 +138,11 @@ public class CustomerHealthDataController
 	 * @param customerHealthData
 	 * @throws ParseException
 	 */
-	private void getHealthDataFromJsonString(final StringBuffer sbuf, final CustomerHealthData customerHealthData)
+	private BeaconPromotionData getHealthDataFromJsonString(final StringBuffer sbuf, final CustomerHealthData customerHealthData)
 			throws ParseException
 	{
+		BeaconPromotionData beaconPromotionsData = new BeaconPromotionData();
+
 		if (StringUtils.isNotEmpty(sbuf.toString()))
 		{
 			final JSONParser parser = new JSONParser();
@@ -129,17 +150,22 @@ public class CustomerHealthDataController
 			final List<JSONObject> JSONObjectList = (List<JSONObject>) obj.get(HEALTH_DATA);
 			if (CollectionUtils.isNotEmpty(JSONObjectList))
 			{
-				populateCustomerHealthData(customerHealthData, JSONObjectList);
+				beaconPromotionsData = populateCustomerHealthData(customerHealthData, JSONObjectList);
 			}
 		}
+		return beaconPromotionsData;
 	}
 
 	/**
 	 * @param customerHealthData
 	 * @param JSONObjectList
 	 */
-	private void populateCustomerHealthData(final CustomerHealthData customerHealthData, final List<JSONObject> JSONObjectList)
+	private BeaconPromotionData populateCustomerHealthData(final CustomerHealthData customerHealthData,
+			final List<JSONObject> JSONObjectList)
 	{
+		final List<PromotionData> promotionsData = new ArrayList<PromotionData>();
+		final BeaconPromotionData beaconPromotionsData = new BeaconPromotionData();
+
 		for (final JSONObject JSONObject : JSONObjectList)
 		{
 			switch (JSONObject.get(TYPE).toString())
@@ -167,6 +193,17 @@ public class CustomerHealthDataController
 					continue;
 				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERBODYMASS:
 					customerHealthData.setHKQuantityTypeIdentifierBodyMass(String.valueOf(JSONObject.get(VALUE)));
+					final double bodyMass = Double.parseDouble(String.valueOf(JSONObject.get(VALUE)));
+					final double bodyMassThreshold = Double.parseDouble(Config.getParameter(HEALTHDATA_BODYMASS_THRESHOLDVALUE));
+					if ((bodyMass >= bodyMassThreshold))
+					{
+						final PromotionDataList promotionDataList = beaconPromotionsService.getPromotionsForUsers("body");
+						promotionsData.addAll(CollectionUtils.isNotEmpty(promotionDataList.getPromotions()) ? promotionDataList
+								.getPromotions() : Collections.EMPTY_LIST);
+					}
+					beaconPromotionsData.setPromotions(CollectionUtils.isNotEmpty(promotionsData) ? promotionsData
+							: Collections.EMPTY_LIST);
+
 					continue;
 				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERBODYMASSINDEX:
 					customerHealthData.setHKQuantityTypeIdentifierBodyMassIndex(String.valueOf(JSONObject.get(VALUE)));
@@ -207,6 +244,16 @@ public class CustomerHealthDataController
 					continue;
 				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYFATTOTAL:
 					customerHealthData.setHKQuantityTypeIdentifierDietaryFatTotal(String.valueOf(JSONObject.get(VALUE)));
+					final double fatTotal = Double.parseDouble(String.valueOf(JSONObject.get(VALUE)));
+					final double fatTotalThreshold = Double.parseDouble(Config.getParameter(HEALTHDATA_FATTOTAL_THRESHOLDVALUE));
+					if (fatTotal >= fatTotalThreshold)
+					{
+						final PromotionDataList promotionDataList = beaconPromotionsService.getPromotionsForUsers("fat");
+						promotionsData.addAll(CollectionUtils.isNotEmpty(promotionDataList.getPromotions()) ? promotionDataList
+								.getPromotions() : Collections.EMPTY_LIST);
+					}
+					beaconPromotionsData.setPromotions(CollectionUtils.isNotEmpty(promotionsData) ? promotionsData
+							: Collections.EMPTY_LIST);
 					continue;
 				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYFIBER:
 					customerHealthData.setHKQuantityTypeIdentifierDietaryFiber(String.valueOf(JSONObject.get(VALUE)));
@@ -297,6 +344,18 @@ public class CustomerHealthDataController
 					continue;
 				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERHEARTRATE:
 					customerHealthData.setHKQuantityTypeIdentifierHeartRate(String.valueOf(JSONObject.get(VALUE)));
+					final double heartRateThreshold = Double.parseDouble(Config.getParameter(HEALTHDATA_HEARTRATE_THRESHOLDVALUE));
+					final double heartRate = Double.parseDouble(String.valueOf(JSONObject.get(VALUE)));
+
+					if (heartRate >= heartRateThreshold)
+					{
+						final PromotionDataList promotionDataList = beaconPromotionsService.getPromotionsForUsers("heart");
+						promotionsData.addAll(CollectionUtils.isNotEmpty(promotionDataList.getPromotions()) ? promotionDataList
+								.getPromotions() : Collections.EMPTY_LIST);
+					}
+					beaconPromotionsData.setPromotions(CollectionUtils.isNotEmpty(promotionsData) ? promotionsData
+							: Collections.EMPTY_LIST);
+
 					continue;
 				case ControllerConstants.HKQUANTITYTYPEIDENTIFIEROXYGENSATURATION:
 					customerHealthData.setHKQuantityTypeIdentifierOxygenSaturation(String.valueOf(JSONObject.get(VALUE)));
@@ -306,12 +365,37 @@ public class CustomerHealthDataController
 					continue;
 				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERSTEPCOUNT:
 					customerHealthData.setHKQuantityTypeIdentifierStepCount(String.valueOf(JSONObject.get(VALUE)));
+					final double stepCount = Double.parseDouble(String.valueOf(JSONObject.get(VALUE)));
+					final double stepCountThreshold = Double.parseDouble(Config.getParameter(HEALTHDATA_STEPCOUNT_THRESHOLDVALUE));
+					if (stepCount >= stepCountThreshold)
+					{
+						final PromotionDataList promotionDataList = beaconPromotionsService.getPromotionsForUsers("step");
+						promotionsData.addAll(CollectionUtils.isNotEmpty(promotionDataList.getPromotions()) ? promotionDataList
+								.getPromotions() : Collections.EMPTY_LIST);
+					}
+					beaconPromotionsData.setPromotions(CollectionUtils.isNotEmpty(promotionsData) ? promotionsData
+							: Collections.EMPTY_LIST);
 
+					continue;
 				case ControllerConstants.HKQUANTITYTYPEIDENTIFIERDIETARYCHOLESTEROL:
 					customerHealthData.setHKQuantityTypeIdentifierDietaryCholesterol(String.valueOf(JSONObject.get(VALUE)));
+					final double cholesterol = Double.parseDouble(String.valueOf(JSONObject.get(VALUE)));
+					final double cholesterolThreshold = Double.parseDouble(Config.getParameter(HEALTHDATA_CHOLESTEROL_THRESHOLDVALUE));
+					if (cholesterol >= cholesterolThreshold)
+					{
+						final PromotionDataList promotionDataList = beaconPromotionsService.getPromotionsForUsers("cholesterol");
+						promotionsData.addAll(CollectionUtils.isNotEmpty(promotionDataList.getPromotions()) ? promotionDataList
+								.getPromotions() : Collections.EMPTY_LIST);
+					}
+					beaconPromotionsData.setPromotions(CollectionUtils.isNotEmpty(promotionsData) ? promotionsData
+							: Collections.EMPTY_LIST);
+
 					continue;
+
 			}
+
 		}
+		return beaconPromotionsData;
 	}
 
 	/**

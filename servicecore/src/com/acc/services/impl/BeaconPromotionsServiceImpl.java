@@ -181,4 +181,31 @@ public class BeaconPromotionsServiceImpl implements BeaconPromotionsService
 		}
 		return beaconList;
 	}
+
+	@Override
+	public PromotionDataList getPromotionsForUsers(final String name)
+	{
+		final PromotionDataList promotionDataList = new PromotionDataList();
+
+		if (null != name)
+		{
+
+
+			PromotionData promotionData = new PromotionData();
+			final List<PromotionData> promotionList = new ArrayList<PromotionData>();
+
+			final List<AbstractPromotionModel> promotionsForUsers = getBeaconPromotionsDao().getPromotionsForUsers(name);
+			for (final AbstractPromotionModel promotion : promotionsForUsers)
+			{
+				promotionData = promotionsConverter.convert(promotion);
+				promotionList.add(promotionData);
+			}
+			promotionDataList.setPromotions(promotionList);
+		}
+
+		return promotionDataList;
+
+
+
+	}
 }

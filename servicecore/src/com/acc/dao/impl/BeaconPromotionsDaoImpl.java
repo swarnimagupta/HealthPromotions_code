@@ -90,4 +90,20 @@ public class BeaconPromotionsDaoImpl extends AbstractItemDao implements BeaconPr
 		return result.getResult();
 	}
 
+
+	@Override
+	public List<AbstractPromotionModel> getPromotionsForUsers(final String name)
+	{
+		final FlexibleSearchQuery flexibleQuery = new FlexibleSearchQuery(
+				"select {pk} from {AbstractPromotion} where {code} like '%" + name + "%'");
+
+
+		final SearchResult<AbstractPromotionModel> result = getFlexibleSearchService().search(flexibleQuery);
+
+		LOG.info("*****inside beaconpromotionsdaoimpl***promotionsForUsers***" + result);
+
+		return result.getResult();
+	}
+
+
 }
