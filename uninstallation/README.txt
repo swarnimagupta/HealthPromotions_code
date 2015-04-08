@@ -55,7 +55,11 @@
 14.	After synchronization has finished, click on Done
 15.	In the HMC expand the Systems Tab and expand the Facet Search folder and Select the Indexer operation wizard
 16.	A new window will open -> select solr configuration as electronicsIndex and click on start
-17. After indexing is complete. Stop the server, and remove the following entry from localextensions.xml
+17. After indexing is complete. Stop the server, and run the following command
+	
+	ant addonuninstall -Daddonnames="healthdataremovaladdon" -DaddonStorefront.yacceleratorstorefront="<<storefront name e.g. bncstorefront>>"
+	
+18. Remove the following entry from localextensions.xml
 
 	<extension name="healthdataremovaladdon" />
 	
