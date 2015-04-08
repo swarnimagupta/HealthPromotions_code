@@ -1,0 +1,42 @@
+# ImpEx for Promotions for Electronics Store
+#% impex.setLocale( Locale.GERMAN ); 
+
+$defaultPromoGrp=electronicsPromoGrp
+$productCatalog=electronicsProductCatalog
+$catalogVersion=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$productCatalog]),CatalogVersion.version[default=Staged])[default=$productCatalog:Staged]
+$JoggersGroup=JoggersGroup
+$WorkoutGroup=WorkoutGroup
+
+
+REMOVE Beacon;identifier[unique=true];minorId;majorId;welcomeMessage;promotions(code)
+;12168afc-c27e-4845-ba90-e7b5484bdbba;3.00;2.00;"Welcome to our Store! 30% to 50% off on Health products for today only";JoggersDiscount30,WorkoutHappyDiscount,JoggersExcitingDiscount,WorkoutDiscount50
+;d2afdf3e-34eb-41f8-8c3f-f9ed26fa954e;1.00;1.00;"Welcome to our Store! 30% to 50% off on Health products for today only";JoggersDiscount30,WorkoutHappyDiscount
+;8492E75F-4FD6-469D-B132-043FE94921D8;23023;6517;"Welcome to our Store! 30% to 50% off on Health products for today only";JoggersDiscount30,JoggersExcitingDiscount
+;B9407F30-F5F8-466E-AFF9-25556B57FE6D;21588;47321;"Welcome to our Bang3 Store! Exciting discounts! Hurry!";WorkoutHappyDiscount,JoggersDiscount30
+
+REMOVE PromotionUserRestriction;positive;promotion(code)[unique=true];users(uid)
+;TRUE;JoggersDiscount30;$JoggersGroup
+;TRUE;WorkoutHappyDiscount;$WorkoutGroup
+;TRUE;JoggersExcitingDiscount;$JoggersGroup
+;TRUE;WorkoutDiscount50;$WorkoutGroup
+
+REMOVE ProductPercentageDiscountPromotion;PromotionGroup(Identifier[default=$defaultPromoGrp]);enabled[default=true][unique=true];code[unique=true];title;description;percentageDiscount;priority;categories(code,$catalogVersion);messageFired[lang=en]
+;;;JoggersDiscount30;All branded reflective clothing and shoes at low prices to enhance your fitness;All branded reflective clothing and shoes at low prices to enhance your fitness;30;500;shoes,clothes;2;8;You saved {3} for spending over {1}
+;;;WorkoutHappyDiscount;All branded reflective Health equipments and supplements to beautify your fitness regime;All branded reflective Health equipments and supplements to beautify your fitness regime;30;500;healthequipment,healthsupplements;2;8;Get exciting 30% discount only for you
+;;;JoggersExcitingDiscount;All branded reflective clothing and shoes at low prices to enhance your fitness;All branded reflective clothing and shoes at low prices to enhance your fitness;40;500;shoes,clothes;2;8;Enjoy your savings on spending
+;;;WorkoutDiscount50;All branded reflective Health equipments and supplements to beautify your fitness regime;All branded reflective Health equipments and supplements to beautify your fitness regime;50;500;healthequipment,healthsupplements;2;8;Get exciting 50% discount only for you
+
+#To create HeathGroups if not created
+REMOVE Usergroup;uid[unique=true];locName;description
+;JoggersGroup;Joggers Group;Joggers Group
+;WorkoutGroup;Workout Group;Workout Group
+
+#### Order Discount ####
+REMOVE PromotionPriceRow;&tresholdId;Currency(isocode);price
+;2;USD;200
+
+
+REMOVE PromotionPriceRow;&priceId;Currency(isocode);price
+;8;USD;20
+
+

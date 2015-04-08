@@ -1,0 +1,34 @@
+$contentCatalog=electronicsContentCatalog
+$contentCatalogName=Electronics Content Catalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$productCatalog=electronicsProductCatalog
+$productCatalogName=Electronics Product Catalog
+$productCV=catalogVersion(catalog(id[default=$productCatalog]),version[default='Staged'])[unique=true,default=$productCatalog:Staged]
+$product=product(code, $productCV)
+$category=category(code, $productCV)
+
+
+# Navigation Bar Component
+REMOVE NavigationBarComponent;$contentCV[unique=true];uid[unique=true];navigationNode(&nodeRef);dropDownLayout(code)
+;;HealthProductsBarComponent;HealthProductsNavNode
+
+ # Content Slots
+REMOVE ContentSlot;$contentCV[unique=true];uid[unique=true];cmsComponents(&componentRef)[mode=append]
+;;NavigationBarSlot;HealthProductsBarComponent
+
+# Navigation Bar Component
+REMOVE NavigationBarComponent;$contentCV[unique=true];uid[unique=true];name;wrapAfter;link(uid, $contentCV);styleClass;&componentRef
+;;HealthProductsBarComponent;Health Products Bar Component;10;HealthProductsCategoryLink;;HealthProductsBarComponent
+
+# CMS Navigation Nodes
+REMOVE CMSNavigationNode;uid[unique=true];$contentCV[unique=true];name;parent(uid, $contentCV);links(&linkRef);&nodeRef
+;HealthProductsNavNode;;HealthProducts Category;ElectronicsNavNode;HealthProductsCategoryLink;HealthProductsNavNode
+;HealthProductsLinksTypesNode;;Health Products Types Node;HealthProductsNavNode;ShoesCategoryLink,HealthEquipmentCategoryLink,HealthSupplementsCategoryLink,ClothesCategoryLink;HealthProductsLinksTypesNode
+
+# CMS Link Components
+REMOVE CMSLinkComponent;$contentCV[unique=true];uid[unique=true]; name; url; &linkRef ; &componentRef; target(code)[default='sameWindow'] ;$category ;$product;
+;;HealthProductsCategoryLink;Health Products Category Link;/HealthProducts/Health-Products/c/HealthProducts;HealthProductsCategoryLink;HealthProductsCategoryLink;
+;;ShoesCategoryLink;Shoes Category Link;/HealthProducts/Shoes/c/shoes;ShoesCategoryLink;ShoesCategoryLink;
+;;HealthEquipmentCategoryLink;Health Equipment Category Link;/HealthProducts/Health-Equipment/c/healthequipment;HealthEquipmentCategoryLink;HealthEquipmentCategoryLink;
+;;HealthSupplementsCategoryLink;Health Supplements Category Link;/HealthProducts/Health-Supplements/c/healthsupplements;HealthSupplementsCategoryLink;HealthSupplementsCategoryLink;
+;;ClothesCategoryLink;Clothes Category Link;/HealthProducts/Clothes/c/clothes;ClothesCategoryLink;ClothesCategoryLink;

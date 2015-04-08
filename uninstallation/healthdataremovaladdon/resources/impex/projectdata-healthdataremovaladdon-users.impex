@@ -1,0 +1,16 @@
+$passwordEncoding=md5
+$defaultPassword=12341234
+$setPassword=@password[translator=de.hybris.platform.impex.jalo.translators.ConvertPlaintextToEncodedUserPasswordTranslator][default='$passwordEncoding:$defaultPassword']
+$defaultLanguage=en
+$profilePicture=profilePicture(code, $contentCV)
+$picture=media(code, $contentCV)
+$contentCatalog=electronicsContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$siteResource=jar:com.accenture.constants.QrcodeaddonConstants&/qrcodeaddon/import
+
+################### Electronics site Customer for BNC ##############################
+
+REMOVE Media;$contentCV[unique=true];code[unique=true];realfilename;@media[translator=de.hybris.platform.impex.jalo.media.MediaDataTranslator];mime[default='image/jpeg'];altText;folder(qualifier)[default='images']
+;;KishorProfilePic;Kishor.jpg;$siteResource/images/Kishor.jpg;;Kishor Chockalingam;;
+;;VijayProfilePic;Vijay.jpg;$siteResource/images/Vijay.jpg;;vijayanand hongal;;
+

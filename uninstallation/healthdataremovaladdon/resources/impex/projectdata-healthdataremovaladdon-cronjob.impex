@@ -1,0 +1,5 @@
+REMOVE ServicelayerJob;code[unique=true];springId[unique=true]
+;emailEligibleCustomersForPromotionsJob;emailEligibleCustomersForPromotionsJob
+
+REMOVE EmailEligibleCustomersForPromotionsCronJob;code[unique=true];job(code)[default=emailEligibleCustomersForPromotionsJob];sessionLanguage(isoCode)[default=en]
+;emailEligibleCustomersForPromotionsCronJob

@@ -1,0 +1,34 @@
+#
+# REMOVE the CMS content for the site emails
+#
+$contentCatalog=electronicsContentCatalog
+$contentCV=catalogVersion(CatalogVersion.catalog(Catalog.id[default=$contentCatalog]),CatalogVersion.version[default=Staged])[default=$contentCatalog:Staged]
+$wideContent=CMSImageComponent,BannerComponent
+$emailResource=jar:com.accenture.constants.HealthpromotionsaddonConstants&/healthpromotionsaddon/import/emails
+$emailPackageName=com.acc.accenture.email.context
+$lang=en
+
+# CMS components and Email velocity templates
+# Email Pages
+
+REMOVE ContentSlotForTemplate;$contentCV[unique=true];uid[unique=true];position[unique=true];pageTemplate(uid,$contentCV)[unique=true][default='CustomerPromotionEmailTemplate'];contentSlot(uid,$contentCV)[unique=true];allowOverwrite
+;;SiteLogo-CustomerPromotionEmail;SiteLogo;;EmailSiteLogoSlot;true
+;;TopContent-CustomerPromotionEmail;TopContent;;EmailTopSlot;true
+;;BottomContent-CustomerPromotionEmail;BottomContent;;EmailBottomSlot;true
+
+REMOVE ContentSlotName;name[unique=true];template(uid,$contentCV)[unique=true][default='CustomerPromotionEmailTemplate'];validComponentTypes(code)
+;SiteLogo;;;logo
+;TopContent;;$wideContent;
+;BottomContent;;$wideContent;
+
+# Email page Template
+REMOVE EmailPageTemplate;$contentCV[unique=true];uid[unique=true];name;active;frontendTemplateName;subject(code);htmlTemplate(code);restrictedPageTypes(code)
+;;CustomerPromotionEmailTemplate;Customer Promotion Email Template;true;customerPromotionEmail;electronics_Email_Customer_Promotion_Subject;electronics_Email_Customer_Promotion_Body;EmailPage
+
+# Email velocity templates
+REMOVE RendererTemplate;code[unique=true];contextClass;rendererType(code)[default='velocity']
+;electronics_Email_Customer_Promotion_Body;$emailPackageName.CustomerPromotionsEmailContext
+;electronics_Email_Customer_Promotion_Subject;$emailPackageName.CustomerPromotionsEmailContext
+
+REMOVE EmailPage;$contentCV[unique=true];uid[unique=true];fromEmail[lang=$lang];fromName[lang=$lang]
+;;CustomerPromotionEmail;"customerservicesbnc@hybris.com";"Customer Services Team"
