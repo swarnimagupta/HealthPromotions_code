@@ -57,6 +57,34 @@
 			</list>
 		</constructor-arg>
 	</bean>
+	
+	<bean class="de.hybris.platform.commercefacades.xstream.alias.TypeAliasMapping">
+		<property name="alias" value="promotions"/>
+		<property name="aliasedClass" value="com.acc.product.data.PromotionDataList"/>
+	</bean>
+	<bean class="de.hybris.platform.commercefacades.xstream.alias.TypeAliasMapping">
+		<property name="alias" value="beaconPromotions"/>
+		<property name="aliasedClass" value="com.acc.data.BeaconPromotionData"/>
+	</bean>
+	<bean class="de.hybris.platform.commercefacades.xstream.alias.TypeAliasMapping">
+		<property name="alias" value="beacon"/>
+		<property name="aliasedClass" value="com.acc.data.BeaconData"/>
+	</bean>
+	<bean class="de.hybris.platform.commercefacades.xstream.alias.TypeAliasMapping">
+		<property name="alias" value="collectOrder"/>
+		<property name="aliasedClass"
+		          value="com.acc.data.CollectOrderWsData"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.commercefacades.xstream.alias.ImplicitCollection">
+		<property name="ownerType" value="com.acc.product.data.PromotionDataList"/>
+		<property name="fieldName" value="promotions"/>
+	</bean>
+	
+	<bean class="de.hybris.platform.commercefacades.xstream.alias.ImplicitCollection">
+		<property name="ownerType" value="com.acc.data.CollectOrderDataList"/>
+		<property name="fieldName" value="collectOrders"/>
+	</bean>
  
    <bean id="healthpromotionsaddonSecureMediaFilter" class="de.hybris.platform.servicelayer.web.SecureMediaFilter">
        <property name="mediaPermissionService" ref="mediaPermissionService"/>
