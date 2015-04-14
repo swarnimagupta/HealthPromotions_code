@@ -873,19 +873,6 @@
 		<property name="aliasedClass"
 		          value="de.hybris.platform.commercefacades.storelocator.data.SpecialOpeningDayData"/>
 	</bean>
-	<bean class="de.hybris.platform.commercefacades.xstream.alias.TypeAliasMapping">
-		<property name="alias" value="beaconPromotions"/>
-		<property name="aliasedClass" value="com.acc.data.BeaconPromotionData"/>
-	</bean>
-	<bean class="de.hybris.platform.commercefacades.xstream.alias.TypeAliasMapping">
-		<property name="alias" value="beacon"/>
-		<property name="aliasedClass" value="com.acc.data.BeaconData"/>
-	</bean>
-	<bean class="de.hybris.platform.commercefacades.xstream.alias.TypeAliasMapping">
-		<property name="alias" value="collectOrder"/>
-		<property name="aliasedClass"
-		          value="com.acc.data.CollectOrderWsData"/>
-	</bean>
 
 	<!-- attribute converters -->
 	<bean
@@ -1309,16 +1296,7 @@
 		          value="de.hybris.platform.commercefacades.user.data.UserGroupDataList"/>
 		<property name="fieldName" value="userGroups"/>
 	</bean>
-
-	<bean class="de.hybris.platform.commercefacades.xstream.alias.ImplicitCollection">
-		<property name="ownerType" value="com.acc.product.data.PromotionDataList"/>
-		<property name="fieldName" value="promotions"/>
-	</bean>
 	
-	<bean class="de.hybris.platform.commercefacades.xstream.alias.ImplicitCollection">
-		<property name="ownerType" value="com.acc.data.CollectOrderDataList"/>
-		<property name="fieldName" value="collectOrders"/>
-	</bean>
 
 	<!-- xstream , marshaller factory -->
 
