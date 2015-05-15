@@ -200,7 +200,6 @@
 	
 	<bean id="greetingsService" class="com.acc.services.impl.GreetingsServiceImpl">
 		<property name="greetingsDao" ref="greetingsDao"/>
-		<property name="greetingsConverter" ref="greetingsConverter"/>
 		
 	</bean>
 	
