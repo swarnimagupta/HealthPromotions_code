@@ -127,6 +127,7 @@
 	</bean>
 	
 	<bean class="com.acc.data.GreetingsData">
+		<property name="code" type="String"/>
 		<property name="message" type="String"/>
 		<property name="condition" type="String"/>
 	</bean>

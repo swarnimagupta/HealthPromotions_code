@@ -307,6 +307,10 @@
 		<itemtype code="Greeting" autocreate="true" generate="true" extends="GenericItem">
 			<deployment table="greeting" typecode="11009" />
 			<attributes>
+				<attribute qualifier="code" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="false" unique="true"/>
+					<persistence type="property" />
+				</attribute>
 				<attribute qualifier="message" type="java.lang.String">
 					<modifiers read="true" write="true" search="true" optional="true" />
 					<persistence type="property" />
