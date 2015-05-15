@@ -21,9 +21,7 @@ public class RegionBasedPromotionPopulator extends PromotionsPopulator
 	{
 		if (source != null)
 		{
-			target.setCloudCoverRange(source.getCloudCoverRange());
-			target.setHumidityRange(source.getHumidityRange());
-			target.setTemperatureRange(source.getTemperatureRange());
+			target.setCondition(source.getCondition());
 		}
 	}
 }
