@@ -192,6 +192,31 @@
 		<property name="languageConverter" ref="languageConverter"/>
 		<property name="customerNameStrategy" ref="customerNameStrategy"/>
 	</bean>
+	
+	<bean id="greetingsDao" class="com.acc.dao.impl.GreetingsDaoImpl">
+		<property name="flexibleSearchService" ref="flexibleSearchService"/>
+		<property name="modelService" ref="modelService"/>
+	</bean>
+	
+	<bean id="greetingsService" class="com.acc.services.impl.GreetingsServiceImpl">
+		<property name="greetingsDao" ref="greetingsDao"/>
+		<property name="greetingsConverter" ref="greetingsConverter"/>
+		
+	</bean>
+	
+	<bean id="greetingsPopulator" class="com.acc.populator.GreetingsPopulator">
+	</bean>
+	
+	<bean id="greetingsData" class="com.acc.data.GreetingsData" scope="prototype"/>
+
+	<bean id="greetingsConverter" parent="abstractPopulatingConverter">
+		<lookup-method name="createTarget" bean="greetingsData"/>
+		<property name="populators">
+			<list>
+				<ref bean="greetingsPopulator"/>
+			</list>
+		</property>
+	</bean>
 			
 			
 </beans>
