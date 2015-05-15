@@ -294,6 +294,22 @@
 			generate="true" extends="CronJob"
 			jaloclass="com.acc.jalo.cronjob.EmailEligibleCustomersForPromotionsCronJob">
 		</itemtype>
+		<itemtype code="AbstractPromotion" autocreate="false" generate="false">
+			<attributes>
+				<attribute qualifier="temperatureRange" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="humidityRange" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="cloudCoverRange" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+			</attributes>
+		</itemtype>
 			
 		<typegroup name="Processes">
 			<itemtype code="CustomerPromotionsProcess" autocreate="true"
