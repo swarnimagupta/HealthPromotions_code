@@ -21,6 +21,7 @@
 
 	<collectiontypes>
 		<collectiontype code="PromotionsCollection" elementtype="AbstractPromotion" autocreate="true" generate="false" />
+		<collectiontype code="ListOfStringCollection" elementtype="java.lang.String" autocreate="true" generate="false" type="list"/>
 	</collectiontypes>
 	<relations>
 		<relation code="Beacon2PromotionsRel" localized="false" autocreate="true" generate="true">
@@ -296,15 +297,34 @@
 		</itemtype>
 		<itemtype code="AbstractPromotion" autocreate="false" generate="false">
 			<attributes>
-				<attribute qualifier="temperatureRange" type="java.lang.String">
+				<attribute qualifier="condition" type="java.lang.String">
 					<modifiers read="true" write="true" search="true" optional="true" />
 					<persistence type="property" />
 				</attribute>
-				<attribute qualifier="humidityRange" type="java.lang.String">
+			</attributes>
+		</itemtype>
+		
+		<itemtype code="Greeting" autocreate="true" generate="true" extends="GenericItem">
+			<deployment table="greeting" typecode="11009" />
+			<attributes>
+				<attribute qualifier="message" type="java.lang.String">
 					<modifiers read="true" write="true" search="true" optional="true" />
 					<persistence type="property" />
 				</attribute>
-				<attribute qualifier="cloudCoverRange" type="java.lang.String">
+				<attribute qualifier="condition " type="java.lang.String" >
+					<modifiers read="true" write="true" search="true" optional="true"/>
+					<persistence type="property" />
+				</attribute>
+			</attributes>
+		</itemtype>
+		
+		<itemtype code="Customer" autocreate="false" generate="false">
+			<attributes>
+				<attribute qualifier="latitudes" type="ListOfStringCollection">
+					<modifiers read="true" write="true" search="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="longitudes" type="ListOfStringCollection">
 					<modifiers read="true" write="true" search="true" optional="true" />
 					<persistence type="property" />
 				</attribute>
