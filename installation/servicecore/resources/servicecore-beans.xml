@@ -121,5 +121,11 @@
 	<bean class="com.acc.data.CollectOrderDataList">
 		<property name="collectOrders" type="java.util.List&lt;com.acc.data.CollectOrderWsData>" />
 	</bean>
+	<bean class="de.hybris.platform.commercefacades.product.data.PromotionData">
+		<property name="temperatureRange" type="String"/>
+		<property name="humidityRange" type="String"/>
+		<property name="cloudCoverRange" type="String"/>
+		
+	</bean>
 
 </beans>
