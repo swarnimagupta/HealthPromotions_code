@@ -19,6 +19,7 @@
 		<!-- <requires-extension name="cms"/> -->
 		<requires-extension name="hmc"/>
 		<requires-extension name="commercefacades"/>
+		<requires-extension name="servicecore"/>
 
 		<coremodule generated="true" manager="com.accenture.jalo.HealthpromotionsaddonManager" packageroot="com.accenture"/>
 
