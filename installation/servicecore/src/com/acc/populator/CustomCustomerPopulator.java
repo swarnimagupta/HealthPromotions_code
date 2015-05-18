@@ -10,7 +10,7 @@ import de.hybris.platform.core.model.user.CustomerModel;
 
 /**
  * @author swarnima.gupta
- *
+ * 
  */
 public class CustomCustomerPopulator extends CustomerPopulator
 {
@@ -21,5 +21,6 @@ public class CustomCustomerPopulator extends CustomerPopulator
 		super.populate(source, target);
 		target.setLatitudes(source.getLatitudes());
 		target.setLongitudes(source.getLongitudes());
+		target.setDate(source.getDate());
 	}
 }
