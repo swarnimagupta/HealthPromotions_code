@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.acc.dao.impl;
 
@@ -20,7 +20,7 @@ import com.acc.model.BeaconModel;
 
 /**
  * @author swapnil.a.pandey
- * 
+ *
  */
 public class BeaconPromotionsDaoImpl extends AbstractItemDao implements BeaconPromotionsDao
 {
@@ -29,7 +29,7 @@ public class BeaconPromotionsDaoImpl extends AbstractItemDao implements BeaconPr
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.acc.dao.BeaconPromotionsDao#getAllPromotionsForBeacon(java.lang.String, java.lang.String,
 	 * java.lang.String)
 	 */
@@ -44,7 +44,7 @@ public class BeaconPromotionsDaoImpl extends AbstractItemDao implements BeaconPr
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.acc.dao.BeaconPromotionsDao#saveCustomerHeathPromotionData(java.lang.String)
 	 */
 	@Override
@@ -77,7 +77,7 @@ public class BeaconPromotionsDaoImpl extends AbstractItemDao implements BeaconPr
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.acc.dao.BeaconPromotionsDao#getBeaconDetails()
 	 */
 	@Override
@@ -105,5 +105,18 @@ public class BeaconPromotionsDaoImpl extends AbstractItemDao implements BeaconPr
 		return result.getResult();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.acc.dao.BeaconPromotionsDao#getPromotionsBasedOnClimate(java.lang.String)
+	 */
+	@Override
+	public List<AbstractPromotionModel> getPromotionsBasedOnClimate(final String condition)
+	{
+		final FlexibleSearchQuery flexibleQuery = new FlexibleSearchQuery(
+				"select {pk} from {AbstractPromotion} where {condition}='" + condition + "'");
+		final SearchResult<AbstractPromotionModel> result = getFlexibleSearchService().search(flexibleQuery);
+		return result.getResult();
+	}
 
 }

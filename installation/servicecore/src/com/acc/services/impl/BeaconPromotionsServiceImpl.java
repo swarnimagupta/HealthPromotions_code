@@ -29,7 +29,7 @@ import com.acc.services.BeaconPromotionsService;
 
 /**
  * @author swapnil.a.pandey
- * 
+ *
  */
 public class BeaconPromotionsServiceImpl implements BeaconPromotionsService
 {
@@ -82,7 +82,7 @@ public class BeaconPromotionsServiceImpl implements BeaconPromotionsService
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.acc.services.BeaconPromotionsService#getAllPromotionsForBeacon(java.lang.String, java.lang.String,
 	 * java.lang.String)
 	 */
@@ -155,7 +155,7 @@ public class BeaconPromotionsServiceImpl implements BeaconPromotionsService
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.acc.services.BeaconPromotionsService#getBeaconDetails()
 	 */
 	@Override
@@ -207,5 +207,24 @@ public class BeaconPromotionsServiceImpl implements BeaconPromotionsService
 
 
 
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.acc.services.BeaconPromotionsService#getPromotionsBasedOnClimate(java.lang.String)
+	 */
+	@Override
+	public List<PromotionData> getPromotionsBasedOnClimate(final String condition)
+	{
+		final List<AbstractPromotionModel> promotions = getBeaconPromotionsDao().getPromotionsBasedOnClimate(condition);
+		final List<PromotionData> promotionList = new ArrayList<PromotionData>();
+		PromotionData promotionData = new PromotionData();
+		for (final AbstractPromotionModel promotion : promotions)
+		{
+			promotionData = promotionsConverter.convert(promotion);
+			promotionList.add(promotionData);
+		}
+		return promotionList;
 	}
 }

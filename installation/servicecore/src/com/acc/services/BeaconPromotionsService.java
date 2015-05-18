@@ -1,8 +1,10 @@
 /**
- * 
+ *
  */
 package com.acc.services;
 
+
+import de.hybris.platform.commercefacades.product.data.PromotionData;
 
 import java.util.List;
 
@@ -12,7 +14,7 @@ import com.acc.product.data.PromotionDataList;
 
 /**
  * @author swapnil.a.pandey
- * 
+ *
  */
 public interface BeaconPromotionsService
 {
@@ -24,6 +26,6 @@ public interface BeaconPromotionsService
 
 	public PromotionDataList getPromotionsForUsers(final String name);
 
-
+	public List<PromotionData> getPromotionsBasedOnClimate(final String condition);
 
 }

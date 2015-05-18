@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.acc.dao;
 
@@ -13,7 +13,7 @@ import com.acc.model.BeaconModel;
 
 /**
  * @author swapnil.a.pandey
- * 
+ *
  */
 public interface BeaconPromotionsDao
 {
@@ -30,5 +30,7 @@ public interface BeaconPromotionsDao
 	public List<BeaconModel> getBeaconDetails();
 
 	public List<AbstractPromotionModel> getPromotionsForUsers(final String name);
+
+	public List<AbstractPromotionModel> getPromotionsBasedOnClimate(final String condition);
 
 }
