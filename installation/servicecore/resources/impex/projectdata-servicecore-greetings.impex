@@ -1,6 +1,9 @@
 INSERT_UPDATE Greeting;code[unique=true];message;condition
 ;sunnyCode;Greetings! Hope you are enjoying the wonderful sunny skies today!;sunny
-;rainyLightCode;Happy Rainy Day dear customer!;light rainy
-;rainyHeavyCode;When life gives you a rainy day, play in the puddles! Stay dry and safe!;heavy rainy
-;cloudyCode;Greeting dear customer! We are here to make the cloudy day sunny for you!;cloudy
-;snowyCode;A very warm greetings, to you dear customer, on this cold and snowy day! Stay dry and warm!;snowy
+;lightRainCode;Happy Rainy Day dear customer!;light rain
+;moderateRainCode;When life gives you a rainy day, play in the puddles! Stay dry and safe!; moderate rain
+;heavyRainCode;Stay indoors and be safe. Enjoy the heavy rains!;heavy rain
+;cloudyCode;Dear customer! We are here to make the cloudy day sunny for you!;cloudy
+;lightSnowCode;A very warm greetings to your dear customer on this light snowy day!;light snow
+;moderateSnowCode;Have fun on this snowy day!;moderate snow
+;heavySnowCode;Stay safe dear customer on this heavy snowy day!;heavy snow
