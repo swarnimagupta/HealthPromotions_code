@@ -22,6 +22,8 @@
 	<collectiontypes>
 		<collectiontype code="PromotionsCollection" elementtype="AbstractPromotion" autocreate="true" generate="false" />
 		<collectiontype code="ListOfStringCollection" elementtype="java.lang.String" autocreate="true" generate="false" type="list"/>
+		<collectiontype code="ListOfDateCollection" elementtype="java.util.Date" autocreate="true" generate="false" type="list"/>
+		
 	</collectiontypes>
 	<relations>
 		<relation code="Beacon2PromotionsRel" localized="false" autocreate="true" generate="true">
@@ -329,6 +331,10 @@
 					<persistence type="property" />
 				</attribute>
 				<attribute qualifier="longitudes" type="ListOfStringCollection">
+					<modifiers read="true" write="true" search="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="Date" type="ListOfDateCollection">
 					<modifiers read="true" write="true" search="true" optional="true" />
 					<persistence type="property" />
 				</attribute>

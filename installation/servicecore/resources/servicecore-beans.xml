@@ -136,6 +136,7 @@
 	      extends="de.hybris.platform.commercefacades.user.data.PrincipalData">
 		<property name="latitudes" type="java.util.List&lt;String>"/>
 		<property name="longitudes" type="java.util.List&lt;String>"/>
+		<property name="date" type="java.util.List&lt;java.util.Date>"/>
 	</bean>
 
 </beans>
