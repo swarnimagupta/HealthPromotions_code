@@ -216,6 +216,24 @@
 			</list>
 		</property>
 	</bean>
+	
+	<alias name="defaultPromotionsConverter" alias="promotionsConverter"/>
+	<bean id="defaultPromotionsConverter" parent="abstractPopulatingConverter">
+		<lookup-method name="createTarget" bean="promotionData"/>
+		<property name="populators">
+			<list>
+				<ref bean="customPromotionsPopulator"/>
+			</list>
+		</property>
+	</bean>
+
+	<alias name="defaultCustomPromotionsPopulator" alias="customPromotionsPopulator"/>
+	<bean id="defaultCustomPromotionsPopulator"
+	      class="com.acc.populator.RegionBasedPromotionPopulator" parent="promotionsPopulator">
+		<property name="cartService" ref="cartService"/>
+		<property name="modelService" ref="modelService"/>
+		<property name="promotionService" ref="promotionsService"/>
+	</bean>
 			
 			
 </beans>

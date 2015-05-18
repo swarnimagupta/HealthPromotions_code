@@ -19,6 +19,7 @@ public class RegionBasedPromotionPopulator extends PromotionsPopulator
 	public void populate(final AbstractPromotionModel source, final PromotionData target)
 
 	{
+		super.populate(source, target);
 		if (source != null)
 		{
 			target.setCondition(source.getCondition());
