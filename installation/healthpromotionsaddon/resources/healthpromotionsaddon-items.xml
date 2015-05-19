@@ -17,6 +17,13 @@
 -->
 
 <items 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="items.xsd">
+	<itemtypes>
 	
-	
+			<itemtype code="ProductLocationComponent" autocreate="true"
+			generate="true" extends="SimpleCMSComponent"
+			jaloclass="de.hybris.platform.cms2lib.components.ProductLocationComponent">
+			<attributes>
+			</attributes>
+		</itemtype>
+		</itemtypes>
 </items>
