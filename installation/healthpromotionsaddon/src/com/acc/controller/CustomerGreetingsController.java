@@ -47,6 +47,11 @@ import com.acc.util.WebservicesUtil;
 public class CustomerGreetingsController
 {
 
+	private static final String TEMP_C = "temp_C";
+	private static final String PRECIP_MM = "precipMM";
+	private static final String CLOUDCOVER = "cloudcover";
+	private static final String CURRENT_CONDITION = "current_condition";
+	private static final String DATA = "data";
 	private static final String LATITUDE = "latitude";
 	private static final String LONGITUDE = "longitude";
 	private static final String CUSTOMERID = "customerId";
@@ -106,19 +111,15 @@ public class CustomerGreetingsController
 
 		final String jsonData = webservicesUtil.getJsonDataString(connection);
 		final JSONObject object = (JSONObject) parser.parse(jsonData);
-		System.out.println("Object is->" + object);
-		final JSONObject dataObject = (JSONObject) object.get("data");
-		System.out.println("Data Object is->" + dataObject);
-		final JSONArray ccObject = (JSONArray) dataObject.get("current_condition");
-		System.out.println("ccObject Object is->" + ccObject);
+		final JSONObject dataObject = (JSONObject) object.get(DATA);
+		final JSONArray ccObject = (JSONArray) dataObject.get(CURRENT_CONDITION);
 		final Iterator<JSONObject> driveIterator = ccObject.iterator();
 		while (driveIterator.hasNext())
 		{
 			final JSONObject driveJSON = driveIterator.next();
-			System.out.println("drive JSON ###########->" + driveJSON);
-			final float cloudCover = Float.valueOf(String.valueOf(driveJSON.get("cloudcover"))).floatValue();
-			final float precipitation = Float.valueOf(String.valueOf(driveJSON.get("precipMM"))).floatValue();
-			final float temperature = Float.valueOf(String.valueOf(driveJSON.get("temp_C"))).floatValue();
+			final float cloudCover = Float.valueOf(String.valueOf(driveJSON.get(CLOUDCOVER))).floatValue();
+			final float precipitation = Float.valueOf(String.valueOf(driveJSON.get(PRECIP_MM))).floatValue();
+			final float temperature = Float.valueOf(String.valueOf(driveJSON.get(TEMP_C))).floatValue();
 			final String climate = WeatherUtil.getClimate(cloudCover, precipitation, temperature);
 			final GreetingsData greetingData = greetingsService.getGreetingsForCondition(climate);
 			beaconPromotionsData.setWelcomeMessage(greetingData.getMessage());
