@@ -4,6 +4,10 @@
 package com.acc.storefront.controllers.pages;
 
 import de.hybris.platform.addonsupport.controllers.page.AbstractAddOnPageController;
+
+
+
+
 import de.hybris.platform.basecommerce.model.site.BaseSiteModel;
 import de.hybris.platform.catalog.enums.ProductReferenceTypeEnum;
 import de.hybris.platform.catalog.model.ProductReferenceModel;
@@ -12,6 +16,7 @@ import de.hybris.platform.commercefacades.order.data.OrderData;
 import de.hybris.platform.commercefacades.product.ProductFacade;
 import de.hybris.platform.commercefacades.product.ProductOption;
 import de.hybris.platform.commercefacades.product.data.ProductData;
+import de.hybris.platform.commercefacades.user.data.CustomerData;
 import de.hybris.platform.core.PK;
 import de.hybris.platform.core.model.order.OrderModel;
 import de.hybris.platform.core.model.product.ProductModel;
@@ -31,6 +36,8 @@ import de.hybris.platform.site.BaseSiteService;
 import de.hybris.platform.wishlist2.Wishlist2Service;
 import de.hybris.platform.wishlist2.model.Wishlist2Model;
 
+import java.io.IOException;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -46,9 +53,13 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
+
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -56,8 +67,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
 
+import sun.org.mozilla.javascript.internal.json.JsonParser;
+
+import com.acc.controller.customerModel;
 import com.acc.core.collectorder.facade.CustomerCollectOrderFacade;
+import com.acc.data.CustomerGeoData;
 import com.acc.facades.CSRCustomerDetails.data.CSRCustomerDetailsData;
 import com.acc.facades.storecustomer.StoreCustomerFacade;
 import com.acc.facades.wishlist.data.Wishlist2Data;
@@ -65,9 +82,26 @@ import com.acc.storefront.controllers.ControllerConstants;
 import com.acc.storefront.util.CustomerOrderData;
 import com.acc.storefront.util.ProfileInformationDto;
 import com.acc.storefront.util.StoreCustomerData;
+import com.acc.util.WebservicesUtil;
 import com.accenture.enums.CSRStoreStatus;
 import com.accenture.model.CSRCustomerDetailsModel;
 import com.accenture.model.ConfigModel;
+
+import java.net.HttpURLConnection;
+
+import org.w3c.dom.Node;
+import org.w3c.dom.Element;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import java.net.MalformedURLException;
+
+import org.json.simple.parser.ParseException;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.ParserConfigurationException;
+
 
 /**
  * @author prasun.a.kumar
@@ -582,5 +616,82 @@ public class CustomerListController extends AbstractAddOnPageController
 
 		}
 	}
+	@RequestMapping(value = "/geolocationdata", method = RequestMethod.POST)
+	public void ajaxSaveGeoLocationData(final Model model, final HttpServletRequest request, final HttpServletResponse response) throws IOException, ParseException,MalformedURLException, ParserConfigurationException,SAXException
+	
+	{
+		 LOG.info("inside ajaxSaveGeoLocationData ");
+		final List<CSRCustomerDetailsModel> csrCustomerDetailsList = StoreCustomerFacade.getCSRCustomerDetails();
+		for(CSRCustomerDetailsModel customerDetails :csrCustomerDetailsList )
+		{
+			final UserModel userModel = userService.getUserForUID(customerDetails.getCustomerId());
+			if (userModel instanceof CustomerModel)
+			{
+			final CustomerModel customer = (CustomerModel) userModel;
+		List<String> longitudesList = customer.getLongitudes();
+		List<String> latitudesList = customer.getLatitudes();
+		List<Date> dateList = customer.getDate();
+		int index = 0;
+		
+		for(index = 0; index<latitudesList.size();index++)
+		{LOG.info("inside for loop latitudesList.size()" + latitudesList.size());
+		final URL url = new URL("http://api.wunderground.com/auto/wui/geo/GeoLookupXML/index.xml?query=" + 37.76834106 + ","
+				+ -122.39418793);
+		LOG.info("url+++++++++++++++++" + url);
+		LOG.info("url+++++++++++++++++" + index);
 
+		/*
+		 * // final WebservicesUtil webservicesUtil = new WebservicesUtil();
+		 */final HttpURLConnection connection = webservicesUtil.getHttpConnection(url);
+
+		final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		final DocumentBuilder db = dbf.newDocumentBuilder();
+		final Document doc = db.parse(connection.getInputStream());
+		doc.getDocumentElement().normalize();
+		final NodeList nodeLst = doc.getElementsByTagName("location");
+		LOG.info("nodeLst+++++++++++++++++" + nodeLst.toString());
+		LOG.info("nodeLst+++++++++++++++++" + nodeLst.getLength());
+		for (int s = 0; s < nodeLst.getLength(); s++)
+		{
+			final Node fstNode = nodeLst.item(s);
+			LOG.info("nodeLst+++++++++++++++++" + fstNode.getNodeName());
+
+			if (fstNode.getNodeType() == Node.ELEMENT_NODE)
+			{
+			
+				final Element fstElmnt = (Element) fstNode;
+				LOG.info("fstElmnt++++++++++++++" + fstElmnt);
+
+				final NodeList country = fstElmnt.getElementsByTagName("country");
+				final Element countryname = (Element) country.item(0);
+				final NodeList countrynode = countryname.getChildNodes();
+
+				LOG.info("county+++++++++++++++++" + country);
+
+			
+				final NodeList state = fstElmnt.getElementsByTagName("state");
+				final String statename = state.item(0).getNodeValue();
+				//final NodeList statenode = statename.getChildNodes();
+				
+
+				final NodeList zip = fstElmnt.getElementsByTagName("zip");
+				final String zipname =  zip.item(0).getNodeValue();
+				//final NodeList zipnode = zipname.getChildNodes();
+				LOG.info("countrynode+++++++++++++++++" + zipname);
+
+				final CustomerGeoData customerGeoData = new CustomerGeoData();
+				final String string = countryname.toString() + ", " + zipname.toString() + "," + statename.toString();
+
+				customerGeoData.setData(string);
+				
+			
+
+		}
+	
+		
+	}
+	}
+
+}
+}
 }
