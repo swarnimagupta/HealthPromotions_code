@@ -8,7 +8,26 @@ package com.acc.controller.constants;
  * 
  */
 public interface ControllerConstants
-{
+{	interface Actions
+	{
+		interface Cms
+		{
+			String _Prefix = "/view/";
+			String _Suffix = "Controller";
+
+			/**
+			 * Default CMS component controller
+			 */
+			String DefaultCMSComponent = _Prefix + "DefaultCMSComponentController";
+
+			/**
+			 * CMS components that have specific handlers
+			 */
+
+			String PRODUCTLOCATIONCOMPONENT = _Prefix + ProductLocationComponentModel._TYPECODE + _Suffix;
+		}
+	}
+
 	static final String CUSTOMERID = "customerId";
 	static final String HKCATEGORYTYPEIDENTIFIERSLEEPANALYSIS = "HKCategoryTypeIdentifierSleepAnalysis";
 	static final String HKQUANTITYTYPEIDENTIFIERBODYMASS = "HKQuantityTypeIdentifierBodyMass";
