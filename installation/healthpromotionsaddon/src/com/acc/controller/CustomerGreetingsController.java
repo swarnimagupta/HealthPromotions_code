@@ -10,7 +10,6 @@ import de.hybris.platform.servicelayer.user.UserService;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,7 +18,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.json.simple.JSONArray;
@@ -149,61 +147,29 @@ public class CustomerGreetingsController
 			newLongitudeList.addAll(longitudeList);
 			newDateList.addAll(dateList);
 
-			if (CollectionUtils.isNotEmpty(newLongitudeList))
+			final int index = newLongitudeList.size();
+			final String longi = index == 0 ? StringUtils.EMPTY : newLongitudeList.get(index - 1);
+			final String lati = index == 0 ? StringUtils.EMPTY : newLatitudeList.get(index - 1);
+			if (!longi.equalsIgnoreCase(longitude) || !lati.equalsIgnoreCase(latitude))
 			{
-				final int index = newLongitudeList.size();
-				final String longi = newLongitudeList.get(index - 1);
-				final String lati = newLatitudeList.get(index - 1);
-				if (!longi.equalsIgnoreCase(longitude) || !lati.equalsIgnoreCase(latitude))
-				{
-					saveAndCallWebservice(latitude, longitude, beaconPromotionsData, parser, customerModel, newLongitudeList,
-							newLatitudeList, newDateList);
-				}
-			}
-			else
-			{
-				saveAndCallWebservice(latitude, longitude, beaconPromotionsData, parser, customerModel, newLongitudeList,
-						newLatitudeList, newDateList);
-			}
+				newLongitudeList.add(longitude);
+				newLatitudeList.add(latitude);
+				newDateList.add(new Date());
+				customerModel.setLongitudes(newLongitudeList);
+				customerModel.setLatitudes(newLatitudeList);
+				customerModel.setDate(newDateList);
+				modelService.save(customerModel);
+				LOG.info("Customer's Geo Location Data saved successfully");
 
-
+				//calling the climate check service
+				final URL url = new URL(
+						"http://api.worldweatheronline.com/free/v2/weather.ashx?q="
+								+ latitude
+								+ "%2C"
+								+ longitude
+								+ "&format=json&num_of_days=1&date=today&fx=no&mca=no&fx24=no&includelocation=yes&show_comments=yes&showlocaltime=yes&key=61c3cc6652f35c4e318b62ff3b196");
+				retrieveClimatedBasedPromotionsNGreetings(new WebservicesUtil(), beaconPromotionsData, parser, url);
+			}
 		}
-	}
-
-	/**
-	 * @param latitude
-	 * @param longitude
-	 * @param beaconPromotionsData
-	 * @param parser
-	 * @param customerModel
-	 * @param newLongitudeList
-	 * @param newLatitudeList
-	 * @param newDateList
-	 * @throws MalformedURLException
-	 * @throws IOException
-	 * @throws ParseException
-	 */
-	private void saveAndCallWebservice(final String latitude, final String longitude,
-			final BeaconPromotionData beaconPromotionsData, final JSONParser parser, final CustomerModel customerModel,
-			final List<String> newLongitudeList, final List<String> newLatitudeList, final List<Date> newDateList)
-			throws MalformedURLException, IOException, ParseException
-	{
-		newLongitudeList.add(longitude);
-		newLatitudeList.add(latitude);
-		newDateList.add(new Date());
-		customerModel.setLongitudes(newLongitudeList);
-		customerModel.setLatitudes(newLatitudeList);
-		customerModel.setDate(newDateList);
-		modelService.save(customerModel);
-		LOG.info("Customer's Geo Location Data saved successfully");
-
-		//calling the climate check service
-		final URL url = new URL(
-				"http://api.worldweatheronline.com/free/v2/weather.ashx?q="
-						+ latitude
-						+ "%2C"
-						+ longitude
-						+ "&format=json&num_of_days=1&date=today&fx=no&mca=no&fx24=no&includelocation=yes&show_comments=yes&showlocaltime=yes&key=61c3cc6652f35c4e318b62ff3b196");
-		retrieveClimatedBasedPromotionsNGreetings(new WebservicesUtil(), beaconPromotionsData, parser, url);
 	}
 }
