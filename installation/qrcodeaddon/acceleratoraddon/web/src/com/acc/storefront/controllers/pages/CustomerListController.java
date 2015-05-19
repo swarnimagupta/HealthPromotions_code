@@ -632,7 +632,7 @@ public class CustomerListController extends AbstractAddOnPageController
 		List<String> latitudesList = customer.getLatitudes();
 		List<Date> dateList = customer.getDate();
 		int index = 0;
-		
+		final CustomerGeoData customerGeoData = new CustomerGeoData();
 		for(index = 0; index<latitudesList.size();index++)
 		{
 			LOG.info("inside for loop latitudesList.size()" + latitudesList.size());
@@ -680,14 +680,14 @@ public class CustomerListController extends AbstractAddOnPageController
 				//final NodeList zipnode = zipname.getChildNodes();
 				LOG.info("countrynode+++++++++++++++++" + zipname);
 
-				final CustomerGeoData customerGeoData = new CustomerGeoData();
+			
 				final String string = countryname.toString() + ", " + zipname.toString() + "," + statename.toString();
 
 				customerGeoData.setData(string);
-				
-			
-
 		}
+			final List<CustomerGeoData> customerGeo = new ArrayList<CustomerGeoData>();
+			customerGeo.add(customerGeoData);
+			model.addAttribute("geoLocationDetails", customerGeo);
 	
 		
 	}
