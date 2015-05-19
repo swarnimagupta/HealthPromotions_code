@@ -634,15 +634,16 @@ public class CustomerListController extends AbstractAddOnPageController
 		int index = 0;
 		
 		for(index = 0; index<latitudesList.size();index++)
-		{LOG.info("inside for loop latitudesList.size()" + latitudesList.size());
-		final URL url = new URL("http://api.wunderground.com/auto/wui/geo/GeoLookupXML/index.xml?query=" + 37.76834106 + ","
-				+ -122.39418793);
+		{
+			LOG.info("inside for loop latitudesList.size()" + latitudesList.size());
+		
+		final URL url = new URL("http://api.wunderground.com/auto/wui/geo/GeoLookupXML/index.xml?query=" + latitudesList.get(index) + ","
+				+ longitudesList.get(index));
 		LOG.info("url+++++++++++++++++" + url);
 		LOG.info("url+++++++++++++++++" + index);
 
-		/*
-		 * // final WebservicesUtil webservicesUtil = new WebservicesUtil();
-		 */final HttpURLConnection connection = webservicesUtil.getHttpConnection(url);
+		 final WebservicesUtil webservicesUtil = new WebservicesUtil();
+		 final HttpURLConnection connection = webservicesUtil.getHttpConnection(url);
 
 		final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		final DocumentBuilder db = dbf.newDocumentBuilder();
@@ -692,6 +693,7 @@ public class CustomerListController extends AbstractAddOnPageController
 	}
 	}
 
+}
 }
 }
 }
