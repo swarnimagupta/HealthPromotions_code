@@ -9,18 +9,14 @@ import de.hybris.platform.servicelayer.model.ModelService;
 import de.hybris.platform.servicelayer.user.UserService;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -47,11 +43,6 @@ import com.acc.util.WebservicesUtil;
 public class CustomerGreetingsController
 {
 
-	private static final String TEMP_C = "temp_C";
-	private static final String PRECIP_MM = "precipMM";
-	private static final String CLOUDCOVER = "cloudcover";
-	private static final String CURRENT_CONDITION = "current_condition";
-	private static final String DATA = "data";
 	private static final String LATITUDE = "latitude";
 	private static final String LONGITUDE = "longitude";
 	private static final String CUSTOMERID = "customerId";
@@ -96,36 +87,24 @@ public class CustomerGreetingsController
 	}
 
 	/**
-	 * @param webservicesUtil
+	 *
 	 * @param beaconPromotionsData
 	 * @param parser
-	 * @param url
+	 * @param latitude
+	 * @param longitude
 	 * @throws IOException
 	 * @throws ParseException
 	 */
-	private void retrieveClimatedBasedPromotionsNGreetings(final WebservicesUtil webservicesUtil,
-			final BeaconPromotionData beaconPromotionsData, final JSONParser parser, final URL url) throws IOException,
-			ParseException
+	private void retrieveClimatedBasedPromotionsNGreetings(final BeaconPromotionData beaconPromotionsData,
+			final JSONParser parser, final String latitude, final String longitude) throws IOException, ParseException
 	{
-		final HttpURLConnection connection = webservicesUtil.getHttpConnection(url);
-
-		final String jsonData = webservicesUtil.getJsonDataString(connection);
-		final JSONObject object = (JSONObject) parser.parse(jsonData);
-		final JSONObject dataObject = (JSONObject) object.get(DATA);
-		final JSONArray ccObject = (JSONArray) dataObject.get(CURRENT_CONDITION);
-		final Iterator<JSONObject> driveIterator = ccObject.iterator();
-		while (driveIterator.hasNext())
-		{
-			final JSONObject driveJSON = driveIterator.next();
-			final float cloudCover = Float.valueOf(String.valueOf(driveJSON.get(CLOUDCOVER))).floatValue();
-			final float precipitation = Float.valueOf(String.valueOf(driveJSON.get(PRECIP_MM))).floatValue();
-			final float temperature = Float.valueOf(String.valueOf(driveJSON.get(TEMP_C))).floatValue();
-			final String climate = WeatherUtil.getClimate(cloudCover, precipitation, temperature);
-			final GreetingsData greetingData = greetingsService.getGreetingsForCondition(climate);
-			beaconPromotionsData.setWelcomeMessage(greetingData.getMessage());
-			beaconPromotionsData.setPromotions(beaconPromotionsService.getPromotionsBasedOnClimate(climate));
-		}
+		final String climate = WeatherUtil.executeClimateWebservice(parser, latitude, longitude);
+		final GreetingsData greetingData = greetingsService.getGreetingsForCondition(climate);
+		beaconPromotionsData.setWelcomeMessage(greetingData.getMessage());
+		beaconPromotionsData.setPromotions(beaconPromotionsService.getPromotionsBasedOnClimate(climate));
 	}
+
+
 
 	/**
 	 * @param latitude
@@ -163,13 +142,7 @@ public class CustomerGreetingsController
 				LOG.info("Customer's Geo Location Data saved successfully");
 
 				//calling the climate check service
-				final URL url = new URL(
-						"http://api.worldweatheronline.com/free/v2/weather.ashx?q="
-								+ latitude
-								+ "%2C"
-								+ longitude
-								+ "&format=json&num_of_days=1&date=today&fx=no&mca=no&fx24=no&includelocation=yes&show_comments=yes&showlocaltime=yes&key=61c3cc6652f35c4e318b62ff3b196");
-				retrieveClimatedBasedPromotionsNGreetings(new WebservicesUtil(), beaconPromotionsData, parser, url);
+				retrieveClimatedBasedPromotionsNGreetings(beaconPromotionsData, parser, latitude, longitude);
 			}
 		}
 	}
