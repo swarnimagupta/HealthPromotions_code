@@ -69,6 +69,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
+import org.w3c.dom.Text;
 
 import sun.org.mozilla.javascript.internal.json.JsonParser;
 
@@ -630,17 +631,16 @@ public class CustomerListController extends AbstractAddOnPageController
 		List<String> longitudesList = customer.getLongitudes();
 		List<String> latitudesList = customer.getLatitudes();
 		List<Date> dateList = customer.getDate();
-		int index = 0;
+	
 		final CustomerGeoData customerGeoData = new CustomerGeoData();
-		for(index = 0; index<latitudesList.size();index++)
+		for(int index = 0; index<latitudesList.size();index++)
 		{
-			LOG.info("inside for loop latitudesList.size()" + latitudesList.size());
-		
+			
+		Date date =	dateList.get(index);
 		final URL url = new URL("http://api.wunderground.com/auto/wui/geo/GeoLookupXML/index.xml?query=" + latitudesList.get(index) + ","
 				+ longitudesList.get(index));
 		LOG.info("url+++++++++++++++++" + url);
-		LOG.info("url+++++++++++++++++" + index);
-
+	
 		 final WebservicesUtil webservicesUtil = new WebservicesUtil();
 		 final HttpURLConnection connection = webservicesUtil.getHttpConnection(url);
 
@@ -649,40 +649,49 @@ public class CustomerListController extends AbstractAddOnPageController
 		final Document doc = db.parse(connection.getInputStream());
 		doc.getDocumentElement().normalize();
 		final NodeList nodeLst = doc.getElementsByTagName("location");
-		LOG.info("nodeLst+++++++++++++++++" + nodeLst.toString());
-		LOG.info("nodeLst+++++++++++++++++" + nodeLst.getLength());
+		
 		for (int s = 0; s < nodeLst.getLength(); s++)
 		{
 			final Node fstNode = nodeLst.item(s);
-			LOG.info("nodeLst+++++++++++++++++" + fstNode.getNodeName());
-
+		
 			if (fstNode.getNodeType() == Node.ELEMENT_NODE)
 			{
 			
+				LOG.info("inside if loop++++++++++++++");
+
 				final Element fstElmnt = (Element) fstNode;
 				LOG.info("fstElmnt++++++++++++++" + fstElmnt);
-
+				
+				final NodeList city = fstElmnt.getElementsByTagName("city");
+				final Element cityname = (Element) city.item(0);
+				final Text citytext = (Text) cityname.getFirstChild();
+				final String cityValue = citytext.getNodeValue();
+				LOG.info("cityValue+++++++++++++++++" + cityValue);
+				
 				final NodeList country = fstElmnt.getElementsByTagName("country");
 				final Element countryname = (Element) country.item(0);
-				final NodeList countrynode = countryname.getChildNodes();
+				final Text countrytext = (Text) countryname.getFirstChild();
+				final String countryValue = countrytext.getNodeValue();
+				LOG.info("countryname+++++++++++++++++" + countryValue);
 
-				LOG.info("county+++++++++++++++++" + country);
 
-			
 				final NodeList state = fstElmnt.getElementsByTagName("state");
-				final String statename = state.item(0).getNodeValue();
-				//final NodeList statenode = statename.getChildNodes();
-				
+				final Element statename = (Element) state.item(0);
+				final Text statetext = (Text) statename.getFirstChild();
+				final String stateValue = statetext.getNodeValue();
+				LOG.info("state+++++++++++++++++" + stateValue);
 
 				final NodeList zip = fstElmnt.getElementsByTagName("zip");
-				final String zipname =  zip.item(0).getNodeValue();
-				//final NodeList zipnode = zipname.getChildNodes();
-				LOG.info("countrynode+++++++++++++++++" + zipname);
+				final Element zipname = (Element) zip.item(0);
+				final Text ziptext = (Text) zipname.getFirstChild();
+				final String zipValue = ziptext.getNodeValue();
+				LOG.info("zipValue+++++++++++++++++" + zipValue);
 
-			
-				final String string = countryname.toString() + ", " + zipname.toString() + "," + statename.toString();
 
-				customerGeoData.setData(string);
+				final String string = cityValue.toString() + ","+ zipValue.toString() + " "+ stateValue.toString()+ ", " + countryValue.toString() ;
+            
+				customerGeoData.setData(date.toString());
+				customerGeoData.setString(string);
 		}
 			final List<CustomerGeoData> customerGeo = new ArrayList<CustomerGeoData>();
 			customerGeo.add(customerGeoData);
