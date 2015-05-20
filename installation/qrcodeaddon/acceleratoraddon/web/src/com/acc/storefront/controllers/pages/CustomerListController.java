@@ -72,7 +72,6 @@ import org.w3c.dom.NodeList;
 
 import sun.org.mozilla.javascript.internal.json.JsonParser;
 
-import com.acc.controller.customerModel;
 import com.acc.core.collectorder.facade.CustomerCollectOrderFacade;
 import com.acc.data.CustomerGeoData;
 import com.acc.facades.CSRCustomerDetails.data.CSRCustomerDetailsData;
