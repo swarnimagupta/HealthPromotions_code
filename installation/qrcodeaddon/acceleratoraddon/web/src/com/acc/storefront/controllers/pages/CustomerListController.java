@@ -82,6 +82,7 @@ import com.acc.storefront.controllers.ControllerConstants;
 import com.acc.storefront.util.CustomerOrderData;
 import com.acc.storefront.util.ProfileInformationDto;
 import com.acc.storefront.util.StoreCustomerData;
+import com.acc.util.WeatherUtil;
 import com.acc.util.WebservicesUtil;
 import com.accenture.enums.CSRStoreStatus;
 import com.accenture.model.CSRCustomerDetailsModel;
@@ -101,6 +102,9 @@ import org.json.simple.parser.ParseException;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 
 /**
@@ -119,6 +123,11 @@ public class CustomerListController extends AbstractAddOnPageController
 
 	private static final Logger LOG = Logger.getLogger(CustomerListController.class);
 	private static final int MAX_PAGE_LIMIT = 100;
+	private static final String TEMP_C = "temp_C";
+	private static final String PRECIP_MM = "precipMM";
+	private static final String CLOUDCOVER = "cloudcover";
+	private static final String CURRENT_CONDITION = "current_condition";
+	private static final String DATA = "data";
 
 	@Autowired
 	private StoreCustomerFacade StoreCustomerFacade;
@@ -635,7 +644,10 @@ public class CustomerListController extends AbstractAddOnPageController
 		final CustomerGeoData customerGeoData = new CustomerGeoData();
 		for(int index = 0; index<latitudesList.size();index++)
 		{
-			
+			String zipValue = null;
+			String cityValue = null;
+			String countryValue = null;
+			String stateValue = null;
 		Date date =	dateList.get(index);
 		final URL url = new URL("http://api.wunderground.com/auto/wui/geo/GeoLookupXML/index.xml?query=" + latitudesList.get(index) + ","
 				+ longitudesList.get(index));
@@ -664,30 +676,60 @@ public class CustomerListController extends AbstractAddOnPageController
 				
 				final NodeList city = fstElmnt.getElementsByTagName("city");
 				final Element cityname = (Element) city.item(0);
+				if (null != cityname.getFirstChild())
+				{
 				final Text citytext = (Text) cityname.getFirstChild();
-				final String cityValue = citytext.getNodeValue();
+				cityValue = citytext.getNodeValue();
 				LOG.info("cityValue+++++++++++++++++" + cityValue);
+				}
+				else
+				{
+					cityValue = "";
+				}
+
 				
 				final NodeList country = fstElmnt.getElementsByTagName("country");
 				final Element countryname = (Element) country.item(0);
+				if (null != countryname.getFirstChild())
+				{
+
 				final Text countrytext = (Text) countryname.getFirstChild();
-				final String countryValue = countrytext.getNodeValue();
+				countryValue = countrytext.getNodeValue();
 				LOG.info("countryname+++++++++++++++++" + countryValue);
+				}
+				else
+				{
+					countryValue = "";
+				}
 
 
 				final NodeList state = fstElmnt.getElementsByTagName("state");
 				final Element statename = (Element) state.item(0);
+				if (null != statename.getFirstChild())
+				{
 				final Text statetext = (Text) statename.getFirstChild();
-				final String stateValue = statetext.getNodeValue();
+				stateValue = statetext.getNodeValue();
 				LOG.info("state+++++++++++++++++" + stateValue);
-
+				}
+				else
+				{
+					stateValue = "";
+				}
 				final NodeList zip = fstElmnt.getElementsByTagName("zip");
 				final Element zipname = (Element) zip.item(0);
+				if (null != zipname.getFirstChild())
+				{
 				final Text ziptext = (Text) zipname.getFirstChild();
-				final String zipValue = ziptext.getNodeValue();
+				zipValue = ziptext.getNodeValue();
 				LOG.info("zipValue+++++++++++++++++" + zipValue);
+				}
+				else
+				{
+					zipValue = "";
+				}
 
 
+			}
 				final String string = cityValue.toString() + ","+ zipValue.toString() + " "+ stateValue.toString()+ ", " + countryValue.toString() ;
             
 				customerGeoData.setData(date.toString());
@@ -696,12 +738,61 @@ public class CustomerListController extends AbstractAddOnPageController
 			final List<CustomerGeoData> customerGeo = new ArrayList<CustomerGeoData>();
 			customerGeo.add(customerGeoData);
 			model.addAttribute("geoLocationDetails", customerGeo);
-	
+			getClimateDetails(model,request,response);
 		
 	}
 	}
 
 }
 }
+	public void getClimateDetails(final Model model, final HttpServletRequest request, final HttpServletResponse response) throws IOException, ParseException,MalformedURLException, ParserConfigurationException,SAXException
+
+	{
+		 String climate = null;
+		 LOG.info("inside ajaxSaveGeoLocationData ");
+			final List<CSRCustomerDetailsModel> csrCustomerDetailsList = StoreCustomerFacade.getCSRCustomerDetails();
+			for(CSRCustomerDetailsModel customerDetails :csrCustomerDetailsList )
+			{
+				final UserModel userModel = userService.getUserForUID(customerDetails.getCustomerId());
+				if (userModel instanceof CustomerModel)
+				{
+				final CustomerModel customer = (CustomerModel) userModel;
+			List<String> longitudesList = customer.getLongitudes();
+			List<String> latitudesList = customer.getLatitudes();
+			final int index = latitudesList.size();
+			final URL url = new URL(
+					"http://api.worldweatheronline.com/free/v2/weather.ashx?q="
+							+ latitudesList.get(index - 1)
+							+ "%2C"
+							+ longitudesList.get(index - 1)
+							+ "&format=json&num_of_days=1&date=today&fx=no&mca=no&fx24=no&includelocation=yes&show_comments=yes&showlocaltime=yes&key=61c3cc6652f35c4e318b62ff3b196");
+			LOG.info("::::::: url :::::::" + url);
+			 final WebservicesUtil webservicesUtil = new WebservicesUtil();
+			final HttpURLConnection connection = webservicesUtil.getHttpConnection(url);
+			final String jsonData = webservicesUtil.getJsonDataString(connection);
+			final JSONParser parser = new JSONParser();
+			
+			final JSONObject object = (JSONObject) parser.parse(jsonData);
+			final JSONObject dataObject = (JSONObject) object.get(DATA);
+			final JSONArray ccObject = (JSONArray) dataObject.get(CURRENT_CONDITION);
+			final Iterator<JSONObject> driveIterator = ccObject.iterator();
+			while (driveIterator.hasNext())
+			{
+				final JSONObject driveJSON = driveIterator.next();
+				final float cloudCover = Float.valueOf(String.valueOf(driveJSON.get(CLOUDCOVER))).floatValue();
+				final float precipitation = Float.valueOf(String.valueOf(driveJSON.get(PRECIP_MM))).floatValue();
+				final float temperature = Float.valueOf(String.valueOf(driveJSON.get(TEMP_C))).floatValue();
+				climate = WeatherUtil.getClimate(cloudCover, precipitation, temperature);
+				LOG.info("::::::: climate :::::::" + climate);
+				LOG.info("::::::: latitudeList.get(index - 1) :::::::" + latitudesList.get(index - 1));
+				LOG.info("::::::: longitudeList.get(index - 1) :::::::" + longitudesList.get(index - 1));
+			}
+			model.addAttribute("climate", climate);
+			model.addAttribute("latestLatitude", latitudesList.get(index - 1));
+			model.addAttribute("latestLongitude", longitudesList.get(index - 1));
+		
+				}
+			}
+	}
 }
-}
+
