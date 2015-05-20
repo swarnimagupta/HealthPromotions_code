@@ -1,14 +1,18 @@
 /**
- * 
+ *
  */
 package com.acc.controller.constants;
 
+import de.hybris.platform.cms2lib.model.components.ProductLocationComponentModel;
+
+
 /**
  * @author swapnil.a.pandey
- * 
+ *
  */
 public interface ControllerConstants
-{	interface Actions
+{
+	interface Actions
 	{
 		interface Cms
 		{
