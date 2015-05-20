@@ -651,7 +651,7 @@ public class CustomerListController extends AbstractAddOnPageController
 		Date date =	dateList.get(index);
 		final URL url = new URL("http://api.wunderground.com/auto/wui/geo/GeoLookupXML/index.xml?query=" + latitudesList.get(index) + ","
 				+ longitudesList.get(index));
-		LOG.info("url+++++++++++++++++" + url);
+		LOG.info(":::::::url::::::::" + url);
 	
 		 final WebservicesUtil webservicesUtil = new WebservicesUtil();
 		 final HttpURLConnection connection = webservicesUtil.getHttpConnection(url);
@@ -669,10 +669,7 @@ public class CustomerListController extends AbstractAddOnPageController
 			if (fstNode.getNodeType() == Node.ELEMENT_NODE)
 			{
 			
-				LOG.info("inside if loop++++++++++++++");
-
 				final Element fstElmnt = (Element) fstNode;
-				LOG.info("fstElmnt++++++++++++++" + fstElmnt);
 				
 				final NodeList city = fstElmnt.getElementsByTagName("city");
 				final Element cityname = (Element) city.item(0);
@@ -680,7 +677,7 @@ public class CustomerListController extends AbstractAddOnPageController
 				{
 				final Text citytext = (Text) cityname.getFirstChild();
 				cityValue = citytext.getNodeValue();
-				LOG.info("cityValue+++++++++++++++++" + cityValue);
+				LOG.info(":::::::cityValue:::::::" + cityValue);
 				}
 				else
 				{
@@ -695,7 +692,7 @@ public class CustomerListController extends AbstractAddOnPageController
 
 				final Text countrytext = (Text) countryname.getFirstChild();
 				countryValue = countrytext.getNodeValue();
-				LOG.info("countryname+++++++++++++++++" + countryValue);
+				LOG.info(":::::::countryname:::::::" + countryValue);
 				}
 				else
 				{
@@ -709,7 +706,7 @@ public class CustomerListController extends AbstractAddOnPageController
 				{
 				final Text statetext = (Text) statename.getFirstChild();
 				stateValue = statetext.getNodeValue();
-				LOG.info("state+++++++++++++++++" + stateValue);
+				LOG.info(":::::::state:::::::" + stateValue);
 				}
 				else
 				{
@@ -721,7 +718,7 @@ public class CustomerListController extends AbstractAddOnPageController
 				{
 				final Text ziptext = (Text) zipname.getFirstChild();
 				zipValue = ziptext.getNodeValue();
-				LOG.info("zipValue+++++++++++++++++" + zipValue);
+				LOG.info(":::::::zipValue:::::::" + zipValue);
 				}
 				else
 				{
