@@ -138,10 +138,10 @@
 		<property name="longitudes" type="java.util.List&lt;String>"/>
 		<property name="date" type="java.util.List&lt;java.util.Date>"/>
 	</bean>
+	
 	<bean class="com.acc.data.CustomerGeoData">
-		<property name="data" type="String" />
+		<property name="date" type="String" />
 		<property name="string" type="String" />
-
 	</bean>
 
 </beans>

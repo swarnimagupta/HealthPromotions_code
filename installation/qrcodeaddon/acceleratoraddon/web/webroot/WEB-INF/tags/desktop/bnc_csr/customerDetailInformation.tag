@@ -40,6 +40,7 @@
 			<li class="active">Customer Details</li>
 			<li>Orders Details</li>
 			<li>History</li>
+			<li>Geo Location</li>
 		</ul>
 		<ul class="tab-content">
 			<li>
@@ -168,6 +169,27 @@
 						</div>
 					</c:if>
 					
+				</div>
+			</li>
+			<li>
+				<div class="slmscr1">
+					<c:forEach items="${geoLocationDetails}" var="geoData">
+						<h2 class="stit">
+							<img src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_images/new/geomap.png" alt="Geo Map"/>
+							${geoData.string}
+						</h2>
+						<span class="fl mt3">
+							${geoData.date}
+						</span>
+					</c:forEach>
+					<p id="mi" class="dib">
+						More Information <img src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_images/new/info.png" alt="Geo Map" class="fr mia"/>
+						<div class="mip">
+							<p>Latitude: ${latestLatitude}° </p>
+							<p>Longitude: ${latestLongitude}° </p>
+							<p>Climate: ${climate}</p>
+						</div>
+					</p>
 				</div>
 			</li>
 		</ul>
