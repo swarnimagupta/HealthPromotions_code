@@ -22,6 +22,7 @@
 		});
 		$("#mi").hover(function() {
 			$(".mip").show();
+			$(".mip").css("display", "block");
 		});
 		$("#mi").mouseleave(function() {
 			$(".mip").hide();
