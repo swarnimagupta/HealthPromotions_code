@@ -14,11 +14,19 @@
 		$("#slider3").tinycarousel();
 		 $(".slmscr").slimScroll({railVisible: true, railColor: '#f00'});
 		 $(".slmscr1").slimScroll({railVisible: true, railColor: '#f00'});
+		 $(".slmscr2").slimScroll({railVisible: true, railColor: '#f00'});
 		$("#accordion").accordion({
 			active: false,
 		    collapsible: true
 		   
 		});
+		$("#mi").hover(function() {
+			$(".mip").show();
+		});
+		$("#mi").mouseleave(function() {
+			$(".mip").hide();
+		});
+		
 	});
 	function assistCustomer()
 	{
@@ -172,17 +180,21 @@
 				</div>
 			</li>
 			<li>
-				<div class="slmscr1">
+				<div class="slmscr2">
 					<c:forEach items="${geoLocationDetails}" var="geoData">
-						<h2 class="stit">
-							<img src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_images/new/geomap.png" alt="Geo Map"/>
-							${geoData.string}
-						</h2>
-						<span class="fl mt3">
-							${geoData.date}
-						</span>
+						<div class="brdgt">
+							<h2 class="stit">
+								<img src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_images/new/geomap.png" alt="Geo Map"/>
+								${geoData.string}
+							</h2>
+							<div class="stit1">
+								<span class="fl mt3">
+									${geoData.date}
+								</span>
+							</div>
+						</div>
 					</c:forEach>
-					<p id="mi" class="dib">
+					<p id="mi" class="dib mi">
 						More Information <img src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_images/new/info.png" alt="Geo Map" class="fr mia"/>
 						<div class="mip">
 							<p>Latitude: ${latestLatitude}° </p>
