@@ -635,91 +635,97 @@ public class CustomerListController extends AbstractAddOnPageController
 		List<String> latitudesList = customerModel.getLatitudes();
 		List<Date> dateList = customerModel.getDate();
    
-		CustomerGeoData customerGeoData = null;
-		final List<CustomerGeoData> customerGeo = new ArrayList<CustomerGeoData>();
-		int size = latitudesList.size();
-		for(int index = 0; index<size;index++)
+		if(CollectionUtils.isNotEmpty(longitudesList))
 		{
-			customerGeoData = new CustomerGeoData();
-      	String zipValue = null;
-      	String cityValue = null;
-      	String countryValue = null;
-      	String stateValue = null;
-      	Date date =	dateList.get(index);
-      	
-         final URL url = new URL("http://api.wunderground.com/auto/wui/geo/GeoLookupXML/index.xml?query=" + latitudesList.get(index) + ","+ longitudesList.get(index));
-         LOG.info(":::::::url::::::::" + url);
-         final WebservicesUtil webservicesUtil = new WebservicesUtil();
-			final HttpURLConnection connection = webservicesUtil.getHttpConnection(url);
-         final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-         final DocumentBuilder db = dbf.newDocumentBuilder();
-         final Document doc = db.parse(connection.getInputStream());
-         doc.getDocumentElement().normalize();
-         final NodeList nodeLst = doc.getElementsByTagName("location");
-         for (int s = 0; s < nodeLst.getLength(); s++)
-         {
-         	final Node fstNode = nodeLst.item(s);
-         	if (fstNode.getNodeType() == Node.ELEMENT_NODE)
-         	{
-         		final Element fstElmnt = (Element) fstNode;
-               final NodeList city = fstElmnt.getElementsByTagName("city");
-               final Element cityname = (Element) city.item(0);
-               if (null != cityname.getFirstChild())
-               {
-               	final Text citytext = (Text) cityname.getFirstChild();
-               	cityValue = citytext.getNodeValue();
-               	LOG.info(":::::::cityValue:::::::" + cityValue);
-               }
-               else
-               {
-               	cityValue = StringUtils.EMPTY;
-               }
-               final NodeList country = fstElmnt.getElementsByTagName("country");
-               final Element countryname = (Element) country.item(0);
-               if (null != countryname.getFirstChild())
-               {
-               	final Text countrytext = (Text) countryname.getFirstChild();
-               	countryValue = countrytext.getNodeValue();
-               	LOG.info(":::::::countryname:::::::" + countryValue);
-               }
-               else
-               {
-               	countryValue = StringUtils.EMPTY;
-               }
-               final NodeList state = fstElmnt.getElementsByTagName("state");
-               final Element statename = (Element) state.item(0);
-               if (null != statename.getFirstChild())
-               {
-               	final Text statetext = (Text) statename.getFirstChild();
-               	stateValue = statetext.getNodeValue();
-               	LOG.info(":::::::state:::::::" + stateValue);
-               }
-               else
-               {
-               	stateValue = StringUtils.EMPTY;
-               }
-               final NodeList zip = fstElmnt.getElementsByTagName("zip");
-               final Element zipname = (Element) zip.item(0);
-               if (null != zipname.getFirstChild())
-               {
-               	final Text ziptext = (Text) zipname.getFirstChild();
-               	zipValue = ziptext.getNodeValue();
-               	LOG.info(":::::::zipValue:::::::" + zipValue);
-               }
-               else
-               {
-               	zipValue = StringUtils.EMPTY;
-               }
-         	}
-         }
-         String string = cityValue.toString() + ","+ stateValue.toString()+ ", " + countryValue.toString() + " " + zipValue.toString();
-   		customerGeoData.setDate(date.toString());
-   		customerGeoData.setString(string);
-   		customerGeo.add(customerGeoData);
-     	}
-		model.addAttribute("geoLocationDetails", customerGeo);
-   	model.addAttribute("climate", WeatherUtil.executeClimateWebservice(new JSONParser(), latitudesList.get(size-1), longitudesList.get(size-1)));
-		model.addAttribute("latestLatitude", latitudesList.get(size - 1));
-		model.addAttribute("latestLongitude", longitudesList.get(size - 1));
+			CustomerGeoData customerGeoData = null;
+			final List<CustomerGeoData> customerGeo = new ArrayList<CustomerGeoData>();
+			int size = latitudesList.size();
+			for(int index = 0; index<size;index++)
+			{
+				customerGeoData = new CustomerGeoData();
+	      	String zipValue = null;
+	      	String cityValue = null;
+	      	String countryValue = null;
+	      	String stateValue = null;
+	      	Date date =	dateList.get(index);
+	      	
+	         final URL url = new URL("http://api.wunderground.com/auto/wui/geo/GeoLookupXML/index.xml?query=" + latitudesList.get(index) + ","+ longitudesList.get(index));
+	         LOG.info(":::::::url::::::::" + url);
+	         final WebservicesUtil webservicesUtil = new WebservicesUtil();
+				final HttpURLConnection connection = webservicesUtil.getHttpConnection(url);
+	         final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+	         final DocumentBuilder db = dbf.newDocumentBuilder();
+	         final Document doc = db.parse(connection.getInputStream());
+	         doc.getDocumentElement().normalize();
+	         final NodeList nodeLst = doc.getElementsByTagName("location");
+	         for (int s = 0; s < nodeLst.getLength(); s++)
+	         {
+	         	final Node fstNode = nodeLst.item(s);
+	         	if (fstNode.getNodeType() == Node.ELEMENT_NODE)
+	         	{
+	         		final Element fstElmnt = (Element) fstNode;
+	               final NodeList city = fstElmnt.getElementsByTagName("city");
+	               final Element cityname = (Element) city.item(0);
+	               if (null != cityname.getFirstChild())
+	               {
+	               	final Text citytext = (Text) cityname.getFirstChild();
+	               	cityValue = citytext.getNodeValue();
+	               	LOG.info(":::::::cityValue:::::::" + cityValue);
+	               }
+	               else
+	               {
+	               	cityValue = StringUtils.EMPTY;
+	               }
+	               final NodeList country = fstElmnt.getElementsByTagName("country");
+	               final Element countryname = (Element) country.item(0);
+	               if (null != countryname.getFirstChild())
+	               {
+	               	final Text countrytext = (Text) countryname.getFirstChild();
+	               	countryValue = countrytext.getNodeValue();
+	               	LOG.info(":::::::countryname:::::::" + countryValue);
+	               }
+	               else
+	               {
+	               	countryValue = StringUtils.EMPTY;
+	               }
+	               final NodeList state = fstElmnt.getElementsByTagName("state");
+	               final Element statename = (Element) state.item(0);
+	               if (null != statename.getFirstChild())
+	               {
+	               	final Text statetext = (Text) statename.getFirstChild();
+	               	stateValue = statetext.getNodeValue();
+	               	LOG.info(":::::::state:::::::" + stateValue);
+	               }
+	               else
+	               {
+	               	stateValue = StringUtils.EMPTY;
+	               }
+	               final NodeList zip = fstElmnt.getElementsByTagName("zip");
+	               final Element zipname = (Element) zip.item(0);
+	               if (null != zipname.getFirstChild())
+	               {
+	               	final Text ziptext = (Text) zipname.getFirstChild();
+	               	zipValue = ziptext.getNodeValue();
+	               	LOG.info(":::::::zipValue:::::::" + zipValue);
+	               }
+	               else
+	               {
+	               	zipValue = StringUtils.EMPTY;
+	               }
+	         	}
+	         }
+	         String string = cityValue.toString() + ","+ stateValue.toString()+ ", " + countryValue.toString() + " " + zipValue.toString();
+	   		customerGeoData.setDate(date.toString());
+	   		customerGeoData.setString(string);
+	   		customerGeo.add(customerGeoData);
+	     	}
+			model.addAttribute("geoLocationDetails", customerGeo);
+			if(CollectionUtils.isNotEmpty(latitudesList))
+			{
+				model.addAttribute("climate", WeatherUtil.executeClimateWebservice(new JSONParser(), latitudesList.get(size-1), longitudesList.get(size-1)));
+				model.addAttribute("latestLatitude", latitudesList.get(size - 1));
+				model.addAttribute("latestLongitude", longitudesList.get(size - 1));
+			}
+		}
    }
 }

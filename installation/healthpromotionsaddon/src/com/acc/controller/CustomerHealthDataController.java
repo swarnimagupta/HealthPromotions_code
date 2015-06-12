@@ -129,7 +129,7 @@ public class CustomerHealthDataController
 
 		LOG.info("data customer healthdata controller promotions " + beaconPromotionsData.getPromotions());
 
-		LOG.info("data customer healthdata controller " + beaconPromotionsData.getPromotions().get(0).getCode());
+		//LOG.info("data customer healthdata controller " + beaconPromotionsData.getPromotions().get(0).getCode());
 		return beaconPromotionsData;
 	}
 
