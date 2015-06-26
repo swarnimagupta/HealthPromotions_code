@@ -112,6 +112,8 @@ public class WebserviceFactoryController
 					}
 					if (!flag)
 					{
+						promotionData2
+								.setProductUrl("/electronics/en/Health-Products/Health-Equipment/Ge-Ohmeda-Tuffsat-Monitor-With-Sensor/p/prod_1010");
 						promotionsData.add(promotionData2);
 					}
 
