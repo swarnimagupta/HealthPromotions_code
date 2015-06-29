@@ -141,9 +141,9 @@ public class CustomerGreetingsController
 				modelService.save(customerModel);
 				LOG.info("Customer's Geo Location Data saved successfully");
 
-				//calling the climate check service
-				retrieveClimatedBasedPromotionsNGreetings(beaconPromotionsData, parser, latitude, longitude);
 			}
+			//calling the climate check service
+			retrieveClimatedBasedPromotionsNGreetings(beaconPromotionsData, parser, latitude, longitude);
 		}
 	}
 }
