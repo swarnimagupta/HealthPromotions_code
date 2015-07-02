@@ -82,7 +82,7 @@ public class BeaconPromotionsServiceImpl implements BeaconPromotionsService
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see com.acc.services.BeaconPromotionsService#getAllPromotionsForBeacon(java.lang.String, java.lang.String,
 	 * java.lang.String)
 	 */
@@ -136,6 +136,8 @@ public class BeaconPromotionsServiceImpl implements BeaconPromotionsService
 			for (final AbstractPromotionModel promotion : restrictionList)
 			{
 				promotionData = promotionsConverter.convert(promotion);
+				promotionData
+						.setProductUrl("/yacceleratorstorefront/electronics/en/Health-Products/Health-Equipment/Ge-Ohmeda-Tuffsat-Monitor-With-Sensor/p/prod_1010?site=electronics");
 				promotionList.add(promotionData);
 
 			}
@@ -155,7 +157,7 @@ public class BeaconPromotionsServiceImpl implements BeaconPromotionsService
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see com.acc.services.BeaconPromotionsService#getBeaconDetails()
 	 */
 	@Override
@@ -211,7 +213,7 @@ public class BeaconPromotionsServiceImpl implements BeaconPromotionsService
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.acc.services.BeaconPromotionsService#getPromotionsBasedOnClimate(java.lang.String)
 	 */
 	@Override

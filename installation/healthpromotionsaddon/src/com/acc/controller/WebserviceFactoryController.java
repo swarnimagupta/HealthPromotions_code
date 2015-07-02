@@ -37,7 +37,7 @@ import com.acc.services.StoreLoginService;
 
 /**
  * @author swarnima.gupta
- * 
+ *
  */
 @Controller
 @RequestMapping(value = "/v1/{baseSiteId}")
@@ -113,7 +113,7 @@ public class WebserviceFactoryController
 					if (!flag)
 					{
 						promotionData2
-								.setProductUrl("/electronics/en/Health-Products/Health-Equipment/Ge-Ohmeda-Tuffsat-Monitor-With-Sensor/p/prod_1010");
+								.setProductUrl("/yacceleratorstorefront/electronics/en/Health-Products/Health-Equipment/Ge-Ohmeda-Tuffsat-Monitor-With-Sensor/p/prod_1010?site=electronics");
 						promotionsData.add(promotionData2);
 					}
 
