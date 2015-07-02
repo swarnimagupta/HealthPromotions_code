@@ -16,136 +16,7 @@
 			  document.getElementById("personalDetails").innerHTML = 
 				  "<a href='#' class='tabmenuselect'>Personal Details</a>"; 
 		  </script>
-		  <div class="tab">
-	<div class="tab tab-horiz">
-		<ul class="tab-legend">
-			<li class="active">Customer Details</li>
-			<li>Orders Details</li>
-			<li>History</li>
-		</ul>
-		<ul class="tab-content">
-		  	<li>
-					<div class="slmscr1">
-						
-						<div class="oh pdg">
-					<div class="oh">
-					<c:set var="imageUrl" value="${storeCustomerData.profilePictureURL}"/>
-					<c:if test="${empty storeCustomerData.profilePictureURL}">
-							<c:set var="imageUrl" value="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_images/personal_photos/person1.jpg"/>
-					</c:if>
-					<img src="${imageUrl}" class="fl"/> <span class="tabt">${storeCustomerData.customerName}</span></div>
-					
-					<div class="oh pdtb20">
-						<span class="fl lftt">Date of Birth:</span>
-						<span class="fl rgtt">${informationDto.dob}</span>
-					</div>
-					
-					<div class="oh pdtb20">
-						<span class="fl lftt">Address:</span>
-						<span class="fl rgtt">${useraddress.line1} <br/>${useraddress.line2} <br/> ${useraddress.town}<br/> ${useraddress.country.name} </span>
-					</div>
-					
-					<div class="oh pdtb20">
-						<span class="fl lftt">Postal Code:</span>
-						<span class="fl rgtt">${useraddress.postalcode}</span>
-					</div>
-					<div class="oh pdtb20">
-						<span class="fl lftt">Email:</span>
-						<span class="fl rgtt">${useraddress.email}</span>
-					</div>
-					<div class="oh pdtb20">
-						<span class="fl lftt">Phone Number:</span>
-						<span class="fl rgtt">${customerModel.phoneNumbers} </span>
-					</div>
-					</div>
-					</div>
-					
-					</li>
-					
-					<li>
-				<div class="slmscr1">
-					<c:if test="${not empty customerOrderDataList}">
-						<div id="accordion"  style="position: relative; clear:both; display:-moz-groupbox;margin-top: -95px; margin-left: -258px; top: 13%; left: 42%;">
-							<c:forEach items="${customerOrderDataList}" var="order" begin="0">
-								<h3 onclick="javascript:loadOrderDetails('${order.orderCode}');">
-									<span
-										style="font: normal 15px/20px Helvetica, sans-serif; color: #181818;text-align: left;"><b>Order #</b>${order.orderCode}&emsp;&emsp;<b>Total</b> - &#36; ${order.total}&emsp;&emsp;<b>Date Placed</b>  ${order.placedDate}</span>
-								</h3>
-								<div id="orderDetails_${order.orderCode}" style="background-color:#FFFFFF"></div>
-							</c:forEach>
-						</div>
-					</c:if>
-				</div>
-			</li>
-
-			<li>
-				<div class="slmscr1">
-					<c:if test="${not empty wishlist.entries}">
-						<div class="tabt1">Wish List</div>
-						<div id="slider1">
-							<a class="buttons prev" href="javascript:void(0);">left</a>
-							<div class="viewport">
-								<ul class="overview">
-									<c:if test="${not empty wishlist.entries}">
-										<c:forEach items="${wishlist.entries}" var="wishlist">
-											<li>
-												<product:productPrimaryImage product="${wishlist.product}" format="thumbnail" />
-											</li>
-										</c:forEach>
-									</c:if>
-								</ul>
-							</div>
-							<a class="buttons next" href="javascript:void(0);">right</a>
-						</div>
-					</c:if>
-					<c:if test="${not empty productData}">
-						<div class="tabt1 pt20">Recently Viewed</div>
-						<div id="slider2">
-							<a class="buttons prev" href="javascript:void(0);">left</a>
-							<div class="viewport">
-								<ul class="overview">
-									<c:forEach items="${productData}" var="product">
-										<c:url value="${product.url}" var="productQuickViewUrl" />
-										<li>
-											<product:productPrimaryImage product="${product}" format="thumbnail" />
-										</li>
-									</c:forEach>
-								</ul>
-							</div>
-							<a class="buttons next" href="javascript:void(0);">right</a>
-						</div>
-					</c:if>
-					<c:if test="${not empty recommendedProductsData}">
-						<div class="tabt1 pt20">Recommendations</div>
-						<div id="slider3">
-							<a class="buttons prev" href="javascript:void(0);">left</a>
-							<div class="viewport">
-								<ul class="overview">
-									<c:forEach items="${recommendedProductsData}" var="product">
-										<c:url value="${product.url}" var="productQuickViewUrl" />
-										<li>
-											<product:productPrimaryImage product="${product}" format="thumbnail" />
-										</li>
-									</c:forEach>
-								</ul>
-							</div>
-							<a class="buttons next" href="javascript:void(0);">right</a>
-						</div>
-					</c:if>
-					
-				</div>
-			</li>
-					<div class="oh pdtb20">
-					<button id="btn" class="assbt">Assist</button>
-					</div>
-</ul>
-</div>
-</div>
-				
-       <%--  
- ----------------------------------------------------------------------------------------------------				
-       
-       <!--------Personal Details Tabel Starts Here-------->
+        <!--------Personal Details Tabel Starts Here-------->
         <div class="personal_details_tabel">
           <table width="100%" border="0" cellspacing="0" cellpadding="0">
             <tr>
@@ -176,7 +47,7 @@
                     </tr>
                     <tr>
                       <td class="bluetext">${customerModel.uid}</td>
-                      <td class="bluetext">${dob}</td>
+                    <%--   <td class="bluetext">${dob}</td> --%>
                     </tr>
                 </table></td>
             </tr>
@@ -443,7 +314,7 @@
 	            </tr>
             </c:if>
           </table>
-        </div> --%>
+        </div>
         <!--------Personal Details Tabel Starts Here--------> 
   <!--Content Ends here--> 
 	</json:property>

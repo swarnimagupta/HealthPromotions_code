@@ -14,26 +14,19 @@
 <!DOCTYPE html>
 <html lang="${currentLanguage.isocode}">
 	<head>
-	<meta charset="utf-8">
+			<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> 
+	
+		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 		<title>Orders Dashboard</title>
-			<script  type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/jquery-1.11.0.min.js"></script>
-	<script type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/library.js"></script>
-	<script type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/jquery.slimscroll.min.js"></script>
-	<script type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/datepicker.js"></script>
-	<script type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/tabModule.js"></script>
-	<script type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/jquery.tinycarousel.min.js"></script>
-	<script type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/dependencies.js"></script>
-	<script type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/modernizr.js"></script>
-	<script type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/pizza.js"></script>
-		<link type="text/css" rel="stylesheet" href="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_css/style_new.css" />
+		<link type="text/css" rel="stylesheet" href="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_css/style.css" />
 		<script type="text/javascript">
 	
 		$(document).ready(function() {
 			
 			setTimeout(function () {
 			
-			window.location.href="${contextPath}/orderslist/vieworders?size="+'${Queued}'+"&status="+'${param.status}';}, 90000);
+			window.location.href="${contextPath}/orderslist/vieworders?size="+'${Queued}'+"&status="+'${param.status}';}, 30000);
 		});
 		</script> 
 		<script src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/jquery.knob.js"></script>
@@ -53,48 +46,43 @@
 		</script>
 	</head>
 	<body>
-	
+		<div id="main_wrapper" style="position:relative"> 
 			<!--Header Starts here-->
 			<bnc:csr_orders_header/>
 			<!-- Header Ends here-->
-			
+			<div class="clearboth"></div>
 			<!--Content Starts here-->
- 	<div class="cnt">
- 		<div class="cntl" id="ordersDivId">
-			<bnc:ordersList />
-		</div>
-		<div class="cntr">
-			<div class="chart">
-				<div id="main_content_blk">
+			<div id="main_content_blk">
+				<div class="top_banner">
 					<bnc:chart />
+					<div class="clearboth"></div>
+					<bnc:dateTime />
+				</div>
+				<div class="clearboth"></div>
+				<div class="inner_content_blk" id="ordersDivId">
+					<div class="left_block">
+						<bnc:ordersList />
+					</div>
+					<div class="right_block">
+						<div class="tab_menu_block">
+							<div class="tab_menu">
+								<ul>
+									<li id="orderDetailsTab"><a href="#" class="tabmenuselect">Order Details</a></li>
+									<li class="divider"></li>
+									<li id="personalDetails"><a onclick='javascript:PersonalDetailsByUserID("${orderData.user.uid}", "${orderData.code}");'>Personal Details</a></li>
+								</ul>
+							</div>
+						  <div class="tab_button"></div>
+						</div>
+					<c:if test="${not empty orderData.code}">
+					  <bnc:orderDetails />
+					  </c:if>
+					</div>
+					<div class="clearboth"></div>
 				</div>
 			</div>
-
-			<bnc:dateTime />
-
-
-			
-			<div class="tab">
-				<div class="tab tab-horiz">
-					<ul class="tab-legend">
-						<li id="orderDetailsTab" class="active"><a href="#"
-							class="tabmenuselect">Order Details</a></li>
-						<li id="personalDetails"><a
-							onclick='javascript:PersonalDetailsByUserID("${orderData.user.uid}", "${orderData.code}");'>Customer
-								Details</a></li>
-						<li>History</li>
-					</ul>
-					<ul class="tab-content">
-						<c:if test="${not empty orderData.code}">
-							<bnc:orderDetails />
-						</c:if>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
-				
 			<!--Content Ends here--> 
+		</div>
 		<c:if test="${not empty param.size && Queued!=param.size}">
 			<script type="text/javascript">
 				var audio = {};
