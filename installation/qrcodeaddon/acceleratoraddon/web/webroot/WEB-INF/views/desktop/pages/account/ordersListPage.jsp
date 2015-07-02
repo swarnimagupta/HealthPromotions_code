@@ -14,10 +14,8 @@
 <!DOCTYPE html>
 <html lang="${currentLanguage.isocode}">
 	<head>
-	<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
-		<title>Orders Dashboard</title>
-			<script  type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/jquery-1.11.0.min.js"></script>
+	<link type="text/css" rel="stylesheet" href="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_css/style_new.css" />
+	<script  type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/jquery-1.11.0.min.js"></script>
 	<script type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/library.js"></script>
 	<script type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/jquery.slimscroll.min.js"></script>
 	<script type="text/javascript" src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/new/datepicker.js"></script>
@@ -44,33 +42,31 @@
 			$(window).load(function(){
 			$(".dial").knob({
 				readOnly: true,
-				fgColor: "#13ccde",
-				bgColor: "#efefef",
+				fgColor: "#465bdc",
+				bgColor: "#C9C8C8",
 				thickness: 0.20
 							});
 		});
 		
 		</script>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+		<title>Order Dashboard</title>
 	</head>
 	<body>
 	
-			<!--Header Starts here-->
-			<bnc:csr_orders_header/>
-			<!-- Header Ends here-->
-			
-			<!--Content Starts here-->
- 	<div class="cnt">
- 		<div class="cntl" id="ordersDivId">
-			<bnc:ordersList />
-		</div>
-		<div class="cntr">
-			<div class="chart">
-				<div id="main_content_blk">
-					<bnc:chart />
-				</div>
+		<!--Header Starts here-->
+		<bnc:csr_orders_header/>
+		<!-- Header Ends here-->
+		<div class="clearboth"></div>
+		<!--Content Starts here-->
+ 		<div class="cnt">
+ 			<div class="cntl" id="ordersDivId">
+				<bnc:ordersList />
 			</div>
-
-			<bnc:dateTime />
+			<div class="cntr">
+				<bnc:chart />
+				<bnc:dateTime />
 
 
 			
@@ -92,9 +88,13 @@
 				</div>
 			</div>
 		</div>
-	</div>
-				
-			<!--Content Ends here--> 
+		</div>
+		<!--Content Ends here-->
+		<!--Footer Area Starts here-->
+  		<div class="ftr"> <div class="ftri">© Accenture 2015, All Rights Reserved.</div></div>
+  		<!--Footer Area Ends here-->
+
+		<!-- Script includes -->
 		<c:if test="${not empty param.size && Queued!=param.size}">
 			<script type="text/javascript">
 				var audio = {};
@@ -105,7 +105,6 @@
 			</script>
 		</c:if>
 		<script src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/jquery.diagram.js"></script> 
-		<script src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_js/script.js"></script>
 		<bnc:csr_script />
 	</body>
 </html>

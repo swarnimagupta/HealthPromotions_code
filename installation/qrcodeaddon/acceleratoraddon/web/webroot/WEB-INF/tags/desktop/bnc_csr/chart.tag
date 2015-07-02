@@ -26,8 +26,8 @@
 		height: 29px;
 	}
 	</style>
-	<div class="diagram_block${queuedURL}" style="float: left;margin: auto;padding-left: 40px;padding-top: 10px;width: 18%;">
-		<input type="text" class="dial circle_progress_bar" value="${Queued}" readonly="readonly" />
+	<div class="diagram_block" style="float: left;margin: auto;padding-left: 55px;padding-top: 10px;width: 18%;">
+		<input type="text" class="dial circle_progress_bar" value="${Queued}" readonly="readonly" id="queuedNumber"/>
 		<div class="${queuedCurrent}" style="margin-top:6px">
 			<c:url value="/orderslist/vieworders" var="queuedURL">
 				<c:param name="status" value="PENDING"></c:param>
@@ -35,7 +35,7 @@
 			<a href="${queuedURL}"  style="text-decoration: none;color:#6f6f6f;">Queued</a>
 		</div>
 	</div>
-	<div class="diagram_block${activeURL}" style="float: left;margin: auto;padding-left: 40px;padding-top: 10px;width: 18%;">
+	<div class="diagram_block" style="float: left;margin: auto;padding-left: 40px;padding-top: 10px;width: 18%;">
 		<input type="text" class="dial circle_progress_bar" value="${Active}" readonly="readonly" />
 		<div class="${activeCurrent}"  style="margin-top:6px" >
 			<c:url value="/orderslist/vieworders" var="activeURL">
@@ -44,7 +44,7 @@
 			<a href="${activeURL}" style="text-decoration: none;color:#6f6f6f;">Active</a>
 		</div>
 	</div>
-	<div class="diagram_block${servicedURL}" style="float: left;margin: auto;padding-left: 40px;padding-top: 10px;width: 18%;">
+	<div class="diagram_block" style="float: left;margin: auto;padding-left: 40px;padding-top: 10px;width: 18%;">
 		<input type="text" class="dial circle_progress_bar" value="${Serviced}" readonly="readonly" />
 		<div class="${servicedCurrent}"  style="margin-top:6px">
 			<c:url value="/orderslist/vieworders" var="servicedURL">
