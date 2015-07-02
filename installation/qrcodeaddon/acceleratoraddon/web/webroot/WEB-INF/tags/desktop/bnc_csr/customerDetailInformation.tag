@@ -41,15 +41,20 @@
 	{
 		window.location = "${contextPath}/customerlist/statusUpdate?status=Completed&customerPK=${param.customerPK}";
 	}
+	
+	function setParameterInUrl(paramValue)
+	{
+		window.history.pushState("","", location.href.split("#")[0]+"#"+paramValue);
+	}
 </script>
 
 <div class="tab">
 	<div class="tab tab-horiz">
 		<ul class="tab-legend">
-			<li class="active">Customer Details</li>
-			<li>Orders Details</li>
-			<li>History</li>
-			<li>Geo Location</li>
+			<li class="active" onclick="javascript:return setParameterInUrl('custdet');">Customer Details</li>
+			<li onclick="javascript:return setParameterInUrl('orddet');">Orders Details</li>
+			<li onclick="javascript:return setParameterInUrl('history');">History</li>
+			<li onclick="javascript:return setParameterInUrl('geo');">Geo Location</li>
 		</ul>
 		<ul class="tab-content">
 			<li>
