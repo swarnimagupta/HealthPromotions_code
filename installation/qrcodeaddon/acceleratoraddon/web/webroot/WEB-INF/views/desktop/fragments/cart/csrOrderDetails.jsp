@@ -21,67 +21,48 @@
 			  "<a href='#' class='tabmenuselect'>Order Details</a>";
 	  </script>
  		<!--------Order Details Tabel Starts Here-------->
-          <div class="order_details_tabel">
-            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-              <tr>
-                <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
-                    <tr>
-                      <td width="62%" class="order_number">${orderData.code}</td>
+<div class="slmscr"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+ <tbody><tr>
+ <td><table width="100%" cellspacing="0" cellpadding="0" border="0">
+                    <tbody><tr>
+                      <td width="62%" class="order_number"><strong class="st">${orderData.code}</strong></td>
                       <td width="27%"><span style="float:left">Status:</span>
                         <div class="styled-select">
-                          <c:url value="/orderslist/order/${orderData.code}" var="orderDetailsURL"></c:url>
-							<form:form action="${orderDetailsURL}" method="post" commandName="collectOrderData">
-								<form:hidden path="pk"/>
-								<form:select path="status" onchange="javascript:collectOrderData.submit();">
-									<c:forEach items="${collectOrderStatusList}" var="stat">
-										<form:option value="${stat}">${stat}</form:option>
-									</c:forEach>
-								</form:select>
-							</form:form>
+                           <c:url value="/orderslist/order/${orderData.code}" var="orderDetailsURL"></c:url>
+						<form:form action="${orderDetailsURL}" method="post" commandName="collectOrderData">
+							<form:hidden path="pk"/>
+							<form:select path="status" onchange="javascript:collectOrderData.submit();">
+								<c:forEach items="${collectOrderStatusList}" var="stat">
+									<form:option value="${stat}">${stat}</form:option>
+								</c:forEach>
+							</form:select>
+						</form:form>
                         </div></td>
                       <td width="11%">&nbsp;</td>
                     </tr>
                     <tr>
                       <td colspan="3">&nbsp;</td>
                     </tr>
-                  </table></td>
+                  </tbody></table></td>
               </tr>
               <tr>
-                <td><table width="100%" border="0" cellspacing="0" cellpadding="0" class="orderitemtabel">
+                <td><table width="100%" cellspacing="0" cellpadding="0" border="0" class="orderitemtable">
                 	<c:forEach items="${orderData.entries}" var="entry">
-							<c:url value="${entry.product.url}" var="productUrl" />
-							<tr>
-		                      <td><table width="100%" border="0" cellspacing="0" cellpadding="0">
-		                          <tr>
-		                            <td width="8%"><product:productPrimaryImage	product="${entry.product}" format="thumbnail" /></td>
-		                            <td width="2%"></td>
-		                            <td width="25%">${entry.product.name}</td>
-		                            <td width="12%">${entry.quantity}</td>
-		                            <td width="11%"><format:price priceData="${entry.basePrice}"	displayFreeForZero="true" /></td>
-		                            <td width="21%">$${entry.quantity * entry.basePrice.value}</td>
-<%-- 		                            <td width="11%" align="right"><img src="${commonResourcePath}/bnc_images/check_box.jpg" alt=""/></td> --%>
-		                            <td width="3%">&nbsp;</td>
-		                          </tr>
-		                        </table></td>
-		                    </tr>
-		                    <tr>
-		                      <td height="10"></td>
-		                    </tr>
-						</c:forEach>
-                  </table></td>
-              </tr>
-              <tr>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td>&nbsp;</td>
-              </tr>
-              <tr>
-                <td class="order_number"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-                    <tr>
-                      <td width="9%">Total</td>
-                      <td width="91%">$${orderData.totalPrice.value}</td>
+								<c:url value="${entry.product.url}" var="productUrl" />
+                    <tbody><tr>
+                      <td class="odd"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+                          <tbody><tr>
+                            <td width="19%"><product:productPrimaryImage	product="${entry.product}" format="thumbnail" /></td>
+                            <td width="2%"></td>
+                            <td width="32%">${entry.product.name}</td>
+                            <td width="12%">${entry.quantity}</td>
+                            <td width="11%"><format:price priceData="${entry.basePrice}"	displayFreeForZero="true" /></td>
+                            <td width="21%">$${entry.quantity * entry.basePrice.value}</td>
+                          </tr>
+                        </tbody></table></td>
                     </tr>
+                  </tbody>
+                  </c:forEach>
                   </table></td>
               </tr>
               <tr>
@@ -90,8 +71,22 @@
               <tr>
                 <td>&nbsp;</td>
               </tr>
-            </table>
-          </div>
+              <tr>
+                <td class="order_number"><table width="100%" cellspacing="0" cellpadding="0" border="0">
+                    <tbody><tr>
+                      <td width="9%"><strong class="st">Total</strong></td>
+                      <td width="91%"><strong class="st">$${orderData.totalPrice.value}</strong></td>
+                    </tr>
+                  </tbody></table></td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+              </tr>
+            </tbody></table>
+              </div>
           <!--------Order Details Tabel Ends Here-------->      
 	</json:property>
 </json:object>
