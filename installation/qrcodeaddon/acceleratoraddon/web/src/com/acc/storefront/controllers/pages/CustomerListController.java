@@ -714,7 +714,7 @@ public class CustomerListController extends AbstractAddOnPageController
 	               }
 	         	}
 	         }
-	         String string = cityValue.toString() + ","+ stateValue.toString()+ ", " + countryValue.toString() + " " + zipValue.toString();
+	         String string = cityValue + ","+ stateValue ", " + countryValue + " " + zipValue;
 	   		customerGeoData.setDate(date.toString());
 	   		customerGeoData.setString(string);
 	   		customerGeo.add(customerGeoData);
