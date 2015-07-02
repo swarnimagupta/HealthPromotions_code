@@ -21,9 +21,7 @@
 
 	<collectiontypes>
 		<collectiontype code="PromotionsCollection" elementtype="AbstractPromotion" autocreate="true" generate="false" />
-		<collectiontype code="ListOfStringCollection" elementtype="java.lang.String" autocreate="true" generate="false" type="list"/>
-		<collectiontype code="ListOfDateCollection" elementtype="java.util.Date" autocreate="true" generate="false" type="list"/>
-		
+		<collectiontype code="TrackLatLongListCollection" elementtype="TrackLatLong" autocreate="true" generate="false" type="list"/>
 	</collectiontypes>
 	<relations>
 		<relation code="Beacon2PromotionsRel" localized="false" autocreate="true" generate="true">
@@ -324,17 +322,27 @@
 			</attributes>
 		</itemtype>
 		
+		<itemtype code="TrackLatLong" autocreate="true" generate="true" extends="GenericItem">
+			<deployment table="TrackLatLong" typecode="11010" />
+			<attributes>
+				<attribute qualifier="code" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="true"/>
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="latitude" type="java.lang.String">
+					<modifiers read="true" write="true" search="true" optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="longitude" type="java.lang.String" >
+					<modifiers read="true" write="true" search="true" optional="true"/>
+					<persistence type="property" />
+				</attribute>
+			</attributes>
+		</itemtype>
+		
 		<itemtype code="Customer" autocreate="false" generate="false">
 			<attributes>
-				<attribute qualifier="latitudes" type="ListOfStringCollection">
-					<modifiers read="true" write="true" search="true" optional="true" />
-					<persistence type="property" />
-				</attribute>
-				<attribute qualifier="longitudes" type="ListOfStringCollection">
-					<modifiers read="true" write="true" search="true" optional="true" />
-					<persistence type="property" />
-				</attribute>
-				<attribute qualifier="Date" type="ListOfDateCollection">
+				<attribute qualifier="trackLatLongList" type="TrackLatLongListCollection">
 					<modifiers read="true" write="true" search="true" optional="true" />
 					<persistence type="property" />
 				</attribute>
@@ -354,5 +362,6 @@
 				</attributes>
 			</itemtype>
 		</typegroup>
+		
 	</itemtypes>
 </items>

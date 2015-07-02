@@ -10,7 +10,6 @@ import de.hybris.platform.servicelayer.user.UserService;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.acc.data.BeaconPromotionData;
 import com.acc.data.GreetingsData;
+import com.acc.model.TrackLatLongModel;
 import com.acc.services.BeaconPromotionsService;
 import com.acc.services.GreetingsService;
 import com.acc.util.WeatherUtil;
@@ -115,32 +115,23 @@ public class CustomerGreetingsController
 			final BeaconPromotionData beaconPromotionsData, final JSONParser parser) throws IOException, ParseException
 	{
 		final CustomerModel customerModel = (CustomerModel) userService.getUserForUID(customerId);
-		final List<String> longitudeList = customerModel.getLongitudes();
-		final List<String> latitudeList = customerModel.getLatitudes();
-		final List<Date> dateList = customerModel.getDate();
-		if (null != latitudeList && null != longitudeList && null != dateList)
+		final List<TrackLatLongModel> trackLatLongModelList = customerModel.getTrackLatLongList();
+		if (null != trackLatLongModelList)
 		{
-			final List<String> newLongitudeList = new ArrayList<String>();
-			final List<String> newLatitudeList = new ArrayList<String>();
-			final List<Date> newDateList = new ArrayList<Date>();
-			newLatitudeList.addAll(latitudeList);
-			newLongitudeList.addAll(longitudeList);
-			newDateList.addAll(dateList);
-
-			final int index = newLongitudeList.size();
-			final String longi = index == 0 ? StringUtils.EMPTY : newLongitudeList.get(index - 1);
-			final String lati = index == 0 ? StringUtils.EMPTY : newLatitudeList.get(index - 1);
+			final List<TrackLatLongModel> trackLatLongModelNewList = new ArrayList<TrackLatLongModel>();
+			trackLatLongModelNewList.addAll(trackLatLongModelList);
+			final int index = trackLatLongModelNewList.size();
+			final String longi = index == 0 ? StringUtils.EMPTY : trackLatLongModelNewList.get(index - 1).getLongitude();
+			final String lati = index == 0 ? StringUtils.EMPTY : trackLatLongModelNewList.get(index - 1).getLatitude();
 			if (!longi.equalsIgnoreCase(longitude) || !lati.equalsIgnoreCase(latitude))
 			{
-				newLongitudeList.add(longitude);
-				newLatitudeList.add(latitude);
-				newDateList.add(new Date());
-				customerModel.setLongitudes(newLongitudeList);
-				customerModel.setLatitudes(newLatitudeList);
-				customerModel.setDate(newDateList);
+				final TrackLatLongModel trackLatLongModel = modelService.create(TrackLatLongModel.class);
+				trackLatLongModel.setLatitude(latitude);
+				trackLatLongModel.setLongitude(longitude);
+				trackLatLongModelNewList.add(trackLatLongModel);
+				customerModel.setTrackLatLongList(trackLatLongModelNewList);
 				modelService.save(customerModel);
 				LOG.info("Customer's Geo Location Data saved successfully");
-
 			}
 			//calling the climate check service
 			retrieveClimatedBasedPromotionsNGreetings(beaconPromotionsData, parser, latitude, longitude);

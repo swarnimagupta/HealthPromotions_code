@@ -187,6 +187,14 @@
 			</li>
 			<li>
 				<div class="slmscr2">
+					<p id="mi" class="dib mi">
+						More Information <img src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_images/new/info.png" alt="Geo Map" class="fr mia"/>
+						<div class="mip">
+							<p>Latitude: ${latestLatitude}° </p>
+							<p>Longitude: ${latestLongitude}° </p>
+							<p>Climate: ${climate}</p>
+						</div>
+					</p>
 					<c:forEach items="${geoLocationDetails}" var="geoData">
 						<div class="brdgt">
 							<h2 class="stit">
@@ -200,14 +208,6 @@
 							</div>
 						</div>
 					</c:forEach>
-					<p id="mi" class="dib mi">
-						More Information <img src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_images/new/info.png" alt="Geo Map" class="fr mia"/>
-						<div class="mip">
-							<p>Latitude: ${latestLatitude}° </p>
-							<p>Longitude: ${latestLongitude}° </p>
-							<p>Climate: ${climate}</p>
-						</div>
-					</p>
 				</div>
 			</li>
 		</ul>

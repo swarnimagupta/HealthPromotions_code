@@ -235,5 +235,18 @@
 		<property name="promotionService" ref="promotionsService"/>
 	</bean>
 			
+	<bean id="trackLatLongPopulator" class="com.acc.populator.TrackLatLongPopulator">
+	</bean>
+	
+	<bean id="trackLatLongData" class="com.acc.data.TrackLatLongData" scope="prototype"/>
+
+	<bean id="trackLatLongConverter" parent="abstractPopulatingConverter">
+		<lookup-method name="createTarget" bean="trackLatLongData"/>
+		<property name="populators">
+			<list>
+				<ref bean="trackLatLongPopulator"/>
+			</list>
+		</property>
+	</bean>
 			
 </beans>

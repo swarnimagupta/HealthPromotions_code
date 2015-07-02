@@ -48,10 +48,12 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Comparator;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 
 
 
@@ -78,6 +80,7 @@ import com.acc.data.CustomerGeoData;
 import com.acc.facades.CSRCustomerDetails.data.CSRCustomerDetailsData;
 import com.acc.facades.storecustomer.StoreCustomerFacade;
 import com.acc.facades.wishlist.data.Wishlist2Data;
+import com.acc.model.TrackLatLongModel;
 import com.acc.storefront.controllers.ControllerConstants;
 import com.acc.storefront.util.CustomerOrderData;
 import com.acc.storefront.util.ProfileInformationDto;
@@ -102,6 +105,7 @@ import org.json.simple.parser.ParseException;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -631,15 +635,36 @@ public class CustomerListController extends AbstractAddOnPageController
 	{
 		LOG.info("inside getGeoLocationNClimateData ");
 		final CustomerModel customerModel = (CustomerModel) userService.getUserForUID(customerId);
-		List<String> longitudesList = customerModel.getLongitudes();
-		List<String> latitudesList = customerModel.getLatitudes();
-		List<Date> dateList = customerModel.getDate();
-   
-		if(CollectionUtils.isNotEmpty(longitudesList))
+		List<TrackLatLongModel> trackLatLongModels = customerModel.getTrackLatLongList();
+		if(CollectionUtils.isNotEmpty(trackLatLongModels))
 		{
+			final List<TrackLatLongModel> trackLatLongModelNewList = new ArrayList<TrackLatLongModel>();
+			trackLatLongModelNewList.addAll(trackLatLongModels);
+			Collections.sort(trackLatLongModelNewList, new Comparator<TrackLatLongModel>() 
+			{
+				@Override
+				public int compare(TrackLatLongModel o1, TrackLatLongModel o2) 
+				{
+					long l1 = o1.getCreationtime().getTime();
+					long l2 = o2.getCreationtime().getTime();
+					if (l1 < l2) 
+					{
+						return 1;
+					} 
+					else if (l1 > l2) 
+					{
+						return -1;
+					} 
+					else 
+					{
+						return 0;
+					}
+				}
+			});
+			
 			CustomerGeoData customerGeoData = null;
 			final List<CustomerGeoData> customerGeo = new ArrayList<CustomerGeoData>();
-			int size = latitudesList.size();
+			int size = trackLatLongModelNewList.size();
 			for(int index = 0; index<size;index++)
 			{
 				customerGeoData = new CustomerGeoData();
@@ -647,9 +672,10 @@ public class CustomerListController extends AbstractAddOnPageController
 	      	String cityValue = null;
 	      	String countryValue = null;
 	      	String stateValue = null;
-	      	Date date =	dateList.get(index);
+	      	Date date =	trackLatLongModelNewList.get(index).getCreationtime();
 	      	
-	         final URL url = new URL("http://api.wunderground.com/auto/wui/geo/GeoLookupXML/index.xml?query=" + latitudesList.get(index) + ","+ longitudesList.get(index));
+	         final URL url = new URL("http://api.wunderground.com/auto/wui/geo/GeoLookupXML/index.xml?query=" + trackLatLongModelNewList.get(index).getLatitude() 
+	         		+ ","+ trackLatLongModelNewList.get(index).getLongitude());
 	         LOG.info(":::::::url::::::::" + url);
 	         final WebservicesUtil webservicesUtil = new WebservicesUtil();
 				final HttpURLConnection connection = webservicesUtil.getHttpConnection(url);
@@ -720,11 +746,11 @@ public class CustomerListController extends AbstractAddOnPageController
 	   		customerGeo.add(customerGeoData);
 	     	}
 			model.addAttribute("geoLocationDetails", customerGeo);
-			if(CollectionUtils.isNotEmpty(latitudesList))
+			if(CollectionUtils.isNotEmpty(trackLatLongModelNewList))
 			{
-				model.addAttribute("climate", WeatherUtil.executeClimateWebservice(new JSONParser(), latitudesList.get(size-1), longitudesList.get(size-1)));
-				model.addAttribute("latestLatitude", latitudesList.get(size - 1));
-				model.addAttribute("latestLongitude", longitudesList.get(size - 1));
+				model.addAttribute("climate", WeatherUtil.executeClimateWebservice(new JSONParser(), trackLatLongModelNewList.get(0).getLatitude(), trackLatLongModelNewList.get(0).getLongitude()));
+				model.addAttribute("latestLatitude", trackLatLongModelNewList.get(0).getLatitude());
+				model.addAttribute("latestLongitude", trackLatLongModelNewList.get(0).getLongitude());
 			}
 		}
    }

@@ -135,11 +135,16 @@
 		<property name="condition" type="String"/>
 	</bean>
 	
+	<bean class="com.acc.data.TrackLatLongData">
+		<property name="code" type="String"/>
+		<property name="latitude" type="String"/>
+		<property name="longitude" type="String"/>
+		<property name="date" type="java.util.Date"/>
+	</bean>
+	
 	<bean class="de.hybris.platform.commercefacades.user.data.CustomerData"
 	      extends="de.hybris.platform.commercefacades.user.data.PrincipalData">
-		<property name="latitudes" type="java.util.List&lt;String>"/>
-		<property name="longitudes" type="java.util.List&lt;String>"/>
-		<property name="date" type="java.util.List&lt;java.util.Date>"/>
+		<property name="trackLatLongList" type="java.util.List&lt;com.acc.data.TrackLatLongData>"/>
 	</bean>
 	
 	<bean class="com.acc.data.CustomerGeoData">
