@@ -61,20 +61,20 @@ function OrderDetailsByOrderID(orderId) {
 
 function getOrdersByFromDate()
 {
-	var fdate = document.getElementById('searchTimeBarFromDate').value;
-	var tdate = document.getElementById('searchTimeBarToDate').value;
+	var fdate = document.getElementById('datepicker').value;
+	var tdate = document.getElementById('datepicker1').value;
 	var ftime = document.getElementById('searchTimeBarFromTime').value;
 	var ttime = document.getElementById('searchTimeBarToTime').value;
 	if (fdate =='' ) 
 	{ 
 		alert("Please enter the from Date!");
-		document.getElementById('searchTimeBarFromDate').focus();
+		document.getElementById('datepicker').focus();
 		return false;
 	}
 	if (tdate =='' ) 
 	{ 
 		alert("Please enter the to Date!");
-		document.getElementById('searchTimeBarToDate').focus();
+		document.getElementById('datepicker1').focus();
 		return false;
 	}
 	if (ftime =='' ) 

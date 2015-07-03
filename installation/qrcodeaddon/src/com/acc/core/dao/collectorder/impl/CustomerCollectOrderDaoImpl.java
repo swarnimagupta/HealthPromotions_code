@@ -32,7 +32,7 @@ public class CustomerCollectOrderDaoImpl extends AbstractItemDao implements Cust
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see com.acc.core.dao.collectorder.CustomerCollectOrderDao#getCollectOrders()
 	 */
 	@Override
@@ -48,7 +48,7 @@ public class CustomerCollectOrderDaoImpl extends AbstractItemDao implements Cust
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see com.acc.core.dao.collectorder.CustomerCollectOrderDao#getCollectOrderByUCOID(java.lang.String)
 	 */
 	@Override
@@ -61,7 +61,7 @@ public class CustomerCollectOrderDaoImpl extends AbstractItemDao implements Cust
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see com.acc.core.dao.collectorder.CustomerCollectOrderDao#getCollectOrderByOrderCode(java.lang.String)
 	 */
 	@Override
@@ -74,7 +74,7 @@ public class CustomerCollectOrderDaoImpl extends AbstractItemDao implements Cust
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see com.acc.core.dao.collectorder.CustomerCollectOrderDao#getCustomerListOrders(java.lang.String)
 	 */
 	@Override
@@ -88,7 +88,7 @@ public class CustomerCollectOrderDaoImpl extends AbstractItemDao implements Cust
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see com.acc.core.dao.collectorder.CustomerCollectOrderDao#getOrderDetailsForCode(java.lang.String)
 	 */
 	@Override
@@ -101,7 +101,7 @@ public class CustomerCollectOrderDaoImpl extends AbstractItemDao implements Cust
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see com.acc.core.dao.collectorder.CustomerCollectOrderDao#getCollectOrderByDateAndTime(java.lang.String,
 	 * java.lang.String, java.lang.String, java.lang.String)
 	 */
@@ -116,10 +116,10 @@ public class CustomerCollectOrderDaoImpl extends AbstractItemDao implements Cust
 		SearchResult<CollectOrderModel> result = null;
 		try
 		{
-			fDate = sdf.format(sdf1.parse(fromDate + " " + fromTime));
-			tDate = sdf.format(sdf1.parse(toDate + " " + toTime));
-			final DateTime fromDateTime = new DateTime(sdf1.parse(fromDate + " " + fromTime));
-			final DateTime toDateTime = new DateTime(sdf1.parse(toDate + " " + toTime));
+			fDate = sdf.format(sdf1.parse(fromDate + " " + fromTime.toLowerCase()));
+			tDate = sdf.format(sdf1.parse(toDate + " " + toTime.toLowerCase()));
+			final DateTime fromDateTime = new DateTime(sdf1.parse(fromDate + " " + fromTime.toLowerCase()));
+			final DateTime toDateTime = new DateTime(sdf1.parse(toDate + " " + toTime.toLowerCase()));
 			if (toDateTime.isBefore(fromDateTime))
 			{
 				throw new Exception("From Date should be before To Date!!");
@@ -140,7 +140,7 @@ public class CustomerCollectOrderDaoImpl extends AbstractItemDao implements Cust
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see com.acc.core.dao.collectorder.CustomerCollectOrderDao#getCollectOrdersByStatus(java.lang.String)
 	 */
 	@Override
