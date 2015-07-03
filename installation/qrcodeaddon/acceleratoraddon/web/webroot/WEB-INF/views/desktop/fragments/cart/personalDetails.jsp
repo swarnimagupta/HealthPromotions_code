@@ -12,9 +12,9 @@
 	<json:property name="Personal_Details" escapeXml="false">
 		<script type="text/javascript">
 		  document.getElementById("orderDetailsTab").innerHTML = 
-			  "<a onclick='javascript:OrderDetailsByOrderID(\"${orderCode}\");' style='text-decoration:none;'>Order Details</a>"; 
+			  "<a onclick='javascript:OrderDetailsByOrderID(\"${orderCode}\");' style='text-decoration:none;color: #fff;'>Order Details</a>"; 
 			  document.getElementById("personalDetails").innerHTML = 
-				  "<a href='#' class='tabmenuselect' style='text-decoration:none;'>Personal Details</a>"; 
+				  "<a href='#' class='tabmenuselect' style='text-decoration:none;color: #2d3a9a;'>Personal Details</a>"; 
 				  
 				  $(document).ready(function() {
 						tabModule.init();	

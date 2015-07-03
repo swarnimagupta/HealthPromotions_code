@@ -27,7 +27,7 @@
 				<li><a href="#" class="select"
 					onClick="redirectToOrdersDashboard()"> <img
 						src="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_images/new/dashboard_icon.png"
-						alt="" /> <span>Orders<br>Dashboard
+						alt="" /> <span>Orders Dashboard
 					</span>
 				</a></li>
 				<li style="opacity: .4;"><a href="#"> <img

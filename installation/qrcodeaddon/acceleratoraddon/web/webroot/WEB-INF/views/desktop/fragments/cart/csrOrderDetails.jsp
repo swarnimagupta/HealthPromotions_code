@@ -16,9 +16,9 @@
 	<json:property name="CSROrder_Details" escapeXml="false">
 	  <script type="text/javascript">
 	  	document.getElementById("personalDetails").innerHTML = 
-		  "<a style='text-decoration:none;' onclick='javascript:PersonalDetailsByUserID(\"${orderData.user.uid}\", \"${orderData.code}\");'>Personal Details</a>"; 
+		  "<a style='text-decoration:none;color: #fff;' onclick='javascript:PersonalDetailsByUserID(\"${orderData.user.uid}\", \"${orderData.code}\");'>Personal Details</a>"; 
 		  document.getElementById("orderDetailsTab").innerHTML = 
-			  "<a style='text-decoration:none;' href='#' class='tabmenuselect'>Order Details</a>";
+			  "<a style='text-decoration:none;color: #2d3a9a;' href='#' class='tabmenuselect'>Order Details</a>";
 	
 	  </script>
  		<!--------Order Details Tabel Starts Here-------->
