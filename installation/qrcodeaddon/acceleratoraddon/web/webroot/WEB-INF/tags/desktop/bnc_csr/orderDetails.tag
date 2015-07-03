@@ -5,7 +5,6 @@
 	tagdir="/WEB-INF/tags/desktop/formElement"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<div id="CSROrderDetails">
 <c:choose>
 			<c:when test="${not empty orderData.code}">
 <!--TAB CONTENT-->
@@ -78,10 +77,9 @@
             </c:when>
 			<c:otherwise>
 				<div class="order_details_tabel" style="color:red;">
-					<c:out value="Please enter dates in proper format! Dates as DD.MM.YYYY and Time as HH:MM AM/PM!! FromDate should be before ToDate!!"></c:out>
+					<c:out value="Please enter dates in proper format! Dates as MM/dd/YYYY and Time as HH:MM AM/PM!! FromDate should be before ToDate!!"></c:out>
 				</div>
 				
 			</c:otherwise>
 		</c:choose>
-		</div>
 	

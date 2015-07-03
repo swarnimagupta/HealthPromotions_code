@@ -39,10 +39,6 @@
 						
 					});
 		  </script>
-<div class="tab">
-	<div class="tab tab-horiz">
-		<ul class="tab-content">
-		  	<li>
 				<div class="slmscr1">
 					<div class="oh pdg">
 						<div class="oh">
@@ -138,10 +134,6 @@
 						</div>
 					</c:if>
 				</div>
-			</li>
-		</ul>
-	</div>
-</div>
 				
        <%--  
  ----------------------------------------------------------------------------------------------------				

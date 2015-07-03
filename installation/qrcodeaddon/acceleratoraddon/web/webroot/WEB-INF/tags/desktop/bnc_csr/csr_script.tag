@@ -28,9 +28,30 @@ function OrderDetailsByOrderID(orderId) {
 			data: "orderCode="+orderId,
 			dataType : 'json',
 			success : function(response) {
-				$("a").removeClass("current");
-				$("#"+orderId).addClass("current");
+				$("a").removeClass("active");
+				$("#"+orderId).addClass("active");
+				$("#personalDetails").removeClass("active");
+				$("#orderDetailsTab").addClass("active");
 				$('#CSROrderDetails').html(response.CSROrder_Details);
+				tabModule.init();	
+				$("#slider1").tinycarousel();
+				$("#slider2").tinycarousel();
+				$("#slider3").tinycarousel();
+				 $(".slmscr").slimScroll({railVisible: true, railColor: '#f00'});
+				 $(".slmscr1").slimScroll({railVisible: true, railColor: '#f00'});
+				 $(".slmscr2").slimScroll({railVisible: true, railColor: '#f00'});
+				$("#accordion").accordion({
+					active: false,
+				    collapsible: true
+				   
+				});
+				$("#mi").hover(function() {
+					$(".mip").show();
+					$(".mip").css("display", "block");
+				});
+				$("#mi").mouseleave(function() {
+					$(".mip").hide();
+				});
 			},
 			error : function(e) {
 			}
@@ -89,7 +110,28 @@ function PersonalDetailsByUserID(uid, orderCode) {
 		data: "uid="+uid+"&code="+orderCode,
 		dataType : 'json',
 		success : function(response) {
-			$('#CSROrderDetails').html(response.Personal_Details);
+			$("#orderDetailsTab").removeClass("active");
+			$("#personalDetails").addClass("active");
+			$('#personalDetailsContentId').html(response.Personal_Details);
+			tabModule.init();	
+			$("#slider1").tinycarousel();
+			$("#slider2").tinycarousel();
+			$("#slider3").tinycarousel();
+			 $(".slmscr").slimScroll({railVisible: true, railColor: '#f00'});
+			 $(".slmscr1").slimScroll({railVisible: true, railColor: '#f00'});
+			 $(".slmscr2").slimScroll({railVisible: true, railColor: '#f00'});
+			$("#accordion").accordion({
+				active: false,
+			    collapsible: true
+			   
+			});
+			$("#mi").hover(function() {
+				$(".mip").show();
+				$(".mip").css("display", "block");
+			});
+			$("#mi").mouseleave(function() {
+				$(".mip").hide();
+			});
 		},
 		error : function(e) {
 			alert("error"+e);

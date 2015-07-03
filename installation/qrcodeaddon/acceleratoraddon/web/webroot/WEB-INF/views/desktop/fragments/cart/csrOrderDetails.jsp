@@ -16,9 +16,10 @@
 	<json:property name="CSROrder_Details" escapeXml="false">
 	  <script type="text/javascript">
 	  	document.getElementById("personalDetails").innerHTML = 
-		  "<a onclick='javascript:PersonalDetailsByUserID(\"${orderData.user.uid}\", \"${orderData.code}\");'>Personal Details</a>"; 
+		  "<a style='text-decoration:none;' onclick='javascript:PersonalDetailsByUserID(\"${orderData.user.uid}\", \"${orderData.code}\");'>Personal Details</a>"; 
 		  document.getElementById("orderDetailsTab").innerHTML = 
-			  "<a href='#' class='tabmenuselect'>Order Details</a>";
+			  "<a style='text-decoration:none;' href='#' class='tabmenuselect'>Order Details</a>";
+	
 	  </script>
  		<!--------Order Details Tabel Starts Here-------->
 <div class="slmscr"><table width="100%" cellspacing="0" cellpadding="0" border="0">

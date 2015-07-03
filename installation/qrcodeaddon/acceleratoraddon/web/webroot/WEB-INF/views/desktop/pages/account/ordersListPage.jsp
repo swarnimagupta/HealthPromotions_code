@@ -73,13 +73,20 @@
 			<div class="tab">
 				<div class="tab tab-horiz">
 					<ul class="tab-legend">
-						<li id="orderDetailsTab" class="active">Order Details</li>
-						<li id="personalDetails" onclick='javascript:PersonalDetailsByUserID("${orderData.user.uid}", "${orderData.code}");'>
-						Personal Details</li>
+						<li id="orderDetailsTab" class="active">
+							<a href="#"	class="tabmenuselect" style='text-decoration:none;'>Order Details</a>
+						</li>
+						<li id="personalDetails">
+							<a href='#' style='text-decoration:none;' onclick='javascript:PersonalDetailsByUserID("${orderData.user.uid}", "${orderData.code}");'>Personal Details</a>
+						</li>
 					</ul>
 					<ul class="tab-content">
 						<c:if test="${not empty orderData.code}">
+							<li id="CSROrderDetails">
 							<bnc:orderDetails />
+							</li>
+							<li id="personalDetailsContentId">
+							</li>
 						</c:if>
 					</ul>
 				</div>
