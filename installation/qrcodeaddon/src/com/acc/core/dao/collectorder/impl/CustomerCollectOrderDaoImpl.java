@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.acc.core.dao.collectorder.impl;
 
@@ -22,7 +22,7 @@ import com.accenture.model.CollectOrderModel;
 
 /**
  * @author swarnima.gupta
- * 
+ *
  */
 public class CustomerCollectOrderDaoImpl extends AbstractItemDao implements CustomerCollectOrderDao
 {
@@ -32,7 +32,7 @@ public class CustomerCollectOrderDaoImpl extends AbstractItemDao implements Cust
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.acc.core.dao.collectorder.CustomerCollectOrderDao#getCollectOrders()
 	 */
 	@Override
@@ -48,7 +48,7 @@ public class CustomerCollectOrderDaoImpl extends AbstractItemDao implements Cust
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.acc.core.dao.collectorder.CustomerCollectOrderDao#getCollectOrderByUCOID(java.lang.String)
 	 */
 	@Override
@@ -61,7 +61,7 @@ public class CustomerCollectOrderDaoImpl extends AbstractItemDao implements Cust
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.acc.core.dao.collectorder.CustomerCollectOrderDao#getCollectOrderByOrderCode(java.lang.String)
 	 */
 	@Override
@@ -74,7 +74,7 @@ public class CustomerCollectOrderDaoImpl extends AbstractItemDao implements Cust
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.acc.core.dao.collectorder.CustomerCollectOrderDao#getCustomerListOrders(java.lang.String)
 	 */
 	@Override
@@ -88,7 +88,7 @@ public class CustomerCollectOrderDaoImpl extends AbstractItemDao implements Cust
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.acc.core.dao.collectorder.CustomerCollectOrderDao#getOrderDetailsForCode(java.lang.String)
 	 */
 	@Override
@@ -101,7 +101,7 @@ public class CustomerCollectOrderDaoImpl extends AbstractItemDao implements Cust
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.acc.core.dao.collectorder.CustomerCollectOrderDao#getCollectOrderByDateAndTime(java.lang.String,
 	 * java.lang.String, java.lang.String, java.lang.String)
 	 */
@@ -110,7 +110,7 @@ public class CustomerCollectOrderDaoImpl extends AbstractItemDao implements Cust
 			final String toTime)
 	{
 		final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		final SimpleDateFormat sdf1 = new SimpleDateFormat("dd.MM.yyyy hh:mm aa");
+		final SimpleDateFormat sdf1 = new SimpleDateFormat("MM/dd/yyyy hh:mm aa");
 		String fDate = null;
 		String tDate = null;
 		SearchResult<CollectOrderModel> result = null;
@@ -140,7 +140,7 @@ public class CustomerCollectOrderDaoImpl extends AbstractItemDao implements Cust
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.acc.core.dao.collectorder.CustomerCollectOrderDao#getCollectOrdersByStatus(java.lang.String)
 	 */
 	@Override

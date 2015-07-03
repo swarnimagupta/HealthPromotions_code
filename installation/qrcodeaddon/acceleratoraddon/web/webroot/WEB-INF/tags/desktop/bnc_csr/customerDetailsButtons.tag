@@ -41,7 +41,7 @@
 <div class="tab_menu_block">
 	<div class="tab_menu">
 		<ul>
-			<li><a href="#">Personal Data</a></li>
+			<li><a href="#"  style='text-decoration:none;'>Personal Data</a></li>
 		</ul>
 	</div>
 </div>

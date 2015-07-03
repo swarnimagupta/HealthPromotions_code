@@ -12,58 +12,68 @@
 	<json:property name="Personal_Details" escapeXml="false">
 		<script type="text/javascript">
 		  document.getElementById("orderDetailsTab").innerHTML = 
-			  "<a onclick='javascript:OrderDetailsByOrderID(\"${orderCode}\");'>Order Details</a>"; 
+			  "<a onclick='javascript:OrderDetailsByOrderID(\"${orderCode}\");' style='text-decoration:none;'>Order Details</a>"; 
 			  document.getElementById("personalDetails").innerHTML = 
-				  "<a href='#' class='tabmenuselect'>Personal Details</a>"; 
+				  "<a href='#' class='tabmenuselect' style='text-decoration:none;'>Personal Details</a>"; 
+				  
+				  $(document).ready(function() {
+						tabModule.init();	
+						$("#slider1").tinycarousel();
+						$("#slider2").tinycarousel();
+						$("#slider3").tinycarousel();
+						 $(".slmscr").slimScroll({railVisible: true, railColor: '#f00'});
+						 $(".slmscr1").slimScroll({railVisible: true, railColor: '#f00'});
+						 $(".slmscr2").slimScroll({railVisible: true, railColor: '#f00'});
+						$("#accordion").accordion({
+							active: false,
+						    collapsible: true
+						   
+						});
+						$("#mi").hover(function() {
+							$(".mip").show();
+							$(".mip").css("display", "block");
+						});
+						$("#mi").mouseleave(function() {
+							$(".mip").hide();
+						});
+						
+					});
 		  </script>
-		  <div class="tab">
+<div class="tab">
 	<div class="tab tab-horiz">
-		<ul class="tab-legend">
-			<li class="active">Customer Details</li>
-			<li>Orders Details</li>
-			<li>History</li>
-		</ul>
 		<ul class="tab-content">
 		  	<li>
-					<div class="slmscr1">
-						
-						<div class="oh pdg">
-					<div class="oh">
-					<c:set var="imageUrl" value="${storeCustomerData.profilePictureURL}"/>
-					<c:if test="${empty storeCustomerData.profilePictureURL}">
-							<c:set var="imageUrl" value="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_images/personal_photos/person1.jpg"/>
-					</c:if>
-					<img src="${imageUrl}" class="fl"/> <span class="tabt">${storeCustomerData.customerName}</span></div>
-					
-					<div class="oh pdtb20">
-						<span class="fl lftt">Date of Birth:</span>
-						<span class="fl rgtt">${informationDto.dob}</span>
-					</div>
-					
-					<div class="oh pdtb20">
-						<span class="fl lftt">Address:</span>
-						<span class="fl rgtt">${useraddress.line1} <br/>${useraddress.line2} <br/> ${useraddress.town}<br/> ${useraddress.country.name} </span>
-					</div>
-					
-					<div class="oh pdtb20">
-						<span class="fl lftt">Postal Code:</span>
-						<span class="fl rgtt">${useraddress.postalcode}</span>
-					</div>
-					<div class="oh pdtb20">
-						<span class="fl lftt">Email:</span>
-						<span class="fl rgtt">${useraddress.email}</span>
-					</div>
-					<div class="oh pdtb20">
-						<span class="fl lftt">Phone Number:</span>
-						<span class="fl rgtt">${customerModel.phoneNumbers} </span>
-					</div>
-					</div>
-					</div>
-					
-					</li>
-					
-					<li>
 				<div class="slmscr1">
+					<div class="oh pdg">
+						<div class="oh">
+						<c:set var="imageUrl" value="${storeCustomerData.profilePictureURL}"/>
+						<c:if test="${empty storeCustomerData.profilePictureURL}">
+								<c:set var="imageUrl" value="${commonResourcePath}/../../addons/qrcodeaddon/desktop/common/bnc_images/personal_photos/person1.jpg"/>
+						</c:if>
+						<img src="${imageUrl}" class="fl"/> <span class="tabt">${storeCustomerData.customerName}</span></div>
+						<div class="oh pdtb20">
+							<span class="fl lftt">Date of Birth:</span>
+							<span class="fl rgtt">${useraddress.dateOfBirth}</span>
+						</div>
+						
+						<div class="oh pdtb20">
+							<span class="fl lftt">Address:</span>
+							<span class="fl rgtt">${useraddress.line1} <br/>${useraddress.line2} <br/> ${useraddress.town}<br/> ${useraddress.country.name} </span>
+						</div>
+						
+						<div class="oh pdtb20">
+							<span class="fl lftt">Postal Code:</span>
+							<span class="fl rgtt">${useraddress.postalcode}</span>
+						</div>
+						<div class="oh pdtb20">
+							<span class="fl lftt">Email:</span>
+							<span class="fl rgtt">${useraddress.email}</span>
+						</div>
+						<div class="oh pdtb20">
+							<span class="fl lftt">Phone Number:</span>
+							<span class="fl rgtt">${customerModel.phoneNumbers} </span>
+						</div>
+					</div>
 					<c:if test="${not empty customerOrderDataList}">
 						<div id="accordion"  style="position: relative; clear:both; display:-moz-groupbox;margin-top: -95px; margin-left: -258px; top: 13%; left: 42%;">
 							<c:forEach items="${customerOrderDataList}" var="order" begin="0">
@@ -75,11 +85,6 @@
 							</c:forEach>
 						</div>
 					</c:if>
-				</div>
-			</li>
-
-			<li>
-				<div class="slmscr1">
 					<c:if test="${not empty wishlist.entries}">
 						<div class="tabt1">Wish List</div>
 						<div id="slider1">
@@ -132,14 +137,10 @@
 							<a class="buttons next" href="javascript:void(0);">right</a>
 						</div>
 					</c:if>
-					
 				</div>
 			</li>
-					<div class="oh pdtb20">
-					<button id="btn" class="assbt">Assist</button>
-					</div>
-</ul>
-</div>
+		</ul>
+	</div>
 </div>
 				
        <%--  

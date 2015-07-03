@@ -73,12 +73,9 @@
 			<div class="tab">
 				<div class="tab tab-horiz">
 					<ul class="tab-legend">
-						<li id="orderDetailsTab" class="active"><a href="#"
-							class="tabmenuselect">Order Details</a></li>
-						<li id="personalDetails"><a
-							onclick='javascript:PersonalDetailsByUserID("${orderData.user.uid}", "${orderData.code}");'>Customer
-								Details</a></li>
-						<li>History</li>
+						<li id="orderDetailsTab" class="active">Order Details</li>
+						<li id="personalDetails" onclick='javascript:PersonalDetailsByUserID("${orderData.user.uid}", "${orderData.code}");'>
+						Personal Details</li>
 					</ul>
 					<ul class="tab-content">
 						<c:if test="${not empty orderData.code}">

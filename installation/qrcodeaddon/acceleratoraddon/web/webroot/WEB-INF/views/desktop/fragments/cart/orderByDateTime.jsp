@@ -35,10 +35,10 @@
 			<div class="tab tab-horiz">
 				<ul class="tab-legend">
 
-					<li id="orderDetailsTab"><a href="#" class="tabmenuselect">Order
+					<li id="orderDetailsTab"><a href="#" class="tabmenuselect"  style='text-decoration:none;'>Order
 							Details</a></li>
 					<li class="divider"></li>
-					<li id="personalDetails"><a
+					<li id="personalDetails"><a  style='text-decoration:none;' 
 						onclick='javascript:PersonalDetailsByUserID("${orderData.user.uid}", "${orderData.code}");'>Personal
 							Details</a></li>
 				</ul>
